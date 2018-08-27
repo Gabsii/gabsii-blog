@@ -46,3 +46,8 @@ my personal webpage built from scratch
 - Gutenberg
 - Require Featured Images
 - Yoast SEO
+
+## Server Architecture:
+
+- ReactJS Port 80
+- Wordpress Backend Port 8001
