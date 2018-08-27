@@ -36,3 +36,13 @@ my personal webpage built from scratch
 - [Gravity Points](https://codepen.io/akm2/pen/rHIsa)
 - [Anaglyph Text](https://codepen.io/nielsvandenbrand/pen/jYGWwV)
 - [Anaglyph Background](https://codepen.io/kirklestelle/pen/MpvxmR)
+
+### Wordpress Plugins:
+
+- ACF to REST API
+- Advanced Custom Fields
+- Better REST API Featured Images
+- Custom Post Type UI
+- Gutenberg
+- Require Featured Images
+- Yoast SEO

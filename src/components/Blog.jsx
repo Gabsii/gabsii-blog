@@ -6,12 +6,26 @@ let constants = require('../js/constants.js');
 class Blog extends Component {
     constructor() {
         super();
-        this.state = {}
+        this.state = {
+            blogposts: []
+        }
+    }
+
+    componentDidMount() {
+        let blogpostsURL = "http://localhost/wp-json/wp/v2/blog";
+        fetch(blogpostsURL).then(response => response.json()).then(response => this.setState({blogposts: response}));
     }
 
     render() {
         return (<div className={css(styles.background)}>
-            Hello World
+            {
+                this.state.blogposts.map((blogpost, index) => {
+                    return (<div key={index}>
+                        <h1>{blogpost.title.rendered}</h1>
+                        <img src={blogpost.better_featured_image.media_details.sizes.thumbnail.source_url} alt={blogpost.better_featured_image.alt_text}/>
+                    </div>);
+                })
+            }
         </div>);
     }
 }
