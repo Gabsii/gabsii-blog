@@ -23,26 +23,31 @@ class Blog extends Component {
     render() {
         return (<div className={css(styles.background)}>
             <Header/>
-            <div className={css(styles.divider)}>
+            <main className={css(styles.divider)}>
                 <div className={css(styles.recentPost)}>
-                    {
-                        this.state.blogposts.map((blogpost, index) => {
-                            if (index === 0) {
-                                return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={blogpost.acf.summary} thumbnail={blogpost.better_featured_image.media_details.sizes.large.source_url} last={true} alt={blogpost.better_featured_image.alt_text}/>);
-                            }
-                        })
-                    }
+                    <div className={css(styles.recentPostFixed)}>
+                        {
+                            this.state.blogposts.map((blogpost, index) => {
+                                if (index === 0) {
+                                    return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={blogpost.acf.summary} thumbnail={blogpost.better_featured_image.media_details.sizes.large.source_url} recent={true} alt={blogpost.better_featured_image.alt_text}/>);
+                                }
+                            })
+                        }
+                    </div>
                 </div>
                 <div className={css(styles.posts)}>
                     {
                         this.state.blogposts.map((blogpost, index) => {
-                            if (index !== 0) {
+                            console.log(this.state.blogposts.length);
+                            if (index !== 0 && index !== this.state.blogposts.length - 1) {
                                 return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={blogpost.acf.summary} thumbnail={blogpost.better_featured_image.media_details.sizes.medium_large.source_url} alt={blogpost.better_featured_image.alt_text}/>);
+                            } else if (index === this.state.blogposts.length - 1) {
+                                return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={blogpost.acf.summary} thumbnail={blogpost.better_featured_image.media_details.sizes.medium_large.source_url} oldest={true} alt={blogpost.better_featured_image.alt_text}/>);
                             }
                         })
                     }
                 </div>
-            </div>
+            </main>
         </div>);
     }
 }
@@ -50,45 +55,57 @@ class Blog extends Component {
 const styles = StyleSheet.create({
     background: {
         backgroundColor: constants.colors.background,
-        minHeight: 'calc(100% - 100px)',
-        minWidth: 'calc(100% - 150px)',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '50px',
+        width: '100%',
         fontFamily: 'Zwizz',
+        zIndex: 0,
         color: constants.colors.font,
+        display: 'flex',
+        flexGrow: 1,
         '@media (max-width: 768px)': {
             height: 'calc(100% - 50px)',
-            width: 'calc(100% - 50px)'
+            width: '100%'
         }
     },
     divider: {
         display: 'flex',
+        flexGrow: 1,
         flexDirection: 'row',
-        height: 'calc(100% - 200px)',
         width: 'calc(100% - 100px)',
-        position: 'absolute',
-        top: '150px',
+        position: 'relative',
+        top: 0,
+        padding: '50px',
+        marginTop: '100px',
         '@media (max-width: 768px)': {
             flexDirection: 'column',
             width: 'calc(100% - 50px)'
+        },
+        '@media (max-width: 1280px)': {
+            width: 'calc(100% - 100px)'
         }
     },
     recentPost: {
         width: '50%',
-        height: '100%',
+        height: '80vh',
+        flex: 1,
+        maxHeight: '100%',
         marginRight: '50px',
         '@media (max-width: 768px)': {
-            width: 'calc(100% - 50px)',
+            width: '100%',
             marginBottom: '50px',
             marginRight: 0
         }
+    },
+    recentPostFixed: {
+        position: 'fixed',
+        width: 'calc(50% - 100px)',
+        height: '80vh',
+        marginRight: '-50px'
     },
     posts: {
         width: '50%',
         height: '100%',
         '@media (max-width: 768px)': {
-            width: 'calc(100% - 50px)'
+            width: '100%'
         }
     }
 });

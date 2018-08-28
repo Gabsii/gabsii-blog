@@ -33,9 +33,10 @@ const styles = StyleSheet.create({
     header: {
         height: '100px',
         width: '100%',
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
+        zIndex: 100,
         backgroundColor: constants.colors.backgroundLite,
         display: 'flex',
         justifyContent: 'center',

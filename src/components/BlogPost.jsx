@@ -8,7 +8,8 @@ class BlogPost extends Component {
     constructor() {
         super();
         this.state = {
-            last: false,
+            recent: false,
+            oldest: false,
             img: '',
             id: 0
         }
@@ -16,15 +17,17 @@ class BlogPost extends Component {
     }
 
     componentDidMount() {
-        if (this.props.last !== undefined && this.props.last !== null && this.props.last === true) {
-            this.setState({last: true});
+        if (this.props.recent !== undefined && this.props.recent !== null && this.props.recent === true) {
+            this.setState({recent: true});
+        }
+        if (this.props.oldest !== undefined && this.props.oldest !== null && this.props.oldest === true) {
+            this.setState({oldest: true});
         }
         this.setState({img: this.props.thumbnail, id: this.props.id});
     }
 
     openPost(e, i) {
         e.preventDefault();
-        console.log(i);
         window.location = 'http://localhost/blog/' + this.state.id;
     }
 
@@ -38,9 +41,7 @@ class BlogPost extends Component {
 
     render() {
         // console.log(this.strip_html_tags(this.props.content).slice(0,50));
-        console.log(this.props);
-        console.log(this.state);
-        if (this.state.last) {
+        if (this.state.recent) {
             return (<article className={css(styles.recentPost)} id={this.props.id} style={{
                     background: 'url(' + this.state.img + ')'
                 }} onClick={this.openPost}>
@@ -50,7 +51,10 @@ class BlogPost extends Component {
                 </section>
             </article>);
         }
-        return (<article className={css(styles.postContainer)}>
+        return (<article className={css(
+                this.state.oldest
+                ? styles.postContainerOldest
+                : styles.postContainer)}>
             <section id={this.props.id} className={css(styles.post)}>
                 <img className={css(styles.postImage)} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
                 <section className={css(styles.postTitle)}>
@@ -108,7 +112,9 @@ const styles = StyleSheet.create({
     postContainer: {
         width: '100%',
         marginBottom: '50px'
-
+    },
+    postContainerOldest: {
+        width: '100%'
     },
     post: {
         display: 'flex',
@@ -118,7 +124,6 @@ const styles = StyleSheet.create({
         }
     },
     postImage: {
-        // TODO: add mobile first look
         width: '100%',
         height: '200px',
         objectFit: 'cover',
@@ -140,7 +145,10 @@ const styles = StyleSheet.create({
         }
     },
     postTitle: {
-        padding: '10px'
+        padding: '15px 25px',
+        '@media (max-width: 1280px)': {
+            padding: '15px 10px'
+        }
     },
     postHeading: {
         fontSize: '1.5em',
@@ -150,7 +158,7 @@ const styles = StyleSheet.create({
             cursor: 'pointer'
         },
         '@media (min-width: 1280px)': {
-            marginBottom: '0.5em'
+            marginBottom: '1em'
         }
     },
     postSubheading: {
