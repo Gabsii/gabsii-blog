@@ -98,7 +98,7 @@ class BlogPage extends Component {
 
 const styles = StyleSheet.create({
     background: {
-        backgroundColor: constants.colors.font,
+        backgroundColor: 'white',
         width: '100%',
         fontFamily: 'Zwizz',
         zIndex: 0,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     divider: {
         position: 'relative',
         top: 0,
-        marginTop: '100px',
+        // marginTop: '100px',
         wordBreak: 'break-all',
         width: '100%'
     },

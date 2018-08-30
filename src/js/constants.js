@@ -1,8 +1,8 @@
 let colors = {
     background: '#191414', // main background
-    backgroundLite: '#363B3F', // background for elements
+    backgroundLite: 'transparent', // background for elements
     backgroundBlog: '#E7E7E7',
-    font: '#FFFFFF', // all texts
+    font: '#000', // all texts
     fontSecondary: '#B3B3B3', // text color for UI elements
 };
 

@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
         padding: '15px 10px',
         display: 'flex',
         alignSelf: 'flex-end',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        color: 'white'
     },
     recentHeading: {
         fontSize: '3em',
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
     postTitle: {
         padding: '15px 25px',
         backgroundColor: 'white',
-        color: constants.colors.backgroundLite,
+        color: constants.colors.font,
         '@media (max-width: 1280px)': {
             padding: '15px 10px'
         }
