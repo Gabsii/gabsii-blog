@@ -20,16 +20,24 @@ class Blog extends Component {
         });
     }
 
+    strip_html_tags(str) {
+        if ((str === null) || (str === '')) 
+            return false;
+        else 
+            str = str.toString();
+        return str.replace(/<[^>]*>/g, '');
+    }
+
     render() {
         return (<div className={css(styles.background)}>
-            <Header/>
+            <Header fixed={true}/>
             <main className={css(styles.divider)}>
                 <div className={css(styles.recentPost)}>
                     <div className={css(styles.recentPostFixed)}>
                         {
                             this.state.blogposts.map((blogpost, index) => {
                                 if (index === 0) {
-                                    return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={blogpost.acf.summary} thumbnail={blogpost.better_featured_image.media_details.sizes.large.source_url} recent={true} alt={blogpost.better_featured_image.alt_text}/>);
+                                    return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={this.strip_html_tags(blogpost.excerpt.rendered)} thumbnail={blogpost.better_featured_image.media_details.sizes.large.source_url} recent={true} alt={blogpost.better_featured_image.alt_text}/>);
                                 }
                             })
                         }
@@ -40,9 +48,9 @@ class Blog extends Component {
                         this.state.blogposts.map((blogpost, index) => {
                             console.log(this.state.blogposts.length);
                             if (index !== 0 && index !== this.state.blogposts.length - 1) {
-                                return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={blogpost.acf.summary} thumbnail={blogpost.better_featured_image.media_details.sizes.medium_large.source_url} alt={blogpost.better_featured_image.alt_text}/>);
+                                return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={this.strip_html_tags(blogpost.excerpt.rendered)} thumbnail={blogpost.better_featured_image.media_details.sizes.medium_large.source_url} alt={blogpost.better_featured_image.alt_text}/>);
                             } else if (index === this.state.blogposts.length - 1) {
-                                return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={blogpost.acf.summary} thumbnail={blogpost.better_featured_image.media_details.sizes.medium_large.source_url} oldest={true} alt={blogpost.better_featured_image.alt_text}/>);
+                                return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={this.strip_html_tags(blogpost.excerpt.rendered)} thumbnail={blogpost.better_featured_image.media_details.sizes.medium_large.source_url} oldest={true} alt={blogpost.better_featured_image.alt_text}/>);
                             }
                         })
                     }
@@ -54,13 +62,14 @@ class Blog extends Component {
 
 const styles = StyleSheet.create({
     background: {
-        backgroundColor: constants.colors.background,
+        backgroundColor: constants.colors.backgroundBlog,
         width: '100%',
         fontFamily: 'Zwizz',
         zIndex: 0,
         color: constants.colors.font,
         display: 'flex',
         flexGrow: 1,
+        minHeight: '100%',
         '@media (max-width: 768px)': {
             height: 'calc(100% - 50px)',
             width: '100%'

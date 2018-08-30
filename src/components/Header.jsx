@@ -15,16 +15,24 @@ class Header extends Component {
 
     render() {
         // console.log(this.strip_html_tags(this.props.content).slice(0,50));
-        return (<header className={css(styles.header)}>
-
-            <div className={css(styles.about)}>{/* logo */}</div>
+        return (<header className={css(styles.header)} style={this.props.fixed
+                ? {
+                    position: 'fixed'
+                }
+                : {
+                    position: 'absolute'
+                }}>
+            <div className={css(styles.nav)}>{/* logo */}</div>
             <div className={css(styles.logo)}>
-                <a className={css(styles.link)} href="/">
+                <a className={css(styles.link)} href="/blog">
                     <h1 className={css(styles.titleName)}>Gabsii</h1>
                     <h2 className={css(styles.titleSub)}>modern.vintage</h2>
                 </a>
             </div>
-            <a className={css(styles.about, styles.link)} href="/about">About</a>
+            <nav className={css(styles.nav)}>
+                <a className={css(styles.link)} href="/">Home</a>
+                <a className={css(styles.link)} href="/about">About</a>
+            </nav>
         </header>);
     }
 }
@@ -33,16 +41,15 @@ const styles = StyleSheet.create({
     header: {
         height: '100px',
         width: '100%',
-        position: 'fixed',
+        // position: 'fixed',
         top: 0,
         left: 0,
         zIndex: 100,
-        backgroundColor: constants.colors.backgroundLite,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        textAlign: 'center'
-
+        textAlign: 'center',
+        backgroundColor: constants.colors.backgroundLite
     },
     logo: {
         display: 'flex',
@@ -57,14 +64,17 @@ const styles = StyleSheet.create({
         fontSize: '2.25em'
     },
     titleSub: {
-        fontWeight: 'normal'
+        fontWeight: 'normal',
+        fontSize: '1em',
+        margin: 0
     },
-    about: {
+    nav: {
         flexGrow: 1
     },
     link: {
         color: constants.colors.font,
         textDecoration: 'none',
+        marginLeft: '50px',
         ':visited': {
             color: constants.colors.font
         },

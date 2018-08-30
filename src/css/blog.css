@@ -1,0 +1,66 @@
+#blogContent p {
+    padding: 15px;
+    padding-left: 0;
+    font-size: 1em;
+    line-height: 1.75em;
+    line-break: after-white-space;
+}
+
+#blogContent h2 {
+    font-size: 2.5em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#blogContent h3  {
+    font-size: 2em;
+    margin-bottom: 17px;
+    margin-top: 8px;
+}
+
+#blogContent h4 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    margin-top: 6px;
+}
+
+#blogContent strong {
+    font-weight: bold;
+}
+
+#blogContent em {
+    font-style: italic;
+}
+
+#blogContent figure {
+    margin: 2em 0;
+}
+
+#blogContent img {
+    width: 100%;
+    margin-bottom: .5em;
+}
+
+#blogContent figcaption {
+    font-size: .75em;
+    color: #B3B3B3;
+    text-align: center;
+}
+
+#blogContent a {
+    color: #007fac;
+}
+
+#blogContent a:visited {
+    color: #007fac;
+}
+
+#blogContent ul {
+    list-style-position: outside;
+    list-style-type: disc;
+    padding-left: 2em;
+}
+
+#blogContent li {
+    line-height: 1.75em;
+}

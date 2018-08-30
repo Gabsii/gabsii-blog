@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
         '@media (max-width: 769px)': {
             width: '100%',
             height: '300px'
-        }
+        },
+        boxShadow: '1px 1px 30px 5px rgba(0,0,0,0.66)'
     },
     recentTitle: {
         width: '100%',
@@ -105,16 +106,19 @@ const styles = StyleSheet.create({
         }
     },
     recentSubheading: {
+        fontFamily: 'Noto Serif',
         fontSize: '1.25em',
         fontWeight: 'normal',
         color: constants.colors.fontSecondary
     },
     postContainer: {
         width: '100%',
-        marginBottom: '50px'
+        marginBottom: '50px',
+        boxShadow: '1px 1px 30px 5px rgba(0,0,0,0.66)'
     },
     postContainerOldest: {
-        width: '100%'
+        width: '100%',
+        boxShadow: '1px 1px 30px 5px rgba(0,0,0,0.66)'
     },
     post: {
         display: 'flex',
@@ -146,6 +150,7 @@ const styles = StyleSheet.create({
     },
     postTitle: {
         padding: '15px 25px',
+        color: constants.colors.backgroundLite,
         '@media (max-width: 1280px)': {
             padding: '15px 10px'
         }
@@ -162,6 +167,7 @@ const styles = StyleSheet.create({
         }
     },
     postSubheading: {
+        fontFamily: 'Noto Serif',
         fontWeight: 'normal',
         color: constants.colors.fontSecondary
     }
