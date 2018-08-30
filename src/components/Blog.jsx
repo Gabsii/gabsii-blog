@@ -46,7 +46,6 @@ class Blog extends Component {
                 <div className={css(styles.posts)}>
                     {
                         this.state.blogposts.map((blogpost, index) => {
-                            console.log(this.state.blogposts.length);
                             if (index !== 0 && index !== this.state.blogposts.length - 1) {
                                 return (<BlogPost key={index} id={blogpost.id} title={blogpost.title.rendered} content={this.strip_html_tags(blogpost.excerpt.rendered)} thumbnail={blogpost.better_featured_image.media_details.sizes.medium_large.source_url} alt={blogpost.better_featured_image.alt_text}/>);
                             } else if (index === this.state.blogposts.length - 1) {
@@ -105,10 +104,12 @@ const styles = StyleSheet.create({
         }
     },
     recentPostFixed: {
-        position: 'fixed',
-        width: 'calc(50% - 100px)',
-        height: '80vh',
-        marginRight: '-50px'
+        '@media (min-width: 768px)': {
+            position: 'fixed',
+            width: 'calc(50% - 100px)',
+            height: '80vh',
+            marginRight: '-50px'
+        }
     },
     posts: {
         width: '50%',

@@ -1,7 +1,7 @@
 let colors = {
     background: '#191414', // main background
-    backgroundLite: '#363b3f', // background for elements
-    backgroundBlog: '#fff',
+    backgroundLite: '#363B3F', // background for elements
+    backgroundBlog: '#E7E7E7',
     font: '#FFFFFF', // all texts
     fontSecondary: '#B3B3B3', // text color for UI elements
 };

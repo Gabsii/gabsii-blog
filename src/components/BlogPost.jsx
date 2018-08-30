@@ -51,10 +51,7 @@ class BlogPost extends Component {
                 </section>
             </article>);
         }
-        return (<article className={css(
-                this.state.oldest
-                ? styles.postContainerOldest
-                : styles.postContainer)}>
+        return (<article className={css(styles.postContainer)}>
             <section id={this.props.id} className={css(styles.post)}>
                 <img className={css(styles.postImage)} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
                 <section className={css(styles.postTitle)}>
@@ -80,13 +77,14 @@ const styles = StyleSheet.create({
         filter: 'grayscale(0.25)',
         ':hover': {
             filter: 'grayscale(0)',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            boxShadow: '0 4px 8px 0 rgba(162, 162, 162, 0.9)'
         },
         '@media (max-width: 769px)': {
             width: '100%',
             height: '300px'
         },
-        boxShadow: '1px 1px 30px 5px rgba(0,0,0,0.66)'
+        boxShadow: '0 2px 4px 0 rgba(162, 162, 162, 0.5)'
     },
     recentTitle: {
         width: '100%',
@@ -114,11 +112,13 @@ const styles = StyleSheet.create({
     postContainer: {
         width: '100%',
         marginBottom: '50px',
-        boxShadow: '1px 1px 30px 5px rgba(0,0,0,0.66)'
-    },
-    postContainerOldest: {
-        width: '100%',
-        boxShadow: '1px 1px 30px 5px rgba(0,0,0,0.66)'
+        boxShadow: '0 2px 4px 0 rgba(162, 162, 162, 0.5)',
+        ':last-of-type': {
+            marginBottom: 0
+        },
+        ':hover': {
+            boxShadow: '0 4px 8px 0 rgba(162, 162, 162, 0.9)'
+        }
     },
     post: {
         display: 'flex',
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     },
     postTitle: {
         padding: '15px 25px',
+        backgroundColor: 'white',
         color: constants.colors.backgroundLite,
         '@media (max-width: 1280px)': {
             padding: '15px 10px'

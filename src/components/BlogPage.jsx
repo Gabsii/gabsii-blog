@@ -30,8 +30,6 @@ class BlogPage extends Component {
             for (var i = 0; i < this.state.post.categories.length; i++) {
                 urls[i] = "http://localhost:8001/wp-json/wp/v2/categories/" + this.state.post.categories[i];
             }
-            console.log(response);
-
             Promise.all(urls.map(url => fetch(url).then(response => response.json()))).then(response => {
                 this.setState({categories: response});
             })
@@ -42,29 +40,42 @@ class BlogPage extends Component {
 
     render() {
         if (this.state.loaded) {
-            console.log(this.state);
             return (<div className={css(styles.background)}>
                 <Header fixed={false}/>
                 <main className={css(styles.divider)}>
                     <div className={css(styles.heroImage)} style={{
                             background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url(' + this.state.post.better_featured_image.media_details.sizes.large.source_url + ')'
                         }}>
-                        <div className={css(styles.title)}>
+                        <div className={css(styles.title, styles.mobileHidden)}>
                             <div className={css(styles.categoryContainer)}>
                                 {
                                     this.state.categories.map((category, index) => {
-                                        return (<div className={css(styles.category)} key={index}>{category.name}</div>);
+                                        return (<div className={css(styles.category)} data-id={category.id} key={index}>{category.name}</div>);
                                     })
                                 }
                             </div>
-                            {/* if too small position under img ??? */
-                                this.state.post.title.rendered
-                            }
+
+                            {this.state.post.title.rendered}
+
                             <div className={css(styles.author)}>by {String(this.state.author.name).toUpperCase() + " "}
                                 at {new Date(Date.parse(this.state.post.date)).toLocaleDateString("en-US")}</div>
                         </div>
                     </div>
                     <section className={css(styles.section)}>
+                        <div className={css(styles.title, styles.mobileVisible)}>
+                            <div className={css(styles.categoryContainer)}>
+                                {
+                                    this.state.categories.map((category, index) => {
+                                        return (<div className={css(styles.category)} data-id={category.id} key={index}>{category.name}</div>);
+                                    })
+                                }
+                            </div>
+
+                            {this.state.post.title.rendered}
+
+                            <div className={css(styles.author)}>by {String(this.state.author.name).toUpperCase() + " "}
+                                at {new Date(Date.parse(this.state.post.date)).toLocaleDateString("en-US")}</div>
+                        </div>
                         <div id="blogContent" className={css(styles.text)} dangerouslySetInnerHTML={{
                                 __html: this.state.post.content.rendered
                             }}></div>
@@ -111,7 +122,10 @@ const styles = StyleSheet.create({
         backgroundAttachment: 'fixed',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        display: 'flex'
+        display: 'flex',
+        '@media (max-width: 768px)': {
+            height: 'calc(100vh - 250px)'
+        }
     },
     section: {
         zIndex: 100,
@@ -120,7 +134,10 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
         filter: 'brightness(1)',
-        padding: '50px 14px'
+        padding: '50px 14px',
+        '@media (max-width: 768px)': {
+            padding: '25px 14px'
+        }
     },
     categoryContainer: {
         display: 'flex',
@@ -156,7 +173,27 @@ const styles = StyleSheet.create({
         fontSize: '40px',
         fontWeight: 'bold',
         padding: '0 .75em',
-        margin: '2em 1.5em'
+        margin: '2em 1.5em',
+        wordBreak: 'break-word',
+        '@media (max-width: 768px)': {
+            margin: '0.5em .5em 1em .5em',
+            padding: '0 0.25em',
+            borderLeft: '1px solid #EE7778'
+        }
+    },
+    mobileHidden: {
+        '@media (max-width: 768px)': {
+            visibility: 'hidden'
+        }
+    },
+    mobileVisible: {
+        '@media (max-width: 768px)': {
+            color: 'black',
+            visibility: 'visible'
+        },
+        '@media (min-width: 768px)': {
+            display: 'none'
+        }
     },
     text: {
         fontFamily: 'Noto Serif',
