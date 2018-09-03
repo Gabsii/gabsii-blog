@@ -40,12 +40,12 @@ table {
     border-spacing: 0;
 }
 
-html, body, #root {
+html, body, #___gatsby {
     min-height: 100% !important;
     height: 100%;
     width: 100%;
 }
 
-#root, #header {
+#___gatsby, #header {
     transition: margin-left .5s;
 }

@@ -1,29 +1,31 @@
 import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
+import Link from 'gatsby-link'
+
 import ScrollDown from './ScrollDown';
 
 let constants = require('../js/constants.js');
 
-class Hero extends Component {
-    render() {
-        return (<div className={css(styles.background)}>
-            <nav>
-                <ul>
-                    <li className={css(styles.rotateLeft, styles.navItem)}>
-                        <a className={css(styles.link)} href="/about">ABOUT</a>
-                    </li>
-                    <li className={css(styles.rotateRight, styles.navItem)}>
-                        <a className={css(styles.link)} href="/blog">BLOG</a>
-                    </li>
-                    <ScrollDown/>
-                </ul>
-            </nav>
-            <div className={css(styles.title)}>
-                <h1 className={css(styles.titleName)}>Gabsii</h1>
-                <h2 className={css(styles.titleSub)}>modern.vintage</h2>
-            </div>
-        </div>);
-    }
+export default({data}) => {
+    console.log(data);
+    return (<div className={css(styles.background)}>
+        <nav>
+            <ul>
+                <li className={css(styles.rotateLeft, styles.navItem)}>
+                    <Link className={css(styles.link)} to="/about">ABOUT</Link>
+                </li>
+                <li className={css(styles.rotateRight, styles.navItem)}>
+                    <Link className={css(styles.link)} to="/blog">BLOG</Link>
+                </li>
+                <ScrollDown/>
+            </ul>
+        </nav>
+        <div className={css(styles.title)}>
+            <h1 className={css(styles.titleName)}>Gabsii</h1>
+            <h2 className={css(styles.titleSub)}>modern.vintage</h2>
+        </div>
+    </div>);
+
 }
 
 const styles = StyleSheet.create({
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: '25px',
         fontFamily: 'Zwizz',
-        color: constants.colors.font
+        color: 'white'
     },
     title: {
         display: 'flex',
@@ -78,15 +80,13 @@ const styles = StyleSheet.create({
         right: 0
     },
     link: {
-        color: constants.colors.font,
+        color: 'white',
         textDecoration: 'none',
         ':visited': {
-            color: constants.colors.font
+            color: 'white'
         },
         // letterSpacing: '3px',
         // fontFamily: 'Montserrat, sans-serif',
         // fontWeight: 200,
     }
 });
-
-export default Hero;

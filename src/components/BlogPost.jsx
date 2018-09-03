@@ -17,18 +17,19 @@ class BlogPost extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
         if (this.props.recent !== undefined && this.props.recent !== null && this.props.recent === true) {
             this.setState({recent: true});
         }
         if (this.props.oldest !== undefined && this.props.oldest !== null && this.props.oldest === true) {
             this.setState({oldest: true});
         }
-        this.setState({img: this.props.thumbnail, id: this.props.id});
+        this.setState({img: this.props.thumbnail, id: this.props.id, slug: this.props.slug});
     }
 
     openPost(e, i) {
         e.preventDefault();
-        window.location = 'http://localhost/blog/' + this.state.id;
+        window.location = 'http://localhost:8000/blog/' + this.state.slug;
     }
 
     strip_html_tags(str) {

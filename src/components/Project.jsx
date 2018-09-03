@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: '25px',
         fontFamily: 'Zwizz',
-        color: constants.colors.font
+        color: 'white'
     },
     backgroundImage: {
         height: '80vh',
@@ -108,10 +108,10 @@ const styles = StyleSheet.create({
         }
     },
     link: {
-        color: constants.colors.font,
+        color: 'white',
         textDecoration: 'none',
         ':visited': {
-            color: constants.colors.font
+            color: 'white'
         }
     }
 });

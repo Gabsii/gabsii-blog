@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
-import '../css/hamburger.css';
 
+import '../css/hamburger.css';
 let constants = require('../js/constants.js');
 
 class Header extends Component {
@@ -16,25 +16,19 @@ class Header extends Component {
 
     animate(event) {
         let hamburger = document.getElementById('hamburger-1');
-        console.log(hamburger);
         hamburger.classList.toggle('is-active');
-        console.log();
         if (hamburger.classList.length == 2) {
             document.getElementById("side").style.width = "250px";
             document.getElementById("header").style.marginLeft = "250px";
-            document.getElementById("root").style.marginLeft = "250px";
-            // document.getElementById("root").style.filter = "blur(10px)";
+            document.getElementById("___gatsby").style.marginLeft = "250px";
         } else {
             document.getElementById("side").style.width = "0";
             document.getElementById("header").style.marginLeft = "0";
-            document.getElementById("root").style.marginLeft = "0";
-            // document.getElementById("root").style.filter = "blur(0)";
-
+            document.getElementById("___gatsby").style.marginLeft = "0";
         }
     }
 
     render() {
-        // console.log(this.strip_html_tags(this.props.content).slice(0,50));
         let fixed = {
             position: 'fixed',
             backgroundColor: constants.colors.backgroundBlog
@@ -43,11 +37,9 @@ class Header extends Component {
             position: 'absolute',
             background: 'linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.2))'
         }
-        console.log(fixed);
         return (<header className={css(styles.header)} id="header" style={this.props.fixed
                 ? fixed
-                : absolute
-}>
+                : absolute}>
             <div className={css(styles.nav)} onClick={this.animate.bind(this)}>
                 <div className={css(styles.hamburger)} id="hamburger-1">
                     <span className={css(styles.line)}></span>
@@ -72,16 +64,16 @@ class Header extends Component {
                 <a className={css(styles.sideLink)} href="/about">About</a>
                 <div className={css(styles.socialMediaContainer)}>
                     <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
-                        <i class="fab fa-instagram fa-lg"></i>
+                        <i className="fab fa-instagram fa-lg"></i>
                     </a>
                     <a className={css(styles.socialMediaTag, styles.snapchat)} href="https://www.snapchat.com/add/le_gabsi">
-                        <i class="fab fa-snapchat-ghost fa-lg"></i>
+                        <i className="fab fa-snapchat-ghost fa-lg"></i>
                     </a>
                     <a className={css(styles.socialMediaTag, styles.twitter)} href="https://twitter.com/G4bsi">
-                        <i class="fab fa-twitter fa-lg"></i>
+                        <i className="fab fa-twitter fa-lg"></i>
                     </a>
                     <a className={css(styles.socialMediaTag, styles.linkedin)} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
-                        <i class="fab fa-linkedin-in fa-lg"></i>
+                        <i className="fab fa-linkedin-in fa-lg"></i>
                     </a>
                 </div>
             </nav>
@@ -112,8 +104,7 @@ const styles = StyleSheet.create({
         marginLeft: '50px',
         display: 'flex',
         justifyContent: 'flex-start',
-        alignItems: 'center',
-        // alignSelf: 'flex-start'
+        alignItems: 'center'
     },
     hamburger: {
         ':hover': {
@@ -179,7 +170,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        padding: '0 25px'
+        padding: '0 25px',
+        height: '2em'
     },
     socialMediaTag: {
         color: 'white'
