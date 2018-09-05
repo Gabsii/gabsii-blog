@@ -13,6 +13,11 @@ module.exports = {
                 useACF: true,
                 verboseOutput: true
             }
+        }, {
+            resolve: 'gatsby-plugin-page-transitions',
+            options: {
+                transitionTime: 200
+            }
         }
     ]
 }

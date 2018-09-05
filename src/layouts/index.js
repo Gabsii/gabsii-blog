@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 
 import '../css/reset.css';
 import '../css/fonts.css';
+
 let constants = require('../js/constants.js');
 
 const App = ({children, data}) => (<div>

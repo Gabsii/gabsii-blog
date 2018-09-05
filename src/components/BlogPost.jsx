@@ -17,7 +17,6 @@ class BlogPost extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         if (this.props.recent !== undefined && this.props.recent !== null && this.props.recent === true) {
             this.setState({recent: true});
         }
@@ -41,7 +40,6 @@ class BlogPost extends Component {
     }
 
     render() {
-        // console.log(this.strip_html_tags(this.props.content).slice(0,50));
         if (this.state.recent) {
             return (<article className={css(styles.recentPost)} id={this.props.id} style={{
                     background: 'url(' + this.state.img + ')'

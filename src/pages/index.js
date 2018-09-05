@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Link from 'gatsby-link';
+import PageTransition from 'gatsby-plugin-page-transitions';
 
 import Hero from '../components/Hero.jsx';
 import Project from '../components/Project.jsx';
@@ -12,12 +13,12 @@ const projects = [
     }
 ];
 
-const IndexPage = () => (<div>
-    <Hero/>{
+const IndexPage = () => (<PageTransition>
+    <Hero/> {
         projects.map((project, index) => {
             return (<Project title={project.title} img={project.img} index={index} amount={projects.length} key={index}/>);
         })
     }
-</div>);
+</PageTransition>);
 
 export default IndexPage;

@@ -19,6 +19,8 @@ wordpress/wp-content/uploads/
 wordpress/wp-content/mu-plugins/
 wordpress/wp-content/wp-cache-config.php
 wordpress/wp-content/plugins/hello.php
+wordpress/wp-content/aiowps_backups/
+wordpress/wp-content/ai1wm-backups/
 
 wordpress/.htaccess
 wordpress/license.txt

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
+import Link from 'gatsby-link'
 
 import '../css/hamburger.css';
 let constants = require('../js/constants.js');
@@ -35,49 +36,147 @@ class Header extends Component {
         }
         let absolute = {
             position: 'absolute',
-            background: 'linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.2))'
+            background: 'linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.8))'
         }
-        return (<header className={css(styles.header)} id="header" style={this.props.fixed
-                ? fixed
-                : absolute}>
-            <div className={css(styles.nav)} onClick={this.animate.bind(this)}>
-                <div className={css(styles.hamburger)} id="hamburger-1">
-                    <span className={css(styles.line)}></span>
-                    <span className={css(styles.line)}></span>
-                    <span className={css(styles.line)}></span>
+        let about = {
+            backgroundColor: 'inherit',
+            position: 'absolute'
+        }
+        let aboutText = {
+            color: '#FFF'
+        }
+        let burger = {
+            backgroundColor: '#000'
+        }
+        let aboutBurger = {
+            backgroundColor: '#FFF'
+        }
+
+        if (this.props.type === "blog") {
+            return (<header className={css(styles.header)} id="header" style={fixed}>
+                <div className={css(styles.nav)} onClick={this.animate.bind(this)}>
+                    <div className={css(styles.hamburger)} id="hamburger-1">
+                        <span className={css(styles.line)} style={burger}></span>
+                        <span className={css(styles.line)} style={burger}></span>
+                        <span className={css(styles.line)} style={burger}></span>
+                    </div>
                 </div>
-            </div>
-            <div className={css(styles.logo)}>
-                <a className={css(styles.link)} href="/blog">
-                    <h1 className={css(styles.titleName)}>Gabsii</h1>
-                    <h2 className={css(styles.titleSub)}>modern.vintage</h2>
-                </a>
-            </div>
-            <div className={css(styles.nav, styles.search)}>
-                <i className="fas fa-search fa-2x"></i>
-            </div>
-            <nav className={css(styles.side)} id="side" style={{
-                    width: 0
-                }}>
-                <a className={css(styles.sideLink)} href="/blog">Home</a>
-                <a className={css(styles.sideLink)} href="/">Projects</a>
-                <a className={css(styles.sideLink)} href="/about">About</a>
-                <div className={css(styles.socialMediaContainer)}>
-                    <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
-                        <i className="fab fa-instagram fa-lg"></i>
-                    </a>
-                    <a className={css(styles.socialMediaTag, styles.snapchat)} href="https://www.snapchat.com/add/le_gabsi">
-                        <i className="fab fa-snapchat-ghost fa-lg"></i>
-                    </a>
-                    <a className={css(styles.socialMediaTag, styles.twitter)} href="https://twitter.com/G4bsi">
-                        <i className="fab fa-twitter fa-lg"></i>
-                    </a>
-                    <a className={css(styles.socialMediaTag, styles.linkedin)} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
-                        <i className="fab fa-linkedin-in fa-lg"></i>
-                    </a>
+                <div className={css(styles.logo)}>
+                    <Link className={css(styles.link)} to="/">
+                        <h1 className={css(styles.titleName)}>Gabsii</h1>
+                        <h2 className={css(styles.titleSub)}>modern.vintage</h2>
+                    </Link>
                 </div>
-            </nav>
-        </header>);
+                <div className={css(styles.nav, styles.search)}>
+
+                    <i className="fas fa-search fa-2x"></i>)
+
+                </div>
+                <nav className={css(styles.side)} id="side" style={{
+                        width: 0
+                    }}>
+                    <Link className={css(styles.sideLink)} to="/blog">Blog</Link>
+                    <Link className={css(styles.sideLink)} to="/">Projects</Link>
+                    <Link className={css(styles.sideLink)} to="/about">About</Link>
+                    <div className={css(styles.socialMediaContainer)}>
+                        <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
+                            <i className="fab fa-instagram fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.snapchat)} href="https://www.snapchat.com/add/le_gabsi">
+                            <i className="fab fa-snapchat-ghost fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.twitter)} href="https://twitter.com/G4bsi">
+                            <i className="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.linkedin)} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
+                            <i className="fab fa-linkedin-in fa-lg"></i>
+                        </a>
+                    </div>
+                </nav>
+            </header>);
+        } else if (this.props.type === "blogpage") {
+            return (<header className={css(styles.header)} id="header" style={absolute}>
+                <div className={css(styles.nav)} onClick={this.animate.bind(this)}>
+                    <div className={css(styles.hamburger)} id="hamburger-1">
+                        <span className={css(styles.line)} style={burger}></span>
+                        <span className={css(styles.line)} style={burger}></span>
+                        <span className={css(styles.line)} style={burger}></span>
+                    </div>
+                </div>
+                <div className={css(styles.logo)}>
+                    <Link className={css(styles.link)} to="/">
+                        <h1 className={css(styles.titleName)}>Gabsii</h1>
+                        <h2 className={css(styles.titleSub)}>modern.vintage</h2>
+                    </Link>
+                </div>
+                <div className={css(styles.nav, styles.search)}>
+
+                    <a href="/blog" className={css(styles.link)}>
+                        <i className="fas fa-arrow-left fa-2x"></i>
+                    </a>
+
+                </div>
+                <nav className={css(styles.side)} id="side" style={{
+                        width: 0
+                    }}>
+                    <Link className={css(styles.sideLink)} to="/blog">Blog</Link>
+                    <Link className={css(styles.sideLink)} to="/">Projects</Link>
+                    <Link className={css(styles.sideLink)} to="/about">About</Link>
+                    <div className={css(styles.socialMediaContainer)}>
+                        <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
+                            <i className="fab fa-instagram fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.snapchat)} href="https://www.snapchat.com/add/le_gabsi">
+                            <i className="fab fa-snapchat-ghost fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.twitter)} href="https://twitter.com/G4bsi">
+                            <i className="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.linkedin)} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
+                            <i className="fab fa-linkedin-in fa-lg"></i>
+                        </a>
+                    </div>
+                </nav>
+            </header>);
+        } else if (this.props.type === "about") {
+            return (<header className={css(styles.header)} id="header" style={about}>
+                <div className={css(styles.nav)} onClick={this.animate.bind(this)}>
+                    <div className={css(styles.hamburger)} id="hamburger-1">
+                        <span className={css(styles.line)} style={aboutBurger}></span>
+                        <span className={css(styles.line)} style={aboutBurger}></span>
+                        <span className={css(styles.line)} style={aboutBurger}></span>
+                    </div>
+                </div>
+                <div className={css(styles.logo)}>
+                    <Link className={css(styles.link)} to="/">
+                        <h1 className={css(styles.titleName)} style={aboutText}>Lukas Gabsi</h1>
+                        <h2 className={css(styles.titleSub)} style={aboutText}>ルーカス ガブシ</h2>
+                    </Link>
+                </div>
+                <div className={css(styles.nav, styles.search)}></div>
+                <nav className={css(styles.side)} id="side" style={{
+                        width: 0
+                    }}>
+                    <Link className={css(styles.sideLink)} to="/blog">Blog</Link>
+                    <Link className={css(styles.sideLink)} to="/">Projects</Link>
+                    <Link className={css(styles.sideLink)} to="/about">About</Link>
+                    <div className={css(styles.socialMediaContainer)}>
+                        <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
+                            <i className="fab fa-instagram fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.snapchat)} href="https://www.snapchat.com/add/le_gabsi">
+                            <i className="fab fa-snapchat-ghost fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.twitter)} href="https://twitter.com/G4bsi">
+                            <i className="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a className={css(styles.socialMediaTag, styles.linkedin)} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
+                            <i className="fab fa-linkedin-in fa-lg"></i>
+                        </a>
+                    </div>
+                </nav>
+            </header>);
+        }
     }
 }
 
@@ -93,7 +192,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
         justifyContent: 'space-between'
-
     },
     logo: {
         display: 'flex',
@@ -114,7 +212,6 @@ const styles = StyleSheet.create({
     line: {
         width: '50px',
         height: '5px',
-        backgroundColor: '#000',
         borderRadius: '10px',
         display: 'block',
         margin: '8px 0',

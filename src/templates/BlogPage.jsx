@@ -1,62 +1,79 @@
 import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
-import Header from '../components/Header.jsx';
-import '../css/blog.css';
+import PageTransition from 'gatsby-plugin-page-transitions';
 
+import Header from '../components/Header.jsx';
+
+import '../css/blog.css';
 let constants = require('../js/constants.js');
 
 class BlogPage extends Component {
+
+    read_time = function(text) {
+        let minutes = Math.floor(text.split(' ').length / 200)
+
+        if (minutes === 0) 
+            minutes = 1
+
+        return minutes + ' min'
+    }
+
     render() {
         const post = this.props.data.wordpressWpBlog;
-        return (<div className={css(styles.background)}>
-            <Header fixed={false}/>
-            <main className={css(styles.divider)}>
-                <div className={css(styles.heroImage)} style={{
-                        background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url(' + post.better_featured_image.media_details.sizes.large.source_url + ')'
-                    }}>
-                    <div className={css(styles.title, styles.mobileHidden)}>
-                        <div className={css(styles.categoryContainer)}>
-                            {
-                                post.categories.map((category, index) => {
-                                    return (<div className={css(styles.category)} data-id={category.id} key={index}>{category.name}</div>);
-                                })
+        return (<PageTransition>
+            <div className={css(styles.background)}>
+                <Header type="blogpage"/>
+                <main className={css(styles.divider)}>
+                    <div className={css(styles.heroImage)} style={{
+                            background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url(' + post.better_featured_image.media_details.sizes.large.source_url + ')'
+                        }}>
+                        <div className={css(styles.title, styles.mobileHidden)}>
+                            <div className={css(styles.categoryContainer)}>
+                                {
+                                    post.categories.map((category, index) => {
+                                        return (<div className={css(styles.category)} data-id={category.id} key={index}>{category.name}</div>);
+                                    })
 
-                            }
+                                }
+                            </div>
+                            {post.title}
+                            <div className={css(styles.author)}>
+                                <i className={css(styles.italics)}>by {String(post.author.name).toUpperCase() + " "}
+                                    at {post.date + " "}</i><br/>
+                                Reading time: {" "}
+                                {this.read_time(post.content)}
+                            </div>
                         </div>
-
-                        {post.title}
-
-                        <div className={css(styles.author)}>by {String(post.author.name).toUpperCase() + " "}
-                            at {post.date}</div>
                     </div>
-                </div>
-                <section className={css(styles.section)}>
-                    <div className={css(styles.title, styles.mobileVisible)}>
-                        <div className={css(styles.categoryContainer)}>
-                            {
-                                post.categories.map((category, index) => {
-                                    return (<div className={css(styles.category)} data-id={category.id} key={index}>{category.name}</div>);
-                                })
-                            }
+                    <section className={css(styles.section)}>
+                        <div className={css(styles.title, styles.mobileVisible)}>
+                            <div className={css(styles.categoryContainer)}>
+                                {
+                                    post.categories.map((category, index) => {
+                                        return (<div className={css(styles.category)} data-id={category.id} key={index}>{category.name}</div>);
+                                    })
+                                }
+                            </div>
+                            {post.title}
+                            <div className={css(styles.author)}>
+                                <i className={css(styles.italics)}>
+                                    by {String(post.author.name).toUpperCase() + " "}
+                                    at {post.date}
+                                </i>
+                            </div>
                         </div>
-
-                        {post.title}
-
-                        <div className={css(styles.author)}>by {String(post.author.name).toUpperCase() + " "}
-                            at {post.date}</div>
-                    </div>
-                    <div id="blogContent" className={css(styles.text)} dangerouslySetInnerHTML={{
-                            __html: post.content
-                        }}></div>
-                    <hr style={{
-                            marginTop: '2em'
-                        }}/>
-                </section>
-            </main>
-        </div>);
+                        <div id="blogContent" className={css(styles.text)} dangerouslySetInnerHTML={{
+                                __html: post.content
+                            }}></div>
+                        <hr style={{
+                                marginTop: '2em'
+                            }}/>
+                    </section>
+                </main>
+            </div>
+        </PageTransition>);
     }
 }
-
 const styles = StyleSheet.create({
     background: {
         backgroundColor: 'white',
@@ -160,46 +177,48 @@ const styles = StyleSheet.create({
         fontFamily: 'Noto Serif',
         color: '#000',
         wordBreak: 'break-word'
+    },
+    italics: {
+        fontStyle: 'italic'
     }
 });
-
 export default BlogPage;
-
-export const blogPageQuery = graphql `
-query blogPageQuery($wordpress_id: Int!) {
-    wordpressWpBlog(wordpress_id: {eq: $wordpress_id}) {
-        wordpress_id
-        date(formatString: "DD/MM/YYYY")
-        slug
-        title
-        excerpt
-        author {
-            name
-        }
-        content
-        better_featured_image {
-            alt_text
-            media_details {
-                sizes {
-                    medium_large {
-                        source_url
+export const blogPageQuery = graphql ` query blogPageQuery($wordpress_id: Int!) {
+                    wordpressWpBlog(wordpress_id : {
+                        eq: $wordpress_id
+                    }) {
+                        wordpress_id
+                        date(formatString : "DD/MM/YYYY")
+                        slug
+                        title
+                        excerpt
+                        author {
+                            name
+                        }
+                        content
+                        better_featured_image {
+                            alt_text
+                            media_details {
+                                sizes {
+                                    medium_large {
+                                        source_url
+                                    }
+                                    large {
+                                        source_url
+                                    }
+                                }
+                            }
+                        }
+                        categories {
+                            name
+                            id
+                        }
+                        acf {
+                            location {
+                                address
+                                lat
+                                lng
+                            }
+                        }
                     }
-                    large {
-                        source_url
-                    }
-                }
-            }
-        }
-        categories {
-            name
-            id
-        }
-        acf {
-            location {
-                address
-                lat
-                lng
-            }
-        }
-    }
-}`
+                }`

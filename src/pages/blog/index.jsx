@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
+import PageTransition from 'gatsby-plugin-page-transitions';
+
 import BlogPost from '../../components/BlogPost.jsx';
 import Header from '../../components/Header.jsx';
 
@@ -15,37 +17,54 @@ class Blog extends Component {
     }
 
     render() {
-        return (<div className={css(styles.container)}>
-            <Header fixed={true}/>
-            <main className={css(styles.divider)}>
-                <div className={css(styles.recentPost)}>
-                    <div className={css(styles.recentPostFixed)}>
-                        {console.log(this.props)}
+        return (<PageTransition defaultStyle={{
+                transition: 'left 500ms cubic-bezier(0.47, 0, 0.75, 0.72)',
+                left: '100%',
+                position: 'absolute',
+                width: '100%'
+            }} transitionStyles={{
+                entering: {
+                    left: '0%'
+                },
+                entered: {
+                    left: '0%'
+                },
+                exiting: {
+                    left: '100%'
+                }
+            }}>
+            <div className={css(styles.container)}>
+                <Header type="blog"/>
+                <main className={css(styles.divider)}>
+                    <div className={css(styles.recentPost)}>
+                        <div className={css(styles.recentPostFixed)}>
+                            {console.log(this.props)}
+                            {
+                                this.props.data.allWordpressWpBlog.edges.map((node, index) => {
+                                    let nodes = node.node;
+                                    if (index === 0) {
+                                        return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.large.source_url} recent={true} alt={nodes.better_featured_image.alt_text}/>);
+                                    }
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className={css(styles.posts)}>
                         {
                             this.props.data.allWordpressWpBlog.edges.map((node, index) => {
                                 let nodes = node.node;
-                                if (index === 0) {
-                                    return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.large.source_url} recent={true} alt={nodes.better_featured_image.alt_text}/>);
+                                if (index !== 0 && index !== this.props.data.allWordpressWpBlog.edges.length - 1) {
+                                    console.log(nodes.slug);
+                                    return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.medium_large.source_url} alt={nodes.better_featured_image.alt_text}/>);
+                                } else if (index === this.props.data.allWordpressWpBlog.edges.length - 1) {
+                                    return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.medium_large.source_url} oldest={true} alt={nodes.better_featured_image.alt_text}/>);
                                 }
                             })
                         }
                     </div>
-                </div>
-                <div className={css(styles.posts)}>
-                    {
-                        this.props.data.allWordpressWpBlog.edges.map((node, index) => {
-                            let nodes = node.node;
-                            if (index !== 0 && index !== this.props.data.allWordpressWpBlog.edges.length - 1) {
-                                console.log(nodes.slug);
-                                return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.medium_large.source_url} alt={nodes.better_featured_image.alt_text}/>);
-                            } else if (index === this.props.data.allWordpressWpBlog.edges.length - 1) {
-                                return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.medium_large.source_url} oldest={true} alt={nodes.better_featured_image.alt_text}/>);
-                            }
-                        })
-                    }
-                </div>
-            </main>
-        </div>);
+                </main>
+            </div>
+        </PageTransition>);
     }
 }
 
