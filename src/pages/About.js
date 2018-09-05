@@ -4,8 +4,68 @@ import PageTransition from 'gatsby-plugin-page-transitions';
 import Link from 'gatsby-link'
 
 import Header from '../components/Header.jsx';
+import Skill from '../components/Skill.jsx';
 
 let constants = require('../js/constants.js');
+
+const skills = [
+    {
+        name: 'HTML',
+        color: '#E44B23',
+        href: 'https://www.w3.org/html/',
+        class: 'fab fa-html5 fa-4x'
+    }, {
+        name: 'CSS',
+        color: '#563D7C',
+        href: 'https://www.w3.org/Style/CSS/Overview.en.html',
+        class: 'fab fa-css3 fa-4x'
+    }, {
+        name: 'javascript',
+        color: '#F1E05A',
+        href: 'https://www.javascript.com/',
+        class: 'fab fa-js-square fa-4x'
+    }, {
+        name: 'react',
+        color: '#61DAFB',
+        href: 'https://reactjs.org/',
+        class: 'fab fa-react fa-4x'
+    }, {
+        name: 'node',
+        color: '#82CD28',
+        href: 'https://nodejs.org/',
+        class: 'fab fa-node-js fa-4x'
+    }, {
+        name: 'php',
+        color: '#4F5D95',
+        href: 'http://www.php.net/',
+        class: 'fab fa-php fa-4x'
+    }, {
+        name: 'java',
+        color: '#B07219',
+        href: 'https://java.com/',
+        class: 'fab fa-java fa-4x'
+    }, {
+        name: 'C',
+        color: '#555555',
+        href: 'http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf',
+        class: 'fab fa-cuttlefish fa-4x'
+    }, {
+        name: 'wordpress',
+        color: '#21759B',
+        href: 'https://wordpress.org/',
+        class: 'fab fa-wordpress fa-4x'
+    }, {
+        name: 'APIs',
+        color: '#FFFFFF',
+        href: 'https://en.wikipedia.org/wiki/Application_programming_interface',
+        class: 'fa fa-cogs fa-3x'
+    }, {
+        name: 'Shell',
+        color: '#89E051',
+        href: 'https://en.wikipedia.org/wiki/Shell_script',
+        class: 'fa fa-terminal fa-3x'
+    }
+];
 
 const AboutPage = () => {
     return (<PageTransition defaultStyle={{
@@ -39,97 +99,11 @@ const AboutPage = () => {
                     <div className={css(styles.text)}>
                         <div className={css(styles.p)}>These are the main languages and technologies I aquired over the last 5 years of my IT education:</div>
                         <ul className={css(styles.skillContainer)}>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#E44B23',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fab fa-html5 fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#563D7C',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fab fa-css3 fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#F1E05A',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fab fa-js-square fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#61DAFB',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fab fa-react fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#82CD28',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fab fa-node-js fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#4F5D95',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fab fa-php fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#fff',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fas fa-code fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#B07219',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fab fa-java fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#555555',
-                                    color: '#000',
-                                    fontWeight: 'bold',
-                                    fontSize: '3em'
-                                }}>C</li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#21759B',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fab fa-wordpress fa-4x"></i>
-                            </li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#fff',
-                                    color: '#000',
-                                    fontWeight: 'bold'
-                                }}>APIs</li>
-                            <li className={css(styles.skills)} style={{
-                                    backgroundColor: '#89E051',
-                                    color: '#000'
-                                }}>
-                                <i style={{
-                                        opacity: '.75'
-                                    }} className="fas fa-terminal fa-3x"></i>
-                            </li>
+                            {
+                                skills.map((skill, index) => {
+                                    return (<Skill name={skill.name} class={skill.class} color={skill.color} href={skill.href} key={index}/>);
+                                })
+                            }
                         </ul>
                         <div className={css(styles.p)}>They are by far not the only one, but I like working with them the most.</div>
                     </div>
@@ -143,18 +117,6 @@ const AboutPage = () => {
             </div>
         </div>
     </PageTransition>);
-}
-
-const wiggle = {
-    '0%': {
-        'transform': 'rotate(3deg)'
-    },
-    '50%': {
-        'transform': 'rotate(-3deg)'
-    },
-    '100%': {
-        'transform': 'rotate(3deg)'
-    }
 }
 
 const styles = StyleSheet.create({
@@ -181,23 +143,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         marginBottom: '30px'
-    },
-    skills: {
-        width: '100px',
-        height: '100px',
-        borderRadius: '100px',
-        lineHeight: '100px',
-        margin: '10px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: '1s',
-        ':hover': {
-            opacity: 1,
-            animationName: wiggle,
-            animationDuration: '0.3s',
-            animationIterationCount: 2
-        }
     },
     p: {
         marginBottom: '30px'

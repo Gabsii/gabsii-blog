@@ -7,6 +7,13 @@ let constants = require('../js/constants.js');
 
 class Header extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            input: ''
+        }
+    }
+
     strip_html_tags(str) {
         if ((str === null) || (str === '')) 
             return false;
@@ -23,10 +30,26 @@ class Header extends Component {
             document.getElementById("header").style.marginLeft = "250px";
             document.getElementById("___gatsby").style.marginLeft = "250px";
         } else {
-            document.getElementById("side").style.width = "0";
-            document.getElementById("header").style.marginLeft = "0";
-            document.getElementById("___gatsby").style.marginLeft = "0";
+            this.resetAnimation();
         }
+    }
+
+    resetAnimation() {
+        document.getElementById("side").style.width = "0";
+        document.getElementById("header").style.marginLeft = "0";
+        document.getElementById("___gatsby").style.marginLeft = "0";
+    }
+
+    handleChange(event) {
+        this.setState({input: event.target.value});
+    }
+
+    submit(event) {
+        event.preventDefault();
+        console.log(window.location.href);
+        let location = window.location.href.split("?")[0];
+
+        window.location.href = location + "?q=" + this.state.input;
     }
 
     render() {
@@ -68,16 +91,18 @@ class Header extends Component {
                     </Link>
                 </div>
                 <div className={css(styles.nav, styles.search)}>
-
-                    <i className="fas fa-search fa-2x"></i>)
-
+                    <div id="wrap">
+                        <form action="" autoComplete="off" onSubmit={this.submit.bind(this)}>
+                            <input id="search" autoComplete="off" name="query" type="text" placeholder="Search" onChange={this.handleChange.bind(this)}/>
+                            <input id="search_submit" value="Rechercher" type="submit"/></form>
+                    </div>
                 </div>
                 <nav className={css(styles.side)} id="side" style={{
                         width: 0
                     }}>
-                    <Link className={css(styles.sideLink)} to="/blog">Blog</Link>
-                    <Link className={css(styles.sideLink)} to="/">Projects</Link>
-                    <Link className={css(styles.sideLink)} to="/about">About</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/blog">Blog</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/">Projects</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/about">About</Link>
                     <div className={css(styles.socialMediaContainer)}>
                         <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
                             <i className="fab fa-instagram fa-lg"></i>
@@ -119,9 +144,9 @@ class Header extends Component {
                 <nav className={css(styles.side)} id="side" style={{
                         width: 0
                     }}>
-                    <Link className={css(styles.sideLink)} to="/blog">Blog</Link>
-                    <Link className={css(styles.sideLink)} to="/">Projects</Link>
-                    <Link className={css(styles.sideLink)} to="/about">About</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/blog">Blog</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/">Projects</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/about">About</Link>
                     <div className={css(styles.socialMediaContainer)}>
                         <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
                             <i className="fab fa-instagram fa-lg"></i>
@@ -157,9 +182,9 @@ class Header extends Component {
                 <nav className={css(styles.side)} id="side" style={{
                         width: 0
                     }}>
-                    <Link className={css(styles.sideLink)} to="/blog">Blog</Link>
-                    <Link className={css(styles.sideLink)} to="/">Projects</Link>
-                    <Link className={css(styles.sideLink)} to="/about">About</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/blog">Blog</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/">Projects</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/about">About</Link>
                     <div className={css(styles.socialMediaContainer)}>
                         <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
                             <i className="fab fa-instagram fa-lg"></i>
@@ -179,7 +204,6 @@ class Header extends Component {
         }
     }
 }
-
 const styles = StyleSheet.create({
     header: {
         height: '100px',
@@ -199,12 +223,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Zwizz'
     },
     nav: {
-        marginLeft: '50px',
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
     hamburger: {
+        marginLeft: '50px',
         ':hover': {
             cursor: 'pointer'
         }
@@ -219,6 +243,41 @@ const styles = StyleSheet.create({
     },
     search: {
         marginRight: '50px'
+    },
+    search_bar: {
+        width: '75px',
+        border: 'none',
+        outline: 'none',
+        borderRadius: '55px',
+        fontSize: '1.5em',
+        color: '#0D2840',
+        padding: '25px 70px 25px 35px',
+        transition: 'all 0.3s cubic-bezier(0,0,.5,1.5)',
+        boxShadow: '0 3px 10px -2px rgba(0,0,0,.1)',
+        background: 'rgb(255, 255, 255) url(https://i.imgur.com/seveWIw.png) no-repeat center center',
+        ':focus': {
+            width: '100%',
+            backgroundPosition: 'calc(100% - 35px) center'
+        },
+        '::-webkit-search-cancel-button': {
+            WebkitAppearance: 'none'
+        },
+        '::-webkit-input-placeholder': {
+            color: '#0D2840',
+            opacity: .5
+        },
+        ':-moz-placeholder': {
+            color: '#0D2840',
+            opacity: .5
+        },
+        '::-moz-placeholder': {
+            color: '#0D2840',
+            opacity: .5
+        },
+        ':-ms-input-placeholder': {
+            color: '#0D2840',
+            opacity: .5
+        }
     },
     side: {
         height: 'calc(100% - 50px)',
