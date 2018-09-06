@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
 import PageTransition from 'gatsby-plugin-page-transitions';
 import Link from 'gatsby-link'
+import Helmet from 'react-helmet'
 
 import Header from '../components/Header.jsx';
 import Skill from '../components/Skill.jsx';
@@ -83,7 +84,15 @@ const AboutPage = () => {
             exiting: {
                 right: '100%'
             }
-        }}>
+        }}><Helmet title="Gabsii - About" meta={[
+            {
+                name: 'description',
+                content: 'Sample'
+            }, {
+                name: 'keywords',
+                content: 'sample, something'
+            }
+        ]}/>
         <div className={css(styles.background)}>
             <Header type="about"/>
             <div className={css(styles.container)}>

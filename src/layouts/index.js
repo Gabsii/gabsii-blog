@@ -8,7 +8,7 @@ import '../css/fonts.css';
 let constants = require('../js/constants.js');
 
 const App = ({children, data}) => (<div>
-    <Helmet title="Titel" meta={[
+    <Helmet title="Gabsii - Lukas Gabsi" meta={[
             {
                 name: 'description',
                 content: 'Sample'
@@ -22,6 +22,6 @@ const App = ({children, data}) => (<div>
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
     </Helmet>
     {children()}
-</div>)
+    < /div>)
 
 export default App;

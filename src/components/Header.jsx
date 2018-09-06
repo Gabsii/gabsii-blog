@@ -136,9 +136,9 @@ class Header extends Component {
                 </div>
                 <div className={css(styles.nav, styles.search)}>
 
-                    <a href="/blog" className={css(styles.link)}>
+                    <Link to="/blog" className={css(styles.link)}>
                         <i className="fas fa-arrow-left fa-2x"></i>
-                    </a>
+                    </Link>
 
                 </div>
                 <nav className={css(styles.side)} id="side" style={{
@@ -178,7 +178,13 @@ class Header extends Component {
                         <h2 className={css(styles.titleSub)} style={aboutText}>ルーカス ガブシ</h2>
                     </Link>
                 </div>
-                <div className={css(styles.nav, styles.search)}></div>
+                <div className={css(styles.nav, styles.search)}>
+                    <Link to="/" className={css(styles.link)}>
+                        <i style={{
+                                color: 'white'
+                            }} className="fas fa-arrow-left fa-2x"></i>
+                    </Link>
+                </div>
                 <nav className={css(styles.side)} id="side" style={{
                         width: 0
                     }}>

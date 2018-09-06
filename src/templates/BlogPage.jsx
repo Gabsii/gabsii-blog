@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     }
 });
 export default BlogPage;
-export const blogPageQuery = graphql ` query blogPageQuery($wordpress_id: Int!) {
+export const blogPageQuery = graphql `query blogPageQuery($wordpress_id: Int!) {
                     wordpressWpBlog(wordpress_id : {
                         eq: $wordpress_id
                     }) {

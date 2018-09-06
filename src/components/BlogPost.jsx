@@ -10,6 +10,7 @@ class BlogPost extends Component {
         this.state = {
             recent: false,
             oldest: false,
+            search: false,
             img: '',
             id: 0
         }
@@ -24,6 +25,7 @@ class BlogPost extends Component {
             this.setState({oldest: true});
         }
         this.setState({img: this.props.thumbnail, id: this.props.id, slug: this.props.slug});
+        this.setState({search: window.location.href.includes("=")});
     }
 
     openPost(e, i) {
@@ -40,7 +42,17 @@ class BlogPost extends Component {
     }
 
     render() {
-        if (this.state.recent) {
+        if (this.state.search) {
+            return (<article className={css(styles.postContainer)}>
+                <section id={this.props.id} className={css(styles.postSearch)}>
+                    <img className={css(styles.postImageSearch)} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
+                    <section className={css(styles.postTitleSearch)}>
+                        <h1 className={css(styles.postHeading)} onClick={this.openPost}>{this.props.title}</h1>
+                        <h3 className={css(styles.postSubheading)}>{this.strip_html_tags(this.props.content)}</h3>
+                    </section>
+                </section>
+            </article>);
+        } else if (this.state.recent) {
             return (<article className={css(styles.recentPost)} id={this.props.id} style={{
                     background: 'url(' + this.state.img + ')'
                 }} onClick={this.openPost}>
@@ -49,16 +61,17 @@ class BlogPost extends Component {
                     <h3 className={css(styles.recentSubheading)}>{this.strip_html_tags(this.props.content)}</h3>
                 </section>
             </article>);
-        }
-        return (<article className={css(styles.postContainer)}>
-            <section id={this.props.id} className={css(styles.post)}>
-                <img className={css(styles.postImage)} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
-                <section className={css(styles.postTitle)}>
-                    <h1 className={css(styles.postHeading)} onClick={this.openPost}>{this.props.title}</h1>
-                    <h3 className={css(styles.postSubheading)}>{this.strip_html_tags(this.props.content)}</h3>
+        } else {
+            return (<article className={css(styles.postContainer)}>
+                <section id={this.props.id} className={css(styles.post)}>
+                    <img className={css(styles.postImage)} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
+                    <section className={css(styles.postTitle)}>
+                        <h1 className={css(styles.postHeading)} onClick={this.openPost}>{this.props.title}</h1>
+                        <h3 className={css(styles.postSubheading)}>{this.strip_html_tags(this.props.content)}</h3>
+                    </section>
                 </section>
-            </section>
-        </article>);
+            </article>);
+        }
     }
 }
 
@@ -127,6 +140,13 @@ const styles = StyleSheet.create({
             flexDirection: 'row'
         }
     },
+    postSearch: {
+        display: 'flex',
+        flexDirection: 'column',
+        '@media (min-width: 1280px)': {
+            flexDirection: 'row'
+        }
+    },
     postImage: {
         width: '100%',
         height: '200px',
@@ -148,12 +168,44 @@ const styles = StyleSheet.create({
             height: '225px'
         }
     },
+    postImageSearch: {
+        width: '100%',
+        height: '200px',
+        objectFit: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        filter: 'grayscale(0.25)',
+        ':hover': {
+            filter: 'grayscale(0)',
+            cursor: 'pointer'
+        },
+        '@media (min-width: 769px)': {
+            width: '100%',
+            height: '275px'
+        },
+        '@media (min-width: 1280px)': {
+            width: '50%',
+            height: '350px'
+        }
+    },
     postTitle: {
         padding: '15px 25px',
         backgroundColor: 'white',
         color: constants.colors.font,
         '@media (max-width: 1280px)': {
             padding: '15px 10px'
+        }
+    },
+    postTitleSearch: {
+        padding: '15px 25px',
+        backgroundColor: 'white',
+        color: constants.colors.font,
+        '@media (max-width: 1280px)': {
+            padding: '15px 10px'
+        },
+        '@media (min-width: 1280px)': {
+            width: '50%'
         }
     },
     postHeading: {

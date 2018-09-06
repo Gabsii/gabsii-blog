@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
 import PageTransition from 'gatsby-plugin-page-transitions';
 import Link from 'gatsby-link';
+import Helmet from 'react-helmet'
 
 import BlogPost from '../../components/BlogPost.jsx';
 import Header from '../../components/Header.jsx';
@@ -35,6 +36,15 @@ class Blog extends Component {
                         left: '100%'
                     }
                 }}>
+                <Helmet title="Gabsii - Blog" meta={[
+                        {
+                            name: 'description',
+                            content: 'Sample'
+                        }, {
+                            name: 'keywords',
+                            content: 'sample, something'
+                        }
+                    ]}/>
                 <div className={css(styles.container)}>
                     <Header type="blog"/>
                     <main className={css(styles.divider)}>
@@ -87,7 +97,16 @@ class Blog extends Component {
                         left: '100%'
                     }
                 }}>
-                <div className={css(styles.container)}>
+                <Helmet title="Gabsii - Blog" meta={[
+                        {
+                            name: 'description',
+                            content: 'Sample'
+                        }, {
+                            name: 'keywords',
+                            content: 'sample, something'
+                        }
+                    ]}/>
+                <div className={css(styles.container2)}>
                     <Header type="blog"/>
                     <main className={css(styles.divider)}>
                         <div className={css(styles.searchResultsContainer)}>
@@ -150,6 +169,16 @@ const styles = StyleSheet.create({
             width: '100%'
         }
     },
+    container2: {
+        backgroundColor: constants.colors.backgroundBlog,
+        width: '100%',
+        fontFamily: 'Zwizz',
+        zIndex: 0,
+        color: constants.colors.font,
+        display: 'flex',
+        flexGrow: 1,
+        minHeight: '100%'
+    },
     divider: {
         display: 'flex',
         flexGrow: 1,
@@ -172,10 +201,9 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         flexDirection: 'column',
         width: 'calc(100% - 100px)',
-        position: 'relative',
-        top: 0,
-        padding: '50px',
-        marginTop: '100px'
+        '@media (max-width: 768px)': {
+            width: '100%'
+        }
     },
     recentPost: {
         width: '50%',
@@ -225,27 +253,27 @@ const styles = StyleSheet.create({
 });
 export default Blog;
 export const postsQuery = graphql ` query postsQuery{
-            allWordpressWpBlog {
-                edges {
-                    node {
-                        wordpress_id
-                        title
-                        excerpt
-                        slug
-                        better_featured_image {
-                            alt_text
-                            media_details {
-                                sizes {
-                                    medium_large {
-                                        source_url
-                                    }
-                                    large {
-                                        source_url
+                    allWordpressWpBlog {
+                        edges {
+                            node {
+                                wordpress_id
+                                title
+                                excerpt
+                                slug
+                                better_featured_image {
+                                    alt_text
+                                    media_details {
+                                        sizes {
+                                            medium_large {
+                                                source_url
+                                            }
+                                            large {
+                                                source_url
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-            }
-        }`;
+                }`;
