@@ -46,7 +46,7 @@ class BlogPost extends Component {
             return (<article className={css(styles.postContainer)}>
                 <section id={this.props.id} className={css(styles.postSearch)}>
                     <img className={css(styles.postImageSearch)} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
-                    <section className={css(styles.postTitleSearch)}>
+                    <section className={css(styles.postTitle)}>
                         <h1 className={css(styles.postHeading)} onClick={this.openPost}>{this.props.title}</h1>
                         <h3 className={css(styles.postSubheading)}>{this.strip_html_tags(this.props.content)}</h3>
                     </section>
@@ -190,14 +190,6 @@ const styles = StyleSheet.create({
         }
     },
     postTitle: {
-        padding: '15px 25px',
-        backgroundColor: 'white',
-        color: constants.colors.font,
-        '@media (max-width: 1280px)': {
-            padding: '15px 10px'
-        }
-    },
-    postTitleSearch: {
         padding: '15px 25px',
         backgroundColor: 'white',
         color: constants.colors.font,

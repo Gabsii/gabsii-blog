@@ -917,3 +917,9 @@ function _wp_filter_build_unique_id($tag, $function, $priority) {
 		return $function[0] . '::' . $function[1];
 	}
 }
+
+
+function filter_rest_allow_anonymous_comments() {
+    return true;
+}
+add_filter('rest_allow_anonymous_comments','filter_rest_allow_anonymous_comments');

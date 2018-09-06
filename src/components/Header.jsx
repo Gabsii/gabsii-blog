@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
 import Link from 'gatsby-link'
 
-import '../css/hamburger.css';
+import '../css/header.css';
 let constants = require('../js/constants.js');
 
 class Header extends Component {

@@ -3,11 +3,34 @@ import {StyleSheet, css} from 'aphrodite';
 import PageTransition from 'gatsby-plugin-page-transitions';
 
 import Header from '../components/Header.jsx';
+import Comment from '../components/Comment.jsx';
+import Form from '../components/Form.jsx';
 
 import '../css/blog.css';
 let constants = require('../js/constants.js');
 
 class BlogPage extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            comments: []
+        }
+    }
+
+    async componentDidMount() {
+        const c = [];
+        const json = await fetch('http://localhost:8001/wp-json/wp/v2/comments').then(response => response.json()).then(response => {
+            for (var i = 0; i < response.length; i++) {
+                if (response[i].post === this.props.data.wordpressWpBlog.wordpress_id) {
+                    c.push(response[i]);
+                }
+            }
+        });
+
+        this.setState({comments: c});
+
+    }
 
     read_time = function(text) {
         let minutes = Math.floor(text.split(' ').length / 200)
@@ -69,6 +92,31 @@ class BlogPage extends Component {
                                 marginTop: '2em'
                             }}/>
                     </section>
+                    <section className={css(styles.section)}>
+                        <h2 className={css(styles.titleComment)} style={{
+                                color: 'black',
+                                marginTop: '-60px',
+                                marginBottom: '1em'
+                            }}>Comments:
+                        </h2>
+                        <div>{
+                                this.state.comments.map((comment, index) => {
+                                    return (<Comment key={index} name={comment.author_name} content={comment.content.rendered} date={comment.date}/>);
+                                })
+                            }</div>
+                        <hr style={{
+                                marginTop: '2em'
+                            }}/>
+                        <div>
+                            <h3 className={css(styles.titleComment)} style={{
+                                    color: 'black',
+                                    marginTop: '20px',
+                                    marginBottom: '.5em'
+                                }}>Write your own comment:
+                            </h3>
+                            <Form id={post.wordpress_id}/>
+                        </div>
+                    </section>
                 </main>
             </div>
         </PageTransition>);
@@ -112,10 +160,26 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
         filter: 'brightness(1)',
-        padding: '50px 14px',
+        padding: '50px 14px 50px 14px',
         '@media (max-width: 768px)': {
             padding: '25px 14px'
         }
+    },
+    form: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    input: {
+        margin: '10px 0',
+        backgroundColor: constants.colors.fontSecondary,
+        minWidth: '200px',
+        border: 'none',
+        padding: '0.5em 1em',
+        borderRadius: '10px',
+        fontFamily: 'Noto Serif'
+    },
+    submit: {
+        alignSelf: 'flex-end'
     },
     categoryContainer: {
         display: 'flex',
@@ -158,6 +222,14 @@ const styles = StyleSheet.create({
             padding: '0 0.25em',
             borderLeft: '1px solid #EE7778'
         }
+    },
+    titleComment: {
+        fontFamily: 'Noto Serif',
+        color: 'black',
+        fontSize: '40px',
+        fontWeight: 'bold',
+        padding: '0 .75em',
+        wordBreak: 'break-word'
     },
     mobileHidden: {
         '@media (max-width: 768px)': {

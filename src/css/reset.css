@@ -48,5 +48,5 @@ html, body, #___gatsby {
 }
 
 #___gatsby, #header {
-    transition: margin-left .5s;
+    transition: all .5s;
 }

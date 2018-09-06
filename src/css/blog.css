@@ -42,6 +42,7 @@
 }
 
 #blogContent figcaption {
+    margin-top: 10px;
     font-size: .75em;
     color: #B3B3B3;
     text-align: center;
@@ -63,4 +64,22 @@
 
 #blogContent li {
     line-height: 1.75em;
+}
+
+#blogContent .wp-block-embed{
+    display: flex;
+    align-items: center;
+    align-self: center;
+    flex-direction: column;
+}
+
+#blogContent blockquote {
+    border-left: 4px solid black;
+    padding-left: 1em;
+    margin-bottom: 20px;
+}
+
+#blogContent cite{
+    font-size: 0.8em;
+    color: #B3B3B3;
 }
