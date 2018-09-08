@@ -7,7 +7,6 @@ import ScrollDown from './ScrollDown';
 let constants = require('../js/constants.js');
 
 export default({data}) => {
-    console.log(data);
     return (<div className={css(styles.background)}>
         <nav>
             <ul>

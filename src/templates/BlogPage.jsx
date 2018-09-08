@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, css} from 'aphrodite';
 import PageTransition from 'gatsby-plugin-page-transitions';
+import regeneratorRuntime from 'regenerator-runtime';
+import Helmet from 'react-helmet';
 
 import Header from '../components/Header.jsx';
 import Comment from '../components/Comment.jsx';
@@ -41,9 +43,24 @@ class BlogPage extends Component {
         return minutes + ' min'
     }
 
+    encode(str) {
+        let parser = new DOMParser;
+        let dom = parser.parseFromString('<!doctype html><body>' + str, 'text/html');
+        return dom.body.textContent;
+    }
+
     render() {
         const post = this.props.data.wordpressWpBlog;
         return (<PageTransition>
+            <Helmet title="Gabsii - Blog" meta={[
+                    {
+                        name: 'description',
+                        content: 'Sample'
+                    }, {
+                        name: 'keywords',
+                        content: 'sample, something'
+                    }
+                ]}/>
             <div className={css(styles.background)}>
                 <Header type="blogpage"/>
                 <main className={css(styles.divider)}>
@@ -59,7 +76,7 @@ class BlogPage extends Component {
 
                                 }
                             </div>
-                            {post.title}
+                            {this.encode(post.title)}
                             <div className={css(styles.author)}>
                                 <i className={css(styles.italics)}>by {String(post.author.name).toUpperCase() + " "}
                                     at {post.date + " "}</i><br/>
@@ -77,7 +94,7 @@ class BlogPage extends Component {
                                     })
                                 }
                             </div>
-                            {post.title}
+                            {this.encode(post.title)}
                             <div className={css(styles.author)}>
                                 <i className={css(styles.italics)}>
                                     by {String(post.author.name).toUpperCase() + " "}
@@ -101,7 +118,7 @@ class BlogPage extends Component {
                         </h2>
                         <div>{
                                 this.state.comments.map((comment, index) => {
-                                    return (<Comment key={index} name={comment.author_name} content={comment.content.rendered} date={comment.date}/>);
+                                    return (<Comment key={index} name={this.encode(comment.author_name)} content={comment.content.rendered} date={comment.date}/>);
                                 })
                             }</div>
                         <hr style={{
@@ -114,6 +131,10 @@ class BlogPage extends Component {
                                     marginBottom: '.5em'
                                 }}>Write your own comment:
                             </h3>
+                            <h6 style={{
+                                    fontSize: '0.8em',
+                                    color: constants.colors.fontSecondary
+                                }}>Please note that comments need to be approved.</h6>
                             <Form id={post.wordpress_id}/>
                         </div>
                     </section>

@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 
 import '../css/reset.css';
 import '../css/fonts.css';
+import icon from '../img/favicon.ico';
 
 let constants = require('../js/constants.js');
 
@@ -20,8 +21,10 @@ const App = ({children, data}) => (<div>
         <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
+        <link rel="shortcut icon" href={icon} type="image/x-icon"/>
+        <link rel="icon" href={icon} type="image/x-icon"/>
     </Helmet>
     {children()}
-    < /div>)
+</div>);
 
 export default App;

@@ -65,7 +65,6 @@ class Blog extends Component {
                                 this.props.data.allWordpressWpBlog.edges.map((node, index) => {
                                     let nodes = node.node;
                                     if (index !== 0 && index !== this.props.data.allWordpressWpBlog.edges.length - 1) {
-                                        console.log(nodes.slug);
                                         return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.medium_large.source_url} alt={nodes.better_featured_image.alt_text}/>);
                                     } else if (index === this.props.data.allWordpressWpBlog.edges.length - 1) {
                                         return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.medium_large.source_url} oldest={true} alt={nodes.better_featured_image.alt_text}/>);
@@ -120,12 +119,6 @@ class Blog extends Component {
                                 this.props.data.allWordpressWpBlog.edges.filter(({node}) => {
                                     let title = node.title.toLowerCase();
                                     let excerpt = node.excerpt.toLowerCase();
-                                    // console.log(node.wordpress_id);
-                                    // console.log('title: ' + title);
-                                    // console.log('excerpt: ' + excerpt);
-                                    // console.log('search: ' + searchQuery);
-                                    // console.log(title.includes(searchQuery));
-                                    // console.log(excerpt.includes(searchQuery));
                                     if (title.includes(searchQuery)) {
                                         res.push(node);
                                     } else if (excerpt.includes(searchQuery)) {
@@ -252,28 +245,28 @@ const styles = StyleSheet.create({
     }
 });
 export default Blog;
-export const postsQuery = graphql ` query postsQuery{
-                    allWordpressWpBlog {
-                        edges {
-                            node {
-                                wordpress_id
-                                title
-                                excerpt
-                                slug
-                                better_featured_image {
-                                    alt_text
-                                    media_details {
-                                        sizes {
-                                            medium_large {
-                                                source_url
-                                            }
-                                            large {
-                                                source_url
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }`;
+export const postsQuery = graphql ` query postsQuery {
+  allWordpressWpBlog(sort:{fields: [date], order: DESC}) {
+    edges {
+      node {
+        wordpress_id
+        title
+        excerpt
+        slug
+        better_featured_image {
+          alt_text
+          media_details {
+            sizes {
+              medium_large {
+                source_url
+              }
+              large {
+                source_url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}`;

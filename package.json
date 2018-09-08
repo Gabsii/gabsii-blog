@@ -7,6 +7,9 @@
     "aphrodite": "^2.2.3",
     "gatsby": "^1.9.277",
     "gatsby-link": "^1.6.46",
+    "gatsby-plugin-manifest": "^1.0.27",
+    "gatsby-plugin-nprogress": "^1.0.14",
+    "gatsby-plugin-offline": "^1.0.18",
     "gatsby-plugin-page-transitions": "^1.0.7",
     "gatsby-plugin-react-helmet": "^2.0.11",
     "gatsby-source-wordpress": "^2.0.93",
@@ -23,7 +26,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "prettier": "^1.13.7"
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "prettier": "^1.13.7",
+    "regenerator-runtime": "^0.12.1"
   },
   "repository": {
     "type": "git",
