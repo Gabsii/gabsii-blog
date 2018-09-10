@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, css} from 'aphrodite';
+import {css} from 'glamor';
 import PageTransition from 'gatsby-plugin-page-transitions';
 import Link from 'gatsby-link'
 import Helmet from 'react-helmet'
@@ -93,33 +93,33 @@ const AboutPage = () => {
                 content: 'sample, something'
             }
         ]}/>
-        <div className={css(styles.background)}>
+        <div className={`${styles.background}`}>
             <Header type="about"/>
-            <div className={css(styles.container)}>
+            <div className={`${styles.container}`}>
                 <div>
-                    <div className={css(styles.heading)}>About</div>
-                    <div className={css(styles.text)}>
+                    <div className={`${styles.heading}`}>About</div>
+                    <div className={`${styles.text}`}>
                         <p>I’m a free time Front End Developer based in Austria.</p>
                         <p>I specialise in creating interactive experiences and user-friendly interfaces whilst maintaining semantic, clean markup and SEO friendly code.</p>
                     </div>
                 </div>
                 <div>
-                    <div className={css(styles.heading)}>Skills</div>
-                    <div className={css(styles.text)}>
-                        <div className={css(styles.p)}>These are the main languages and technologies I aquired over the last 5 years of my IT education:</div>
-                        <ul className={css(styles.skillContainer)}>
+                    <div className={`${styles.heading}`}>Skills</div>
+                    <div className={`${styles.text}`}>
+                        <div className={`${styles.p}`}>These are the main languages and technologies I aquired over the last 5 years of my IT education:</div>
+                        <ul className={`${styles.skillContainer}`}>
                             {
                                 skills.map((skill, index) => {
                                     return (<Skill name={skill.name} class={skill.class} color={skill.color} href={skill.href} key={index}/>);
                                 })
                             }
                         </ul>
-                        <div className={css(styles.p)}>They are by far not the only one, but I like working with them the most.</div>
+                        <div className={`${styles.p}`}>They are by far not the only one, but I like working with them the most.</div>
                     </div>
                 </div>
-                <div className={css(styles.contact)}>
+                <div className={`${styles.contact}`}>
                     I'm currently free for work so let's collaborate!<br/>
-                    <a className={css(styles.link)} href="mailto:lukas.gabsi@gmail.com?subject=Collaborations">
+                    <a className={`${styles.link}`} href="mailto:lukas.gabsi@gmail.com?subject=Collaborations">
                         lukas.gabsi@gmail.com
                     </a>
                 </div>
@@ -128,52 +128,29 @@ const AboutPage = () => {
     </PageTransition>);
 }
 
-const styles = StyleSheet.create({
-    background: {
+const styles = {
+    background: css({
         backgroundColor: constants.colors.background,
         minHeight: 'calc(100% - 50px)',
         minWidth: 'calc(100% - 50px)',
         padding: '25px',
         fontFamily: 'Zwizz',
         color: 'white'
-    },
-    container: {
-        marginTop: '75px',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        padding: '20px'
-    },
-    hello: {
-        fontSize: '3em',
-        marginBottom: '1.5em'
-    },
-    skillContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginBottom: '30px'
-    },
-    p: {
-        marginBottom: '30px'
-    },
-    link: {
+    }),
+    container: css({marginTop: '75px', marginLeft: 'auto', marginRight: 'auto', padding: '20px'}),
+    hello: css({fontSize: '3em', marginBottom: '1.5em'}),
+    skillContainer: css({display: 'flex', flexDirection: 'row', flexWrap: 'wrap', marginBottom: '30px'}),
+    p: css({marginBottom: '30px'}),
+    link: css({
         color: 'white',
         textDecoration: 'none',
         ':visited': {
             color: 'white'
         }
-    },
-    text: {
-        padding: '10px 25px',
-        fontSize: '1.2em'
-    },
-    heading: {
-        fontSize: '1.7em',
-        margin: '1em auto'
-    },
-    contact: {
-        marginTop: '2em'
-    }
-});
+    }),
+    text: css({padding: '10px 25px', fontSize: '1.2em'}),
+    heading: css({fontSize: '1.7em', margin: '1em auto'}),
+    contact: css({marginTop: '2em'})
+};
 
 export default AboutPage

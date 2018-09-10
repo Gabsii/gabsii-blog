@@ -4,7 +4,8 @@ module.exports = {
         subtitle: 'test bro'
     },
     plugins: [
-        'gatsby-plugin-react-helmet', {
+        'gatsby-plugin-react-helmet',
+        `gatsby-plugin-glamor`, {
             resolve: "gatsby-source-wordpress",
             options: {
                 baseUrl: "localhost:8001",

@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, css} from 'aphrodite';
+import {css} from 'glamor'
 
 class ScrollDown extends Component {
     render() {
-        return (<li className={css(styles.scroll)}>
-            <div className={css(styles.mouse)}>
-                <div className={css(styles.wheel)}></div>
+        return (<li className={`${styles.scroll}`}>
+            <div className={`${styles.mouse}`}>
+                <div className={`${styles.wheel}`}></div>
             </div>
             <div>
-                <span className={css(styles.m_scroll_arrows, styles.unu)}></span>
-                <span className={css(styles.m_scroll_arrows, styles.doi)}></span>
-                <span className={css(styles.m_scroll_arrows, styles.trei)}></span>
+                <span className={`${styles.m_scroll_arrows} ${styles.unu}`}></span>
+                <span className={`${styles.m_scroll_arrows} ${styles.doi}`}></span>
+                <span className={`${styles.m_scroll_arrows} ${styles.trei}`}></span>
             </div>
         </li>);
     }
@@ -40,8 +40,8 @@ const mouseScroll = {
     }
 }
 
-const styles = StyleSheet.create({
-    scroll: {
+const styles = {
+    scroll: css({
         position: 'absolute',
         display: 'block',
         margin: '0 auto',
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
         left: '50%',
         bottom: 0,
         transform: 'translate(-50%, -50%)'
-    },
-    m_scroll_arrows: {
+    }),
+    m_scroll_arrows: css({
         display: 'block',
         transform: 'rotate(45deg)',
         borderRight: '2px solid white',
@@ -59,40 +59,40 @@ const styles = StyleSheet.create({
         margin: '0 0 3px 4px',
         width: '16px',
         height: '16px'
-    },
-    unu: {
+    }),
+    unu: css({
         marginTop: '1px',
         animationName: mouseScroll,
         animationDuration: '1s',
         animationIterationCount: 'infinite',
         animationDelay: '0.1s',
         WebkitAnimationDirection: 'alternate'
-    },
-    doi: {
+    }),
+    doi: css({
         animationDelay: '0.2s',
         WebkitAnimationDirection: 'alternate',
         marginTop: '-6px',
         animationName: mouseScroll,
         animationDuration: '1s',
         animationIterationCount: 'infinite'
-    },
-    trei: {
+    }),
+    trei: css({
         animationDelay: '0.3s',
         WebkitAnimationDirection: 'alternate',
         marginTop: '-6px',
         animationName: mouseScroll,
         animationDuration: '1s',
         animationIterationCount: 'infinite'
-    },
-    mouse: {
+    }),
+    mouse: css({
         height: '42px',
         width: '24px',
         borderRadius: '14px',
         transform: 'none',
         border: '2px solid white',
         top: '170px'
-    },
-    wheel: {
+    }),
+    wheel: css({
         display: 'block',
         margin: '5px auto',
         background: 'white',
@@ -105,8 +105,7 @@ const styles = StyleSheet.create({
         animationDuration: '0.6s',
         animationTimingFunction: 'linear',
         animationIterationCount: 'infinite'
-    }
-
-});
+    })
+};
 
 export default ScrollDown;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, css} from 'aphrodite';
+import {css} from 'glamor'
 import PageTransition from 'gatsby-plugin-page-transitions';
 import Link from 'gatsby-link';
 import Helmet from 'react-helmet'
@@ -45,11 +45,11 @@ class Blog extends Component {
                             content: 'sample, something'
                         }
                     ]}/>
-                <div className={css(styles.container)}>
+                <div className={`${styles.container}`}>
                     <Header type="blog"/>
-                    <main className={css(styles.divider)}>
-                        <div className={css(styles.recentPost)}>
-                            <div className={css(styles.recentPostFixed)}>
+                    <main className={`${styles.divider}`}>
+                        <div className={`${styles.recentPost}`}>
+                            <div className={`${styles.recentPostFixed}`}>
                                 {
                                     this.props.data.allWordpressWpBlog.edges.map((node, index) => {
                                         let nodes = node.node;
@@ -60,7 +60,7 @@ class Blog extends Component {
                                 }
                             </div>
                         </div>
-                        <div className={css(styles.posts)}>
+                        <div className={`${styles.posts}`}>
                             {
                                 this.props.data.allWordpressWpBlog.edges.map((node, index) => {
                                     let nodes = node.node;
@@ -105,14 +105,14 @@ class Blog extends Component {
                             content: 'sample, something'
                         }
                     ]}/>
-                <div className={css(styles.container2)}>
+                <div className={`${styles.container2}`}>
                     <Header type="blog"/>
-                    <main className={css(styles.divider)}>
-                        <div className={css(styles.searchResultsContainer)}>
-                            <div className={css(styles.back)}>
-                                <Link to="/blog" className={css(styles.link)}>
+                    <main className={`${styles.divider}`}>
+                        <div className={`${styles.searchResultsContainer}`}>
+                            <div className={`${styles.back}`}>
+                                <Link to="/blog" className={`${styles.link}`}>
                                     <i className="fas fa-arrow-left fa-lg"></i>
-                                    <span className={css(styles.backText)}>Return to the blog</span>
+                                    <span className={`${styles.backText}`}>Return to the blog</span>
                                 </Link>
                             </div>
                             {
@@ -147,8 +147,8 @@ class Blog extends Component {
         }
     }
 }
-const styles = StyleSheet.create({
-    container: {
+const styles = {
+    container: css({
         backgroundColor: constants.colors.backgroundBlog,
         width: '100%',
         fontFamily: 'Zwizz',
@@ -161,8 +161,8 @@ const styles = StyleSheet.create({
             height: 'calc(100% - 50px)',
             width: '100%'
         }
-    },
-    container2: {
+    }),
+    container2: css({
         backgroundColor: constants.colors.backgroundBlog,
         width: '100%',
         fontFamily: 'Zwizz',
@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexGrow: 1,
         minHeight: '100%'
-    },
-    divider: {
+    }),
+    divider: css({
         display: 'flex',
         flexGrow: 1,
         flexDirection: 'row',
@@ -188,8 +188,8 @@ const styles = StyleSheet.create({
         '@media (max-width: 1280px)': {
             width: 'calc(100% - 100px)'
         }
-    },
-    searchResultsContainer: {
+    }),
+    searchResultsContainer: css({
         display: 'flex',
         flexGrow: 1,
         flexDirection: 'column',
@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
         '@media (max-width: 768px)': {
             width: '100%'
         }
-    },
-    recentPost: {
+    }),
+    recentPost: css({
         width: '50%',
         height: '80vh',
         flex: 1,
@@ -209,31 +209,25 @@ const styles = StyleSheet.create({
             marginBottom: '50px',
             marginRight: 0
         }
-    },
-    recentPostFixed: {
+    }),
+    recentPostFixed: css({
         '@media (min-width: 768px)': {
             position: 'fixed',
             width: 'calc(50% - 100px)',
             height: '80vh',
             marginRight: '-50px'
         }
-    },
-    posts: {
+    }),
+    posts: css({
         width: '50%',
         height: '100%',
         '@media (max-width: 768px)': {
             width: '100%'
         }
-    },
-    back: {
-        fontSize: '1.5em',
-        margin: '0 0 25px 10px',
-        lineHeight: '1.5em'
-    },
-    backText: {
-        marginLeft: '10px'
-    },
-    link: {
+    }),
+    back: css({fontSize: '1.5em', margin: '0 0 25px 10px', lineHeight: '1.5em'}),
+    backText: css({marginLeft: '10px'}),
+    link: css({
         height: '100%',
         margin: '0 0 25px 10px',
         lineHeight: '1.5em',
@@ -242,9 +236,11 @@ const styles = StyleSheet.create({
         ':visited': {
             color: '#000000'
         }
-    }
-});
+    })
+};
+
 export default Blog;
+
 export const postsQuery = graphql ` query postsQuery {
   allWordpressWpBlog(sort:{fields: [date], order: DESC}) {
     edges {

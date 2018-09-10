@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, css} from 'aphrodite';
+import {css} from 'glamor'
+import he from 'he';
 
 let constants = require('../js/constants.js');
 
@@ -41,39 +42,33 @@ class BlogPost extends Component {
         return str.replace(/<[^>]*>/g, '');
     }
 
-    encode(str) {
-        let parser = new DOMParser;
-        let dom = parser.parseFromString('<!doctype html><body>' + str, 'text/html');
-        return dom.body.textContent;
-    }
-
     render() {
         if (this.state.search) {
-            return (<article className={css(styles.postContainer)}>
-                <section id={this.props.id} className={css(styles.postSearch)}>
-                    <img className={css(styles.postImageSearch)} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
-                    <section className={css(styles.postTitle)}>
-                        <h1 className={css(styles.postHeading)} onClick={this.openPost}>{this.encode(this.props.title)}</h1>
-                        <h3 className={css(styles.postSubheading)}>{this.encode(this.strip_html_tags(this.props.content))}</h3>
+            return (<article className={`${styles.postContainer}`}>
+                <section id={this.props.id} className={`${styles.postSearch}`}>
+                    <img className={`${styles.postImageSearch}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
+                    <section className={`${styles.postTitle}`}>
+                        <h1 className={`${styles.postHeading}`} onClick={this.openPost}>{he.decode(this.props.title)}</h1>
+                        <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
                     </section>
                 </section>
             </article>);
         } else if (this.state.recent) {
-            return (<article className={css(styles.recentPost)} id={this.props.id} style={{
+            return (<article className={`${styles.recentPost}`} id={this.props.id} style={{
                     background: 'url(' + this.state.img + ')'
                 }} onClick={this.openPost}>
-                <section className={css(styles.recentTitle)}>
-                    <h1 className={css(styles.recentHeading)}>{this.encode(this.props.title)}</h1>
-                    <h3 className={css(styles.recentSubheading)}>{this.encode(this.strip_html_tags(this.props.content))}</h3>
+                <section className={`${styles.recentTitle}`}>
+                    <h1 className={`${styles.recentHeading}`}>{he.decode(this.props.title)}</h1>
+                    <h3 className={`${styles.recentSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
                 </section>
             </article>);
         } else {
-            return (<article className={css(styles.postContainer)}>
-                <section id={this.props.id} className={css(styles.post)}>
-                    <img className={css(styles.postImage)} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
-                    <section className={css(styles.postTitle)}>
-                        <h1 className={css(styles.postHeading)} onClick={this.openPost}>{this.encode(this.props.title)}</h1>
-                        <h3 className={css(styles.postSubheading)}>{this.encode(this.strip_html_tags(this.props.content))}</h3>
+            return (<article className={`${styles.postContainer}`}>
+                <section id={this.props.id} className={`${styles.post}`}>
+                    <img className={`${styles.postImage}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
+                    <section className={`${styles.postTitle}`}>
+                        <h1 className={`${styles.postHeading}`} onClick={this.openPost}>{he.decode(this.props.title)}</h1>
+                        <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
                     </section>
                 </section>
             </article>);
@@ -81,8 +76,8 @@ class BlogPost extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    recentPost: {
+const styles = {
+    recentPost: css({
         width: '100%',
         height: '100%',
         backgroundPosition: 'center',
@@ -103,8 +98,8 @@ const styles = StyleSheet.create({
             height: '300px'
         },
         boxShadow: '0 2px 4px 0 rgba(162, 162, 162, 0.5)'
-    },
-    recentTitle: {
+    }),
+    recentTitle: css({
         width: '100%',
         background: 'rgba(0, 0, 0, 0.5)',
         fontFamily: 'Zwizz',
@@ -113,22 +108,17 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         flexDirection: 'column',
         color: 'white'
-    },
-    recentHeading: {
+    }),
+    recentHeading: css({
         fontSize: '3em',
         fontWeight: 'bold',
         marginBottom: '0.25em',
         ':hover': {
             cursor: 'pointer'
         }
-    },
-    recentSubheading: {
-        fontFamily: 'Noto Serif',
-        fontSize: '1.25em',
-        fontWeight: 'normal',
-        color: constants.colors.fontSecondary
-    },
-    postContainer: {
+    }),
+    recentSubheading: css({fontFamily: 'Noto Serif', fontSize: '1.25em', fontWeight: 'normal', color: constants.colors.fontSecondary}),
+    postContainer: css({
         width: '100%',
         marginBottom: '50px',
         boxShadow: '0 2px 4px 0 rgba(162, 162, 162, 0.5)',
@@ -138,22 +128,22 @@ const styles = StyleSheet.create({
         ':hover': {
             boxShadow: '0 4px 8px 0 rgba(162, 162, 162, 0.9)'
         }
-    },
-    post: {
+    }),
+    post: css({
         display: 'flex',
         flexDirection: 'column',
         '@media (min-width: 1280px)': {
             flexDirection: 'row'
         }
-    },
-    postSearch: {
+    }),
+    postSearch: css({
         display: 'flex',
         flexDirection: 'column',
         '@media (min-width: 1280px)': {
             flexDirection: 'row'
         }
-    },
-    postImage: {
+    }),
+    postImage: css({
         width: '100%',
         height: '200px',
         objectFit: 'cover',
@@ -173,8 +163,8 @@ const styles = StyleSheet.create({
             width: '50%',
             height: '225px'
         }
-    },
-    postImageSearch: {
+    }),
+    postImageSearch: css({
         width: '100%',
         height: '200px',
         objectFit: 'cover',
@@ -194,8 +184,8 @@ const styles = StyleSheet.create({
             width: '50%',
             height: '350px'
         }
-    },
-    postTitle: {
+    }),
+    postTitle: css({
         padding: '15px 25px',
         backgroundColor: 'white',
         color: constants.colors.font,
@@ -205,8 +195,8 @@ const styles = StyleSheet.create({
         '@media (min-width: 1280px)': {
             width: '50%'
         }
-    },
-    postHeading: {
+    }),
+    postHeading: css({
         fontSize: '1.5em',
         fontWeight: 'bold',
         marginBottom: '0.25em',
@@ -216,12 +206,8 @@ const styles = StyleSheet.create({
         '@media (min-width: 1280px)': {
             marginBottom: '1em'
         }
-    },
-    postSubheading: {
-        fontFamily: 'Noto Serif',
-        fontWeight: 'normal',
-        color: constants.colors.fontSecondary
-    }
-});
+    }),
+    postSubheading: css({fontFamily: 'Noto Serif', fontWeight: 'normal', color: constants.colors.fontSecondary})
+};
 
 export default BlogPost;

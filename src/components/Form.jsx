@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, css} from 'aphrodite';
+import {css} from 'glamor'
 
 let constants = require('../js/constants.js');
 
@@ -59,11 +59,11 @@ class Form extends Component {
     }
 
     render() {
-        return (<form action="" className={css(styles.form)} autoComplete="off" onSubmit={this.submit}>
-            <input type="text" onChange={this.handleNameInput.bind(this)} required={true} placeholder="Name" name="name" className={css(styles.input)}/>
-            <input type="text" onChange={this.handleMailInput.bind(this)} required={true} placeholder="E-Mail (your E-Mail will not be displayed)" name="mail" className={css(styles.input)}/>
-            <textarea type="text" onChange={this.handleMessageInput.bind(this)} required={true} placeholder="Message" name="content" rows="8" className={css(styles.input)}/>
-            <input type="submit" className={css(styles.submit)} value="submit"/>
+        return (<form action="" className={`${styles.form}`} autoComplete="off" onSubmit={this.submit}>
+            <input type="text" onChange={this.handleNameInput.bind(this)} required={true} placeholder="Name" name="name" className={`${styles.input}`}/>
+            <input type="text" onChange={this.handleMailInput.bind(this)} required={true} placeholder="E-Mail (your E-Mail will not be displayed)" name="mail" className={`${styles.input}`}/>
+            <textarea type="text" onChange={this.handleMessageInput.bind(this)} required={true} placeholder="Message" name="content" rows="8" className={`${styles.input}`}/>
+            <input type="submit" className={`${styles.submit}`} value="submit"/>
             <div id="error" style={{
                     display: 'none',
                     color: 'black'
@@ -71,13 +71,10 @@ class Form extends Component {
         </form>);
     }
 }
-const styles = StyleSheet.create({
+const styles = {
 
-    form: {
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    input: {
+    form: css({display: 'flex', flexDirection: 'column'}),
+    input: css({
         margin: '10px 0',
         backgroundColor: constants.colors.fontSecondary,
         minWidth: '200px',
@@ -87,8 +84,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Noto Serif',
         fontSize: '1em',
         resize: 'none'
-    },
-    submit: {
+    }),
+    submit: css({
         alignSelf: 'flex-end',
         height: '25px',
         width: '80px',
@@ -104,6 +101,6 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         color: 'white',
         borderRadius: '10px'
-    }
-});
+    })
+};
 export default Form;

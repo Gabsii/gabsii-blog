@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, css} from 'aphrodite';
+import {css} from 'glamor'
 import Link from 'gatsby-link'
 
 import '../css/header.css';
@@ -76,132 +76,132 @@ class Header extends Component {
         }
 
         if (this.props.type === "blog") {
-            return (<header className={css(styles.header)} id="header" style={fixed}>
-                <div className={css(styles.nav)} onClick={this.animate.bind(this)}>
-                    <div className={css(styles.hamburger)} id="hamburger-1">
-                        <span className={css(styles.line)} style={burger}></span>
-                        <span className={css(styles.line)} style={burger}></span>
-                        <span className={css(styles.line)} style={burger}></span>
+            return (<header className={`${styles.header}`} id="header" style={fixed}>
+                <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
+                    <div className={`${styles.hamburger}`} id="hamburger-1">
+                        <span className={`${styles.line}`} style={burger}></span>
+                        <span className={`${styles.line}`} style={burger}></span>
+                        <span className={`${styles.line}`} style={burger}></span>
                     </div>
                 </div>
-                <div className={css(styles.logo)}>
-                    <Link className={css(styles.link)} to="/">
-                        <h1 className={css(styles.titleName)}>Gabsii</h1>
-                        <h2 className={css(styles.titleSub)}>modern.vintage</h2>
+                <div className={`${styles.logo}`}>
+                    <Link className={`${styles.link}`} to="/">
+                        <h1 className={`${styles.titleName}`}>Gabsii</h1>
+                        <h2 className={`${styles.titleSub}`}>modern.vintage</h2>
                     </Link>
                 </div>
-                <div className={css(styles.nav, styles.search)}>
+                <div className={`${styles.nav} ${styles.search}`}>
                     <div id="wrap">
                         <form action="" autoComplete="off" onSubmit={this.submit.bind(this)}>
                             <input id="search" autoComplete="off" name="query" type="text" placeholder="Search" onChange={this.handleChange.bind(this)}/>
                             <input id="search_submit" value="Rechercher" type="submit"/></form>
                     </div>
                 </div>
-                <nav className={css(styles.side)} id="side" style={{
+                <nav className={`${styles.side}`} id="side" style={{
                         width: 0
                     }}>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/blog">Blog</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/">Projects</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/about">About</Link>
-                    <div className={css(styles.socialMediaContainer)}>
-                        <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/blog">Blog</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/">Projects</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/about">About</Link>
+                    <div className={`${styles.socialMediaContainer}`}>
+                        <a className={`${styles.socialMediaTag} ${styles.instagram}`} href="https://www.instagram.com/omegabsi/">
                             <i className="fab fa-instagram fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.snapchat)} href="https://www.snapchat.com/add/le_gabsi">
+                        <a className={`${styles.socialMediaTag} ${styles.snapchat}`} href="https://www.snapchat.com/add/le_gabsi">
                             <i className="fab fa-snapchat-ghost fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.twitter)} href="https://twitter.com/G4bsi">
+                        <a className={`${styles.socialMediaTag} ${styles.twitter}`} href="https://twitter.com/G4bsi">
                             <i className="fab fa-twitter fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.linkedin)} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
+                        <a className={`${styles.socialMediaTag} ${styles.linkedin}`} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
                             <i className="fab fa-linkedin-in fa-lg"></i>
                         </a>
                     </div>
                 </nav>
             </header>);
         } else if (this.props.type === "blogpage") {
-            return (<header className={css(styles.header)} id="header" style={absolute}>
-                <div className={css(styles.nav)} onClick={this.animate.bind(this)}>
-                    <div className={css(styles.hamburger)} id="hamburger-1">
-                        <span className={css(styles.line)} style={burger}></span>
-                        <span className={css(styles.line)} style={burger}></span>
-                        <span className={css(styles.line)} style={burger}></span>
+            return (<header className={`${styles.header}`} id="header" style={absolute}>
+                <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
+                    <div className={`${styles.hamburger}`} id="hamburger-1">
+                        <span className={`${styles.line}`} style={burger}></span>
+                        <span className={`${styles.line}`} style={burger}></span>
+                        <span className={`${styles.line}`} style={burger}></span>
                     </div>
                 </div>
-                <div className={css(styles.logo)}>
-                    <Link className={css(styles.link)} to="/">
-                        <h1 className={css(styles.titleName)}>Gabsii</h1>
-                        <h2 className={css(styles.titleSub)}>modern.vintage</h2>
+                <div className={`${styles.logo}`}>
+                    <Link className={`${styles.link}`} to="/">
+                        <h1 className={`${styles.titleName}`}>Gabsii</h1>
+                        <h2 className={`${styles.titleSub}`}>modern.vintage</h2>
                     </Link>
                 </div>
-                <div className={css(styles.nav, styles.search)}>
+                <div className={`${styles.nav} ${styles.search}`}>
 
-                    <Link to="/blog" className={css(styles.link)}>
+                    <Link to="/blog" className={`${styles.link}`}>
                         <i className="fas fa-arrow-left fa-2x"></i>
                     </Link>
 
                 </div>
-                <nav className={css(styles.side)} id="side" style={{
+                <nav className={`${styles.side}`} id="side" style={{
                         width: 0
                     }}>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/blog">Blog</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/">Projects</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/about">About</Link>
-                    <div className={css(styles.socialMediaContainer)}>
-                        <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/blog">Blog</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/">Projects</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/about">About</Link>
+                    <div className={`${styles.socialMediaContainer}`}>
+                        <a className={`${styles.socialMediaTag} ${styles.instagram}`} href="https://www.instagram.com/omegabsi/">
                             <i className="fab fa-instagram fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.snapchat)} href="https://www.snapchat.com/add/le_gabsi">
+                        <a className={`${styles.socialMediaTag} ${styles.snapchat}`} href="https://www.snapchat.com/add/le_gabsi">
                             <i className="fab fa-snapchat-ghost fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.twitter)} href="https://twitter.com/G4bsi">
+                        <a className={`${styles.socialMediaTag} ${styles.twitter}`} href="https://twitter.com/G4bsi">
                             <i className="fab fa-twitter fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.linkedin)} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
+                        <a className={`${styles.socialMediaTag} ${styles.linkedin}`} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
                             <i className="fab fa-linkedin-in fa-lg"></i>
                         </a>
                     </div>
                 </nav>
             </header>);
         } else if (this.props.type === "about") {
-            return (<header className={css(styles.header)} id="header" style={about}>
-                <div className={css(styles.nav)} onClick={this.animate.bind(this)}>
-                    <div className={css(styles.hamburger)} id="hamburger-1">
-                        <span className={css(styles.line)} style={aboutBurger}></span>
-                        <span className={css(styles.line)} style={aboutBurger}></span>
-                        <span className={css(styles.line)} style={aboutBurger}></span>
+            return (<header className={`${styles.header}`} id="header" style={about}>
+                <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
+                    <div className={`${styles.hamburger}`} id="hamburger-1">
+                        <span className={`${styles.line}`} style={aboutBurger}></span>
+                        <span className={`${styles.line}`} style={aboutBurger}></span>
+                        <span className={`${styles.line}`} style={aboutBurger}></span>
                     </div>
                 </div>
-                <div className={css(styles.logo)}>
-                    <Link className={css(styles.link)} to="/">
-                        <h1 className={css(styles.titleName)} style={aboutText}>Lukas Gabsi</h1>
-                        <h2 className={css(styles.titleSub)} style={aboutText}>ルーカス ガブシ</h2>
+                <div className={`${styles.logo}`}>
+                    <Link className={`${styles.link}`} to="/">
+                        <h1 className={`${styles.titleName}`} style={aboutText}>Lukas Gabsi</h1>
+                        <h2 className={`${styles.titleSub}`} style={aboutText}>ルーカス ガブシ</h2>
                     </Link>
                 </div>
-                <div className={css(styles.nav, styles.search)}>
-                    <Link to="/" className={css(styles.link)}>
+                <div className={`${styles.nav} ${styles.search}`}>
+                    <Link to="/" className={`${styles.link}`}>
                         <i style={{
                                 color: 'white'
                             }} className="fas fa-arrow-left fa-2x"></i>
                     </Link>
                 </div>
-                <nav className={css(styles.side)} id="side" style={{
+                <nav className={`${styles.side}`} id="side" style={{
                         width: 0
                     }}>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/blog">Blog</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/">Projects</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={css(styles.sideLink)} to="/about">About</Link>
-                    <div className={css(styles.socialMediaContainer)}>
-                        <a className={css(styles.socialMediaTag, styles.instagram)} href="https://www.instagram.com/omegabsi/">
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/blog">Blog</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/">Projects</Link>
+                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/about">About</Link>
+                    <div className={`${styles.socialMediaContainer}`}>
+                        <a className={`${styles.socialMediaTag} ${styles.instagram}`} href="https://www.instagram.com/omegabsi/">
                             <i className="fab fa-instagram fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.snapchat)} href="https://www.snapchat.com/add/le_gabsi">
+                        <a className={`${styles.socialMediaTag} ${styles.snapchat}`} href="https://www.snapchat.com/add/le_gabsi">
                             <i className="fab fa-snapchat-ghost fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.twitter)} href="https://twitter.com/G4bsi">
+                        <a className={`${styles.socialMediaTag} ${styles.twitter}`} href="https://twitter.com/G4bsi">
                             <i className="fab fa-twitter fa-lg"></i>
                         </a>
-                        <a className={css(styles.socialMediaTag, styles.linkedin)} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
+                        <a className={`${styles.socialMediaTag} ${styles.linkedin}`} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
                             <i className="fab fa-linkedin-in fa-lg"></i>
                         </a>
                     </div>
@@ -210,8 +210,8 @@ class Header extends Component {
         }
     }
 }
-const styles = StyleSheet.create({
-    header: {
+const styles = {
+    header: css({
         height: '100px',
         width: '100%',
         top: 0,
@@ -222,35 +222,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
         justifyContent: 'space-between'
-    },
-    logo: {
-        display: 'flex',
-        flexDirection: 'column',
-        fontFamily: 'Zwizz'
-    },
-    nav: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    hamburger: {
+    }),
+    logo: css({display: 'flex', flexDirection: 'column', fontFamily: 'Zwizz'}),
+    nav: css({display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}),
+    hamburger: css({
         marginLeft: '50px',
         ':hover': {
             cursor: 'pointer'
         }
-    },
-    line: {
+    }),
+    line: css({
         width: '50px',
         height: '5px',
         borderRadius: '10px',
         display: 'block',
         margin: '8px 0',
         transition: 'all 0.3s ease-in-out'
-    },
-    search: {
-        marginRight: '50px'
-    },
-    search_bar: {
+    }),
+    search: css({marginRight: '50px'}),
+    search_bar: css({
         width: '75px',
         border: 'none',
         outline: 'none',
@@ -284,8 +274,8 @@ const styles = StyleSheet.create({
             color: '#0D2840',
             opacity: .5
         }
-    },
-    side: {
+    }),
+    side: css({
         height: 'calc(100% - 50px)',
         position: 'fixed',
         zIndex: 100,
@@ -297,25 +287,18 @@ const styles = StyleSheet.create({
         transition: '0.5s',
         display: 'flex',
         flexDirection: 'column'
-    },
-    sideLink: {
+    }),
+    sideLink: css({
         padding: '25px 10px',
         color: 'white',
         textDecoration: 'none',
         ':hover': {
             color: constants.colors.fontSecondary
         }
-    },
-    titleName: {
-        fontWeight: 'bold',
-        fontSize: '2.25em'
-    },
-    titleSub: {
-        fontWeight: 'normal',
-        fontSize: '1em',
-        margin: 0
-    },
-    link: {
+    }),
+    titleName: css({fontWeight: 'bold', fontSize: '2.25em'}),
+    titleSub: css({fontWeight: 'normal', fontSize: '1em', margin: 0}),
+    link: css({
         color: constants.colors.font,
         textDecoration: 'none',
         ':visited': {
@@ -324,8 +307,8 @@ const styles = StyleSheet.create({
         ':hover': {
             color: constants.colors.fontSecondary
         }
-    },
-    socialMediaContainer: {
+    }),
+    socialMediaContainer: css({
         width: 'calc(100% - 50px)',
         position: 'absolute',
         bottom: '50px',
@@ -334,30 +317,28 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         padding: '0 25px',
         height: '2em'
-    },
-    socialMediaTag: {
-        color: 'white'
-    },
-    snapchat: {
+    }),
+    socialMediaTag: css({color: 'white'}),
+    snapchat: css({
         ':hover': {
             color: '#FFFC00'
         }
-    },
-    instagram: {
+    }),
+    instagram: css({
         ':hover': {
             color: '#E4405F'
         }
-    },
-    linkedin: {
+    }),
+    linkedin: css({
         ':hover': {
             color: '#0077B5'
         }
-    },
-    twitter: {
+    }),
+    twitter: css({
         ':hover': {
             color: '#55ACEE'
         }
-    }
-});
+    })
+};
 
 export default Header;

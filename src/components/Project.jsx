@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, css} from 'aphrodite';
+import {css} from 'glamor'
 
 let constants = require('../js/constants.js');
 
@@ -28,24 +28,24 @@ class Project extends Component {
     }
 
     render() {
-        return (<div className={css(styles.background)}>
-            <div className={css(styles.backgroundImage)} style={{
+        return (<div className={`${styles.background}`}>
+            <div className={`${styles.backgroundImage}`} style={{
                     background: 'url(' + this.state.img + ')'
                 }}>
-                <div className={css(styles.title)}>
-                    <h1 className={css(styles.titleName)}>{this.state.titleName}</h1>
-                    <h3 className={css(styles.titleSub)}>{this.state.index + "/" + this.state.amount}</h3>
+                <div className={`${styles.title}`}>
+                    <h1 className={`${styles.titleName}`}>{this.state.titleName}</h1>
+                    <h3 className={`${styles.titleSub}`}>{this.state.index + "/" + this.state.amount}</h3>
                 </div>
             </div>
-            <div className={css(styles.read)}>
-                <a className={css(styles.link)} href={"/" + this.state.index}>READ MORE</a>
+            <div className={`${styles.read}`}>
+                <a className={`${styles.link}`} href={"/" + this.state.index}>READ MORE</a>
             </div>
         </div>);
     }
 }
 
-const styles = StyleSheet.create({
-    background: {
+const styles = {
+    background: css({
         backgroundColor: constants.colors.background,
         minHeight: 'calc(100vh - 50px)',
         minWidth: 'calc(100% - 50px)',
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
         padding: '25px',
         fontFamily: 'Zwizz',
         color: 'white'
-    },
-    backgroundImage: {
+    }),
+    backgroundImage: css({
         height: '80vh',
         width: '80vw',
         backgroundPosition: 'center',
@@ -68,11 +68,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         filter: 'grayscale(0.75)',
         boxShadow: '2px 2px 8px #000000'
-        // ':hover': {
-        //     filter: 'grayscale(0)'
-        // }
-    },
-    title: {
+    }),
+    title: css({
         display: 'flex',
         alignItems: 'center',
         alignSelf: 'center',
@@ -81,19 +78,10 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: '15px 0px',
         background: 'rgba(0, 0, 0, 0.5)'
-    },
-    titleName: {
-        fontSize: '5em',
-        fontWeight: 'bold',
-        textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-    },
-    titleSub: {
-        fontSize: '1.5em',
-        fontWeight: 'bold',
-        letterSpacing: '5px',
-        textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-    },
-    read: {
+    }),
+    titleName: css({fontSize: '5em', fontWeight: 'bold', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'}),
+    titleSub: css({fontSize: '1.5em', fontWeight: 'bold', letterSpacing: '5px', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'}),
+    read: css({
         transform: 'rotate(-90deg)',
         position: 'absolute',
         right: 0,
@@ -106,14 +94,14 @@ const styles = StyleSheet.create({
             fontWeight: 400,
             cursor: 'pointer'
         }
-    },
-    link: {
+    }),
+    link: css({
         color: 'white',
         textDecoration: 'none',
         ':visited': {
             color: 'white'
         }
-    }
-});
+    })
+};
 
 export default Project;

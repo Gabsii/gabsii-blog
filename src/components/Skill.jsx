@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
-import {StyleSheet, css} from 'aphrodite';
+import {css} from 'glamor'
 
 class Skill extends Component {
 
     render() {
 
-        return (<li id={this.props.name} className={css(styles.skills)} style={{
+        return (<li id={this.props.name} className={`${styles.skills}`} style={{
                 backgroundColor: this.props.color
             }}>
-            <a target="_blank" href={this.props.href} className={css(styles.link)}>
+            <a target="_blank" href={this.props.href} className={`${styles.link}`}>
                 <i style={{
                         opacity: '.75'
                     }} className={this.props.class}></i>
@@ -29,10 +29,10 @@ const wiggle = {
     '100%': {
         'transform': 'rotate(3deg)'
     }
-}
+};
 
-const styles = StyleSheet.create({
-    skills: {
+const styles = {
+    skills: css({
         width: '100px',
         height: '100px',
         borderRadius: '100px',
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
             animationDuration: '0.3s',
             animationIterationCount: 2
         }
-    },
-    link: {
+    }),
+    link: css({
         width: '100px',
         height: '100px',
         borderRadius: '100px',
@@ -60,5 +60,5 @@ const styles = StyleSheet.create({
         ':visited': {
             color: '#000000'
         }
-    }
-});
+    })
+};

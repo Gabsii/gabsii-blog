@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {StyleSheet, css} from 'aphrodite';
 import Helmet from 'react-helmet'
 
 import '../css/reset.css';
