@@ -41,7 +41,7 @@ class Form extends Component {
             content: this.state.message
         };
 
-        fetch('http://localhost:8001/wp-json/wp/v2/comments', {
+        fetch('https://wp.gabsii.com/wp-json/wp/v2/comments', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"

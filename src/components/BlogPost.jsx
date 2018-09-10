@@ -31,7 +31,7 @@ class BlogPost extends Component {
 
     openPost(e, i) {
         e.preventDefault();
-        window.location = 'http://localhost:8000/blog/' + this.state.slug;
+        window.location = window.location + '/' + this.state.slug;
     }
 
     strip_html_tags(str) {

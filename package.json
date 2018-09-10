@@ -27,7 +27,8 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gatsby build && cd public && now --public && now alias"
   },
   "devDependencies": {
     "babel-plugin-transform-regenerator": "^6.26.0",

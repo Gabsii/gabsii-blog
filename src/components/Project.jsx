@@ -38,7 +38,7 @@ class Project extends Component {
                 </div>
             </div>
             <div className={`${styles.read}`}>
-                <a className={`${styles.link}`} href={"/" + this.state.index}>READ MORE</a>
+                <a className={`${styles.link}`} href="https://spoti-vote.com">READ MORE</a>
             </div>
         </div>);
     }
@@ -57,17 +57,17 @@ const styles = {
         color: 'white'
     }),
     backgroundImage: css({
-        height: '80vh',
-        width: '80vw',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'center',
-        filter: 'grayscale(0.75)',
-        boxShadow: '2px 2px 8px #000000'
+        height: '80vh !important',
+        width: '80vw !important',
+        backgroundPosition: 'center !important',
+        backgroundRepeat: 'no-repeat !important',
+        backgroundSize: '100% !important',
+        display: 'flex !important',
+        alignItems: 'center !important',
+        alignSelf: 'center !important',
+        justifyContent: 'center !important',
+        filter: 'grayscale(0.75) !important',
+        boxShadow: '2px 2px 8px #000000 !important'
     }),
     title: css({
         display: 'flex',

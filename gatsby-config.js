@@ -8,8 +8,8 @@ module.exports = {
         `gatsby-plugin-glamor`, {
             resolve: "gatsby-source-wordpress",
             options: {
-                baseUrl: "localhost:8001",
-                protocol: "http",
+                baseUrl: "wp.gabsii.com",
+                protocol: "https",
                 hostingWPCOM: false,
                 useACF: true,
                 verboseOutput: true
@@ -30,8 +30,8 @@ module.exports = {
         }, {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: "Gabsii",
-                short_name: "Gabsii modern.vintage",
+                name: "Gabsii modern.vintage",
+                short_name: "Gabsii",
                 start_url: "/",
                 background_color: "#191414",
                 theme_color: "#191414",

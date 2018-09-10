@@ -14,14 +14,7 @@ let breakpoints = {
     xlarge: 1280 // ]980;1280] Laptops (everything else is DESKTOP FIRST)
 };
 
-let config = {
-    host: 'localhost',
-    hostPort: 8000,
-    wordpressURL: 'http://localhost:8001/wp-json/wp/v2'
-}
-
 module.exports = {
     colors: colors,
-    breakpoints: breakpoints,
-    config: config
+    breakpoints: breakpoints
 };

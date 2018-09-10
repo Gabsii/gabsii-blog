@@ -23,7 +23,7 @@ class BlogPage extends Component {
 
     async componentDidMount() {
         const c = [];
-        const json = await fetch('http://localhost:8001/wp-json/wp/v2/comments').then(response => response.json()).then(response => {
+        const json = await fetch('https://wp.gabsii.com/wp-json/wp/v2/comments').then(response => response.json()).then(response => {
             for (var i = 0; i < response.length; i++) {
                 if (response[i].post === this.props.data.wordpressWpBlog.wordpress_id) {
                     c.push(response[i]);
@@ -129,7 +129,9 @@ class BlogPage extends Component {
                             <h6 style={{
                                     fontSize: '0.8em',
                                     color: constants.colors.fontSecondary
-                                }}>Please note that comments need to be approved.</h6>
+                                }}>Please note that comments need to be
+                                <b className={`${bold}`}>{" "}approved{" "}</b>
+                                first.</h6>
                             <Form id={post.wordpress_id}/>
                         </div>
                     </section>
@@ -151,16 +153,16 @@ const background = css({
 });
 const divider = css({position: 'relative', top: 0, wordBreak: 'break-all', width: '100%'});
 const heroImage = css({
-    width: '100%',
-    height: 'calc(100vh - 100px)',
-    objectFit: 'cover',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    display: 'flex',
+    width: '100% !important',
+    height: 'calc(100vh - 100px) !important',
+    objectFit: 'cover !important',
+    backgroundPosition: 'center !important',
+    backgroundAttachment: 'fixed !important',
+    backgroundRepeat: 'no-repeat !important',
+    backgroundSize: 'cover !important',
+    display: 'flex !important',
     '@media (max-width: 768px)': {
-        height: 'calc(100vh - 250px)'
+        height: 'calc(100vh - 250px) !important'
     }
 });
 const section = css({
@@ -240,6 +242,7 @@ const mobileVisible = css({
 });
 const text = css({fontFamily: 'Noto Serif', color: '#000', wordBreak: 'break-word'});
 const italics = css({fontStyle: 'italic'});
+const bold = css({fontWeight: 'bold'});
 
 export default BlogPage;
 
