@@ -47,10 +47,10 @@ class BlogPage extends Component {
     render() {
         const post = this.props.data.wordpressWpBlog;
         return (<PageTransition>
-            <Helmet title="Gabsii - Blog" meta={[
+            <Helmet title={"Gabsii - " + he.decode(post.title)} meta={[
                     {
                         name: 'description',
-                        content: 'Sample'
+                        content: post.excerpt
                     }, {
                         name: 'keywords',
                         content: 'sample, something'
@@ -73,8 +73,7 @@ class BlogPage extends Component {
                             </div>
                             {he.decode(post.title)}
                             <div className={`${author}`}>
-                                <i className={`${italics}`}>by {String(post.author.name).toUpperCase() + " "}
-                                    at {post.date + " "}</i><br/>
+                                <i className={`${italics}`}>by GABSII at {post.date + " "}</i><br/>
                                 Reading time: {" "}
                                 {this.read_time(post.content)}
                             </div>
@@ -275,13 +274,6 @@ export const blogPageQuery = graphql `query blogPageQuery($wordpress_id: Int!) {
                         categories {
                             name
                             id
-                        }
-                        acf {
-                            location {
-                                address
-                                lat
-                                lng
-                            }
                         }
                     }
                 }`

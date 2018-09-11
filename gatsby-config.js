@@ -1,11 +1,13 @@
 module.exports = {
     siteMetadata: {
-        title: 'Gatsby Default Starter',
-        subtitle: 'test bro'
+        title: 'Gabsii',
+        subtitle: 'modern.vintage',
+        siteUrl: 'https://gabsii.com'
     },
     plugins: [
         'gatsby-plugin-react-helmet',
-        `gatsby-plugin-glamor`, {
+        `gatsby-plugin-glamor`,
+        `gatsby-plugin-sitemap`, {
             resolve: "gatsby-source-wordpress",
             options: {
                 baseUrl: "wp.gabsii.com",
@@ -26,6 +28,14 @@ module.exports = {
                 color: `black`,
                 // Disable the loading spinner.
                 showSpinner: true
+            }
+        }, {
+            resolve: `gatsby-plugin-google-analytics`,
+            options: {
+                trackingId: "UA-125589344-1",
+                head: true,
+                anonymize: true,
+                respectDNT: true
             }
         }, {
             resolve: `gatsby-plugin-manifest`,

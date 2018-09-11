@@ -29,13 +29,6 @@ const pageQuery = `{
             name
             id
           }
-          acf {
-            location {
-              address
-              lat
-              lng
-            }
-          }
         }
       }
     }

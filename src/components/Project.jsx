@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {css} from 'glamor'
+import {OutboundLink} from 'gatsby-plugin-google-analytics'
 
 let constants = require('../js/constants.js');
 
@@ -38,7 +39,7 @@ class Project extends Component {
                 </div>
             </div>
             <div className={`${styles.read}`}>
-                <a className={`${styles.link}`} href="https://spoti-vote.com">READ MORE</a>
+                <OutboundLink className={`${styles.link}`} href="https://spoti-vote.com">READ MORE</OutboundLink>
             </div>
         </div>);
     }
