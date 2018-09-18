@@ -16,6 +16,8 @@ class Project extends Component {
     }
 
     componentDidMount() {
+        // check if there are more than 10 Projects
+        // if there are less add a leading 0 to the index
         this.setState({titleName: this.props.title, img: this.props.img})
         let newIndex;
         ((this.props.index + 1) < 10)

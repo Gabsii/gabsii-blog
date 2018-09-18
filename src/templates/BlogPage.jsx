@@ -21,6 +21,8 @@ class BlogPage extends Component {
         }
     }
 
+    // asynchronously fetch all the comments for the current post and add it to the comments array in the state
+
     async componentDidMount() {
         const c = [];
         const json = await fetch('https://wp.gabsii.com/wp-json/wp/v2/comments').then(response => response.json()).then(response => {
@@ -35,7 +37,9 @@ class BlogPage extends Component {
 
     }
 
-    read_time = function(text) {
+    // calculates the time required to read the whole article
+
+    read_time(text) {
         let minutes = Math.floor(text.split(' ').length / 200)
 
         if (minutes === 0) 
@@ -53,7 +57,7 @@ class BlogPage extends Component {
                         content: post.excerpt
                     }, {
                         name: 'keywords',
-                        content: 'sample, something'
+                        content: post.excerpt
                     }
                 ]}/>
             <div className={`${background}`}>
@@ -129,7 +133,7 @@ class BlogPage extends Component {
                                     fontSize: '0.8em',
                                     color: constants.colors.fontSecondary
                                 }}>Please note that comments need to be
-                                <b className={`${bold}`}>{" "}approved{" "}</b>
+                                <b className={`${bold}`}>{" approved "}</b>
                                 first.</h6>
                             <Form id={post.wordpress_id}/>
                         </div>

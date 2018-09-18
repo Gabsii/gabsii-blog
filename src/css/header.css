@@ -55,7 +55,8 @@ body {
 }
 
 #search:focus {
-  width: 300px;
+  min-width: 250px;
+  max-width: calc(100vw - 60px);
   z-index: 1;
   border-bottom: 1px solid #BBB;
   cursor: text;

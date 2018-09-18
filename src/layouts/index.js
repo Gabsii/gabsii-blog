@@ -11,10 +11,10 @@ const App = ({children, data}) => (<div>
     <Helmet title="Gabsii - Lukas Gabsi" meta={[
             {
                 name: 'description',
-                content: 'Sample'
+                content: 'Hello and welcome to my personal Homepage. Here you can either see my current projects, read about my adventures in life (EVS in particular) or check a short-form resume'
             }, {
                 name: 'keywords',
-                content: 'sample, something'
+                content: 'personal, Homepage, web, react, wordpress, projects, EVS, adventures, life, resume'
             }
         ]}>
         <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>

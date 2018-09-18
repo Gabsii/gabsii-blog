@@ -3,6 +3,7 @@ const Promise = require(`bluebird`);
 const path = require(`path`);
 const slash = require(`slash`);
 
+// Query all informations needed to create a new blog page
 const pageQuery = `{
     allWordpressWpBlog {
       edges {
@@ -39,14 +40,17 @@ exports.createPages = ({graphql, boundActionCreators}) => {
 
     return new Promise((resolve, reject) => {
 
-        // Pages
+        // Run the query
         graphql(pageQuery).then(result => {
+            // catches any errors that occured and rejects the promise
             if (result.errors) {
                 console.log(result.errors);
                 reject(result.errors);
             }
 
+            // Call the template from the `templates/` directory
             const pageTemplate = path.resolve("./src/templates/BlogPage.jsx");
+            // Create a page for each individual node returned
             _.each(result.data.allWordpressWpBlog.edges, edge => {
                 createPage({
                     path: `/blog/${edge.node.slug}/`,
@@ -60,6 +64,8 @@ exports.createPages = ({graphql, boundActionCreators}) => {
         })
     });
 };
+
+// fixes build errors that occured when running `gatsby build`
 
 exports.modifyBabelrc = ({babelrc}) => ({
     ...babelrc,

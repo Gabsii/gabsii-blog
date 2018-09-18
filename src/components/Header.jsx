@@ -14,6 +14,8 @@ class Header extends Component {
         }
     }
 
+    // This function removes all unnecessary html tags wordpress sends us
+    // that way the user gets them pretty formatted and without unnecessary html tags
     strip_html_tags(str) {
         if ((str === null) || (str === '')) 
             return false;
@@ -22,6 +24,7 @@ class Header extends Component {
         return str.replace(/<[^>]*>/g, '');
     }
 
+    // javascript triggered CSS animation to transform the hamburger into a X
     animate(event) {
         let hamburger = document.getElementById('hamburger-1');
         hamburger.classList.toggle('is-active');
@@ -34,25 +37,29 @@ class Header extends Component {
         }
     }
 
+    // reset the CSS animation back to defaults
     resetAnimation() {
         document.getElementById("side").style.width = "0";
         document.getElementById("header").style.marginLeft = "0";
         document.getElementById("___gatsby").style.marginLeft = "0";
     }
 
+    // handle input for the search form
     handleChange(event) {
         this.setState({input: event.target.value});
     }
 
+    // handle the submit event for the search form
     submit(event) {
         event.preventDefault();
         console.log(window.location.href);
         let location = window.location.href.split("?")[0];
-
+        // set the search query into the url query
         window.location.href = location + "?q=" + this.state.input;
     }
 
     render() {
+        // idk why these are set in the render method
         let fixed = {
             position: 'fixed',
             backgroundColor: constants.colors.backgroundBlog
@@ -75,6 +82,7 @@ class Header extends Component {
             backgroundColor: '#FFF'
         }
 
+        // current page is `/blog`
         if (this.props.type === "blog") {
             return (<header className={`${styles.header}`} id="header" style={fixed}>
                 <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
@@ -119,6 +127,7 @@ class Header extends Component {
                     </div>
                 </nav>
             </header>);
+            // current page is `/blog/$slug`
         } else if (this.props.type === "blogpage") {
             return (<header className={`${styles.header}`} id="header" style={absolute}>
                 <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
@@ -163,6 +172,7 @@ class Header extends Component {
                     </div>
                 </nav>
             </header>);
+            // current page is `/about`
         } else if (this.props.type === "about") {
             return (<header className={`${styles.header}`} id="header" style={about}>
                 <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
@@ -221,7 +231,8 @@ const styles = {
         flexDirection: 'row',
         alignItems: 'center',
         textAlign: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        boxShadow: '0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2)'
     }),
     logo: css({display: 'flex', flexDirection: 'column', fontFamily: 'Zwizz'}),
     nav: css({display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}),

@@ -10,6 +10,9 @@ import Header from '../../components/Header.jsx';
 let constants = require('../../js/constants.js');
 
 class Blog extends Component {
+
+    // This function removes all html tags from the title and excerpt.
+    // that way the user gets them pretty formatted and without unnecessary html tags
     strip_html_tags(str) {
         if ((str === null) || (str === '')) 
             return false;
@@ -19,6 +22,8 @@ class Blog extends Component {
     }
 
     render() {
+        let recent = this.props.data.allWordpressWpBlog.edges[0].node;
+        // check if the user is currently searching for something using the search bar in the Header
         if (this.props.location.search === "") {
             return (<PageTransition defaultStyle={{
                     transition: 'left 500ms cubic-bezier(0.47, 0, 0.75, 0.72)',
@@ -39,10 +44,10 @@ class Blog extends Component {
                 <Helmet title="Gabsii - Blog" meta={[
                         {
                             name: 'description',
-                            content: 'Sample'
+                            content: 'Looks like you found my blog. Congratulations! You now can read about any of my adventures in here.'
                         }, {
                             name: 'keywords',
-                            content: 'sample, something'
+                            content: 'blog, personal, homepage, webpage, Congratulations, graphql, gatsby, gatsbyjs, ssr, react, wordpress'
                         }
                     ]}/>
                 <div className={`${styles.container}`}>
@@ -50,17 +55,11 @@ class Blog extends Component {
                     <main className={`${styles.divider}`}>
                         <div className={`${styles.recentPost}`}>
                             <div className={`${styles.recentPostFixed}`}>
-                                {
-                                    this.props.data.allWordpressWpBlog.edges.map((node, index) => {
-                                        let nodes = node.node;
-                                        if (index === 0) {
-                                            return (<BlogPost key={index} id={nodes.wordpress_id} slug={nodes.slug} title={nodes.title} content={this.strip_html_tags(nodes.excerpt)} thumbnail={nodes.better_featured_image.media_details.sizes.large.source_url} recent={true} alt={nodes.better_featured_image.alt_text}/>);
-                                        }
-                                    })
-                                }
+                                <BlogPost id={recent.wordpress_id} slug={recent.slug} title={recent.title} content={this.strip_html_tags(recent.excerpt)} thumbnail={recent.better_featured_image.media_details.sizes.large.source_url} recent={true} alt={recent.better_featured_image.alt_text}/>
                             </div>
                         </div>
                         <div className={`${styles.posts}`}>
+                            {/* map through the entire array of blog entries and create a blogpost element for each */}
                             {
                                 this.props.data.allWordpressWpBlog.edges.map((node, index) => {
                                     let nodes = node.node;
@@ -77,7 +76,9 @@ class Blog extends Component {
                 </div>
             </PageTransition>);
         } else {
+            // get the search query from the url
             const searchQuery = this.props.location.search.split("=")[1];
+            // declare an empty array for the posts matching the query
             const res = [];
             return (<PageTransition defaultStyle={{
                     transition: 'left 500ms cubic-bezier(0.47, 0, 0.75, 0.72)',
@@ -99,10 +100,10 @@ class Blog extends Component {
                 <Helmet title="Gabsii - Blog" meta={[
                         {
                             name: 'description',
-                            content: 'Sample'
+                            content: 'Looks like you found my blog. Congratulations! You now can read about any of my adventures in here.'
                         }, {
                             name: 'keywords',
-                            content: 'sample, something'
+                            content: 'blog, personal, homepage, webpage, Congratulations, graphql, gatsby, gatsbyjs, ssr, react, wordpress'
                         }
                     ]}/>
                 <div className={`${styles.container2}`}>
@@ -115,6 +116,7 @@ class Blog extends Component {
                                     <span className={`${styles.backText}`}>Return to the blog</span>
                                 </Link>
                             </div>
+                            {/* filter through all the blog posts and check if the search query is contained in the title or in the excerpt */}
                             {
                                 this.props.data.allWordpressWpBlog.edges.filter(({node}) => {
                                     let title = node.title.toLowerCase();
@@ -132,6 +134,7 @@ class Blog extends Component {
                                     }
                                 })
                             }
+                            {/* display all the blogposts that match the query */}
                             {
                                 res.length !== 0
                                     ? res.map((r, index) => {
@@ -207,7 +210,8 @@ const styles = {
         '@media (max-width: 768px)': {
             width: '100%',
             marginBottom: '50px',
-            marginRight: 0
+            marginRight: 0,
+            height: 'auto'
         }
     }),
     recentPostFixed: css({
@@ -220,7 +224,6 @@ const styles = {
     }),
     posts: css({
         width: '50%',
-        height: '100%',
         '@media (max-width: 768px)': {
             width: '100%'
         }
@@ -240,6 +243,8 @@ const styles = {
 };
 
 export default Blog;
+
+// query all the blogposts, sort them by their fields in descending order
 
 export const postsQuery = graphql ` query postsQuery {
   allWordpressWpBlog(sort:{fields: [date], order: DESC}) {

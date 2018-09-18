@@ -9,6 +9,9 @@ import Skill from '../components/Skill.jsx';
 
 let constants = require('../js/constants.js');
 
+// array containing all known skills
+// attributes: color of the language, link to the creator/additional info, name
+
 const skills = [
     {
         name: 'HTML',
@@ -56,11 +59,6 @@ const skills = [
         href: 'https://wordpress.org/',
         class: 'fab fa-wordpress fa-4x'
     }, {
-        name: 'APIs',
-        color: '#FFFFFF',
-        href: 'https://en.wikipedia.org/wiki/Application_programming_interface',
-        class: 'fa fa-cogs fa-3x'
-    }, {
         name: 'Shell',
         color: '#89E051',
         href: 'https://en.wikipedia.org/wiki/Shell_script',
@@ -87,10 +85,10 @@ const AboutPage = () => {
         }}><Helmet title="Gabsii - About" meta={[
             {
                 name: 'description',
-                content: 'Sample'
+                content: 'Just a simple about me. Don\'t mind it sitting here.'
             }, {
                 name: 'keywords',
-                content: 'sample, something'
+                content: 'about, me, about me, gabsii, front, end, frontend, front-end, austria, SEO, search engine optimization, java, c, javascript, react, wordpress'
             }
         ]}/>
         <div className={`${styles.background}`}>
@@ -100,7 +98,7 @@ const AboutPage = () => {
                     <div className={`${styles.heading}`}>About</div>
                     <div className={`${styles.text}`}>
                         <p>I’m a free time Front End Developer based in Austria.</p>
-                        <p>I specialise in creating interactive experiences and user-friendly interfaces whilst maintaining semantic, clean markup and SEO friendly code.</p>
+                        <p>I specialise in creating minimalistic interactive experiences and user-friendly interfaces whilst maintaining semantic, clean markup and SEO friendly code.</p>
                     </div>
                 </div>
                 <div>
@@ -139,7 +137,15 @@ const styles = {
     }),
     container: css({marginTop: '75px', marginLeft: 'auto', marginRight: 'auto', padding: '20px'}),
     hello: css({fontSize: '3em', marginBottom: '1.5em'}),
-    skillContainer: css({display: 'flex', flexDirection: 'row', flexWrap: 'wrap', marginBottom: '30px'}),
+    skillContainer: css({
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginBottom: '30px',
+        '@media (max-width: 768px)': {
+            margin: '-10px'
+        }
+    }),
     p: css({marginBottom: '30px'}),
     link: css({
         color: 'white',

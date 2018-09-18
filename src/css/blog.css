@@ -83,3 +83,21 @@
     font-size: 0.8em;
     color: #B3B3B3;
 }
+
+#blogContent pre {
+    background: #eee;
+font-family: "Courier 10 Pitch", Courier, monospace;
+font-size: 15px;
+font-size: 0.9375rem;
+line-height: 1.6;
+margin-bottom: 1.6em;
+max-width: 100%;
+overflow: auto;
+padding: 1.6em;
+}
+
+#blogContent code {
+    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+    font-size: 15px;
+    font-size: 0.9375rem;
+}

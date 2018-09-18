@@ -6,6 +6,8 @@ import Hero from '../components/Hero.jsx';
 import Project from '../components/Project.jsx';
 import spotiVote from '../img/spotiVote.jpg';
 
+// TODO: fetch projects form WordPress
+
 const projects = [
     {
         title: 'Spoti Vote',

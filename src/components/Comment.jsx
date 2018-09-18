@@ -5,6 +5,8 @@ let constants = require('../js/constants.js');
 
 class Comment extends Component {
 
+    // all the data is provided by props.
+
     render() {
         return (<div className={`${styles.container}`}>
             <div className={`${styles.name}`}>{this.props.name}<div className={`${styles.date}`}>&nbsp;at {this.props.date}</div>
