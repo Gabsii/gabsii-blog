@@ -35,8 +35,8 @@ const pageQuery = `{
     }
   }`
 
-exports.createPages = ({graphql, boundActionCreators}) => {
-    const {createPage} = boundActionCreators;
+exports.createPages = ({graphql, actions}) => {
+    const {createPage} = actions;
 
     return new Promise((resolve, reject) => {
 
@@ -66,8 +66,8 @@ exports.createPages = ({graphql, boundActionCreators}) => {
 };
 
 // fixes build errors that occured when running `gatsby build`
-
-exports.modifyBabelrc = ({babelrc}) => ({
-    ...babelrc,
-    plugins: babelrc.plugins.concat(['transform-regenerator'])
-});
+//
+// exports.modifyBabelrc = ({babelrc}) => ({
+//     ...babelrc,
+//     plugins: babelrc.plugins.concat(['transform-regenerator'])
+// });

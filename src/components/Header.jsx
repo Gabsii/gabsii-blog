@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {css} from 'glamor'
-import Link from 'gatsby-link'
+import {css} from 'glamor';
+import {Link} from 'gatsby';
 
 import '../css/header.css';
 let constants = require('../js/constants.js');
@@ -28,7 +28,7 @@ class Header extends Component {
     animate(event) {
         let hamburger = document.getElementById('hamburger-1');
         hamburger.classList.toggle('is-active');
-        if (hamburger.classList.length == 2) {
+        if (hamburger.classList.length === 2) {
             document.getElementById("side").style.width = "250px";
             document.getElementById("header").style.marginLeft = "250px";
             document.getElementById("___gatsby").style.marginLeft = "250px";

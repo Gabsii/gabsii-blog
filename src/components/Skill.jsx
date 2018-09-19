@@ -8,7 +8,7 @@ class Skill extends Component {
         return (<li id={this.props.name} className={`${styles.skills}`} style={{
                 backgroundColor: this.props.color
             }}>
-            <a target="_blank" href={this.props.href} className={`${styles.link}`}>
+            <a target="_blank" rel="noopener noreferrer" href={this.props.href} className={`${styles.link}`}>
                 <i style={{
                         opacity: '.75'
                     }} className={this.props.class}></i>

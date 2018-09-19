@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {css} from 'glamor'
 import PageTransition from 'gatsby-plugin-page-transitions';
-import regeneratorRuntime from 'regenerator-runtime';
 import Helmet from 'react-helmet'
 import he from 'he';
+import {graphql} from 'gatsby';
 
+import '../css/reset.css';
+import '../css/fonts.css';
+import icon from '../img/favicon.ico';
 import Header from '../components/Header.jsx';
 import Comment from '../components/Comment.jsx';
 import Form from '../components/Form.jsx';
@@ -21,20 +24,21 @@ class BlogPage extends Component {
         }
     }
 
-    // asynchronously fetch all the comments for the current post and add it to the comments array in the state
+    componentDidMount() {
+        this.fetchComments();
+    }
 
-    async componentDidMount() {
+    // asynchronously fetch all the comments for the current post and add it to the comments array in the state
+    fetchComments() {
         const c = [];
-        const json = await fetch('https://wp.gabsii.com/wp-json/wp/v2/comments').then(response => response.json()).then(response => {
+        fetch('https://wp.gabsii.com/wp-json/wp/v2/comments').then(response => response.json()).then(response => {
             for (var i = 0; i < response.length; i++) {
                 if (response[i].post === this.props.data.wordpressWpBlog.wordpress_id) {
                     c.push(response[i]);
                 }
             }
+            this.setState({comments: c});
         });
-
-        this.setState({comments: c});
-
     }
 
     // calculates the time required to read the whole article
@@ -49,6 +53,7 @@ class BlogPage extends Component {
     }
 
     render() {
+        console.log(this.state);
         const post = this.props.data.wordpressWpBlog;
         return (<PageTransition>
             <Helmet title={"Gabsii - " + he.decode(post.title)} meta={[
@@ -59,7 +64,12 @@ class BlogPage extends Component {
                         name: 'keywords',
                         content: post.excerpt
                     }
-                ]}/>
+                ]}>
+                <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
+                <link rel="shortcut icon" href={icon} type="image/x-icon"/>
+                <link rel="icon" href={icon} type="image/x-icon"/></Helmet>
             <div className={`${background}`}>
                 <Header type="blogpage"/>
                 <main className={`${divider}`}>
@@ -180,17 +190,6 @@ const section = css({
         padding: '25px 14px'
     }
 });
-const form = css({display: 'flex', flexDirection: 'column'});
-const input = css({
-    margin: '10px 0',
-    backgroundColor: constants.colors.fontSecondary,
-    minWidth: '200px',
-    border: 'none',
-    padding: '0.5em 1em',
-    borderRadius: '10px',
-    fontFamily: 'Noto Serif'
-});
-const submit = css({alignSelf: 'flex-end'});
 const categoryContainer = css({display: 'flex', flexDirection: 'row'});
 const categoryCSS = css({
     backgroundColor: '#EE7778',
@@ -249,7 +248,7 @@ const bold = css({fontWeight: 'bold'});
 
 export default BlogPage;
 
-export const blogPageQuery = graphql `query blogPageQuery($wordpress_id: Int!) {
+export const blogPageQuery = graphql `query($wordpress_id: Int!) {
                     wordpressWpBlog(wordpress_id : {
                         eq: $wordpress_id
                     }) {

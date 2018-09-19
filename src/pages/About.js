@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {css} from 'glamor';
 import PageTransition from 'gatsby-plugin-page-transitions';
-import Link from 'gatsby-link'
 import Helmet from 'react-helmet'
 
+import '../css/reset.css';
+import '../css/fonts.css';
+import icon from '../img/favicon.ico';
 import Header from '../components/Header.jsx';
 import Skill from '../components/Skill.jsx';
 
@@ -82,15 +84,22 @@ const AboutPage = () => {
             exiting: {
                 right: '100%'
             }
-        }}><Helmet title="Gabsii - About" meta={[
-            {
-                name: 'description',
-                content: 'Just a simple about me. Don\'t mind it sitting here.'
-            }, {
-                name: 'keywords',
-                content: 'about, me, about me, gabsii, front, end, frontend, front-end, austria, SEO, search engine optimization, java, c, javascript, react, wordpress'
-            }
-        ]}/>
+        }}>
+        <Helmet title="Gabsii - About" meta={[
+                {
+                    name: 'description',
+                    content: 'Just a simple about me. Don\'t mind it sitting here.'
+                }, {
+                    name: 'keywords',
+                    content: 'about, me, about me, gabsii, front, end, frontend, front-end, austria, SEO, search engine optimization, java, c, javascript, react, wordpress'
+                }
+            ]}>
+
+            <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
+            <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
+            <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
+            <link rel="shortcut icon" href={icon} type="image/x-icon"/>
+            <link rel="icon" href={icon} type="image/x-icon"/></Helmet>
         <div className={`${styles.background}`}>
             <Header type="about"/>
             <div className={`${styles.container}`}>

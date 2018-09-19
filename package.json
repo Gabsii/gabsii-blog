@@ -5,19 +5,24 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "aphrodite": "^2.2.3",
-    "gatsby": "^1.9.277",
-    "gatsby-link": "^1.6.46",
-    "gatsby-plugin-glamor": "^1.6.13",
-    "gatsby-plugin-google-analytics": "^1.0.31",
-    "gatsby-plugin-manifest": "^1.0.27",
-    "gatsby-plugin-nprogress": "^1.0.14",
-    "gatsby-plugin-offline": "^1.0.18",
+    "gatsby": "^2.0.0",
+    "gatsby-plugin-glamor": "^2.0.5",
+    "gatsby-plugin-google-analytics": "^2.0.6",
+    "gatsby-plugin-manifest": "^2.0.2",
+    "gatsby-plugin-offline": "^2.0.5",
     "gatsby-plugin-page-transitions": "^1.0.7",
-    "gatsby-plugin-react-helmet": "^2.0.11",
-    "gatsby-plugin-sitemap": "^1.2.25",
-    "gatsby-source-wordpress": "^2.0.93",
+    "gatsby-plugin-postcss": "^2.0.0-rc.5",
+    "gatsby-plugin-react-helmet": "^3.0.0",
+    "gatsby-plugin-sitemap": "^2.0.1",
+    "gatsby-source-wordpress": "^3.0.1",
     "glamor": "^2.20.40",
     "he": "^1.1.1",
+    "postcss-browser-reporter": "^0.5.0",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^12.0.0",
+    "postcss-reporter": "^6.0.0",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
     "regenerator-runtime": "^0.12.1",
     "xmldom": "^0.1.27"
@@ -34,8 +39,8 @@
     "deploy": "gatsby build && now --public ./public && now alias"
   },
   "now": {
-      "name": "public",
-      "alias": "gabsii.com"
+    "name": "public",
+    "alias": "gabsii.com"
   },
   "devDependencies": {
     "babel-plugin-transform-regenerator": "^6.26.0",

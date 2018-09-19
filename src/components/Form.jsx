@@ -63,7 +63,7 @@ class Form extends Component {
             // reload page if comment was posted
             if (response.status === 201) {
                 console.log(response);
-                location.reload();
+                window.location.reload();
                 // display the error trigger
             } else {
                 console.log("error");

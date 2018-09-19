@@ -42,7 +42,12 @@ class BlogPost extends Component {
     openPost(e, i) {
         e.preventDefault();
         // Setting the location via window because im lazy lmao
-        window.location = window.location + '/' + this.state.slug;
+        let url = window.location.toString();
+        let lastChar = url.substr(-1); // Selects the last character
+        if (lastChar !== '/') { // If the last character is not a slash
+            url = url + '/'; // Append a slash to it.
+        }
+        window.location = url + this.state.slug;
     }
 
     // This function removes all html tags from the title and excerpt.

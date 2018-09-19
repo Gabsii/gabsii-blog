@@ -7,6 +7,7 @@ module.exports = {
     plugins: [
         'gatsby-plugin-react-helmet',
         `gatsby-plugin-glamor`,
+        `gatsby-plugin-postcss`,
         `gatsby-plugin-sitemap`, {
             resolve: "gatsby-source-wordpress",
             options: {

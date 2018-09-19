@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import {css} from 'glamor'
 import PageTransition from 'gatsby-plugin-page-transitions';
-import Link from 'gatsby-link';
-import Helmet from 'react-helmet'
+import {Link} from 'gatsby';
+import Helmet from 'react-helmet';
+import {graphql} from "gatsby"
 
-import BlogPost from '../../components/BlogPost.jsx';
-import Header from '../../components/Header.jsx';
+import '../css/reset.css';
+import '../css/fonts.css';
+import icon from '../img/favicon.ico';
+import BlogPost from '../components/BlogPost.jsx';
+import Header from '../components/Header.jsx';
 
-let constants = require('../../js/constants.js');
+let constants = require('../js/constants.js');
 
 class Blog extends Component {
 
@@ -49,7 +53,12 @@ class Blog extends Component {
                             name: 'keywords',
                             content: 'blog, personal, homepage, webpage, Congratulations, graphql, gatsby, gatsbyjs, ssr, react, wordpress'
                         }
-                    ]}/>
+                    ]}>
+                    <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
+                    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
+                    <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
+                    <link rel="shortcut icon" href={icon} type="image/x-icon"/>
+                    <link rel="icon" href={icon} type="image/x-icon"/></Helmet>
                 <div className={`${styles.container}`}>
                     <Header type="blog"/>
                     <main className={`${styles.divider}`}>
@@ -61,6 +70,7 @@ class Blog extends Component {
                         <div className={`${styles.posts}`}>
                             {/* map through the entire array of blog entries and create a blogpost element for each */}
                             {
+                                //eslint-disable-next-line
                                 this.props.data.allWordpressWpBlog.edges.map((node, index) => {
                                     let nodes = node.node;
                                     if (index !== 0 && index !== this.props.data.allWordpressWpBlog.edges.length - 1) {
@@ -105,7 +115,12 @@ class Blog extends Component {
                             name: 'keywords',
                             content: 'blog, personal, homepage, webpage, Congratulations, graphql, gatsby, gatsbyjs, ssr, react, wordpress'
                         }
-                    ]}/>
+                    ]}>
+                    <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
+                    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
+                    <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
+                    <link rel="shortcut icon" href={icon} type="image/x-icon"/>
+                    <link rel="icon" href={icon} type="image/x-icon"/></Helmet>
                 <div className={`${styles.container2}`}>
                     <Header type="blog"/>
                     <main className={`${styles.divider}`}>
@@ -132,6 +147,7 @@ class Blog extends Component {
                                         res.push(node);
                                         // not contained in either
                                     }
+                                    return res;
                                 })
                             }
                             {/* display all the blogposts that match the query */}
@@ -246,7 +262,7 @@ export default Blog;
 
 // query all the blogposts, sort them by their fields in descending order
 
-export const postsQuery = graphql ` query postsQuery {
+export const postsQuery = graphql `{
   allWordpressWpBlog(sort:{fields: [date], order: DESC}) {
     edges {
       node {

@@ -1,15 +1,67 @@
 import React, {Component} from 'react';
-import {css} from 'glamor'
+import {css} from 'glamor';
 
 let constants = require('../js/constants.js');
 
 class Comment extends Component {
 
-    // all the data is provided by props.
+    constructor() {
+        super();
+        this.state = {
+            date: '',
+            color: '#FFFFFF'
+        }
+    }
+
+    componentDidMount() {
+        this.calculateTime();
+    }
+
+    // this function calculates how the time for a comment should be displayed
+    calculateTime() {
+        //get the current date and the date when the comment was posted
+        const now = Date.now();
+        const date = Date.parse(this.props.date);
+
+        //get the difference between those two dates
+        let diff = now - date;
+        let diffDate = new Date(diff);
+
+        // set the state conditionally by the difference
+
+        // 60000 = 1min
+        // 3600000 = 1h
+        // 82800000 = 23h --> because 24h is not displayable
+        if (diff < 60000) {
+            let sec = diffDate.getSeconds();
+            this.setState({date: `${sec} seconds ago`});
+        } else if (diff < 3600000) {
+            let min = diffDate.getMinutes();
+            this.setState({date: `${min} minutes ago`});
+        } else if (diff < 82800000) {
+            let hours = diffDate.getHours();
+            console.log(hours);
+            console.log(Date.parse(diffDate));
+            this.setState({date: `${hours} hours ago`});
+        } else if (diff > 82800000 && new Date(now).getFullYear() === new Date(date).getFullYear()) {
+            this.setState({date: `on ${new Date(date).getDate()}/${new Date(date).getMonth()}`});
+        } else if (diff > 82800000 && new Date(now).getFullYear() !== new Date(date).getFullYear()) {
+            this.setState({date: `on ${new Date(date).getDate()}/${new Date(date).getMonth()}/${new Date(date).getFullYear}`});
+        }
+    }
+
+    calculateColor() {
+        // color(this.props.img, (err, color) => {
+        //     this.setState(color : color);
+        // });
+    }
 
     render() {
-        return (<div className={`${styles.container}`}>
-            <div className={`${styles.name}`}>{this.props.name}<div className={`${styles.date}`}>&nbsp;at {this.props.date}</div>
+        // this.calculateTime();
+        return (<div className={`${styles.container}`} style={{
+                backgroundColor: this.state.color
+            }}>
+            <div className={`${styles.name}`}>{this.props.name}<div className={`${styles.date}`}>posted {this.state.date}</div>
             </div>
             <div className={`${styles.content}`} dangerouslySetInnerHTML={{
                     __html: this.props.content
