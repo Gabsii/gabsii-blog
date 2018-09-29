@@ -101,3 +101,7 @@ padding: 1.6em;
     font-size: 15px;
     font-size: 0.9375rem;
 }
+
+#blogContent .wp-block-gallery{
+    list-style-type: none;
+}

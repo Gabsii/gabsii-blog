@@ -1,5 +1,5 @@
 import React from 'react';
-import PageTransition from 'gatsby-plugin-page-transitions';
+// import PageTransition from 'gatsby-plugin-page-transitions';
 import Helmet from 'react-helmet'
 
 import '../css/reset.css';
@@ -18,7 +18,7 @@ const projects = [
     }
 ];
 
-const IndexPage = () => (<PageTransition>
+const IndexPage = () => (<div>
     <Helmet title="Gabsii - Lukas Gabsi" meta={[
             {
                 name: 'description',
@@ -33,12 +33,15 @@ const IndexPage = () => (<PageTransition>
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
         <link rel="shortcut icon" href={icon} type="image/x-icon"/>
         <link rel="icon" href={icon} type="image/x-icon"/>
+<meta name="author" content="Lukas Gabsi (Gabsii)"/>
+
+<html lang="en"/>
     </Helmet>
     <Hero/> {
         projects.map((project, index) => {
             return (<Project title={project.title} img={project.img} index={index} amount={projects.length} key={index}/>);
         })
     }
-</PageTransition>);
+</div>);
 
 export default IndexPage;

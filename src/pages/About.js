@@ -1,6 +1,6 @@
 import React from 'react';
 import {css} from 'glamor';
-import PageTransition from 'gatsby-plugin-page-transitions';
+// import PageTransition from 'gatsby-plugin-page-transitions';
 import Helmet from 'react-helmet'
 
 import '../css/reset.css';
@@ -68,23 +68,25 @@ const skills = [
     }
 ];
 
+// <PageTransition defaultStyle={{
+//         transition: 'right 500ms cubic-bezier(0.47, 0, 0.75, 0.72)',
+//         right: '100%',
+//         position: 'absolute',
+//         width: '100%'
+//     }} transitionStyles={{
+//         entering: {
+//             right: '0%'
+//         },
+//         entered: {
+//             right: '0%'
+//         },
+//         exiting: {
+//             right: '100%'
+//         }
+//     }}>
+
 const AboutPage = () => {
-    return (<PageTransition defaultStyle={{
-            transition: 'right 500ms cubic-bezier(0.47, 0, 0.75, 0.72)',
-            right: '100%',
-            position: 'absolute',
-            width: '100%'
-        }} transitionStyles={{
-            entering: {
-                right: '0%'
-            },
-            entered: {
-                right: '0%'
-            },
-            exiting: {
-                right: '100%'
-            }
-        }}>
+    return (<div>
         <Helmet title="Gabsii - About" meta={[
                 {
                     name: 'description',
@@ -94,12 +96,14 @@ const AboutPage = () => {
                     content: 'about, me, about me, gabsii, front, end, frontend, front-end, austria, SEO, search engine optimization, java, c, javascript, react, wordpress'
                 }
             ]}>
-
             <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
             <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
             <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
             <link rel="shortcut icon" href={icon} type="image/x-icon"/>
-            <link rel="icon" href={icon} type="image/x-icon"/></Helmet>
+            <link rel="icon" href={icon} type="image/x-icon"/>
+<meta name="author" content="Lukas Gabsi (Gabsii)"/>
+
+<html lang="en"/></Helmet>
         <div className={`${styles.background}`}>
             <Header type="about"/>
             <div className={`${styles.container}`}>
@@ -132,7 +136,7 @@ const AboutPage = () => {
                 </div>
             </div>
         </div>
-    </PageTransition>);
+    </div>);
 }
 
 const styles = {

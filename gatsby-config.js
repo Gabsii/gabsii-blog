@@ -18,17 +18,17 @@ module.exports = {
                 verboseOutput: true
             }
         }, {
-            resolve: 'gatsby-plugin-page-transitions',
+            resolve: `gatsby-plugin-google-tagmanager`,
             options: {
-                transitionTime: 200
-            }
-        }, {
-            resolve: `gatsby-plugin-google-analytics`,
-            options: {
-                trackingId: "UA-125589344-1",
-                head: true,
-                anonymize: true,
-                respectDNT: true
+                id: "GTM-PZ4TDZF",
+
+                // Include GTM in development.
+                // Defaults to false meaning GTM will only be loaded in production.
+                includeInDevelopment: true,
+
+                // Specify optional GTM environment details.
+                // gtmAuth: "YOUR_GOOGLE_TAGMANAGER_ENVIROMENT_AUTH_STRING",
+                // gtmPreview: "YOUR_GOOGLE_TAGMANAGER_ENVIROMENT_PREVIEW_NAME",
             }
         }, {
             resolve: `gatsby-plugin-manifest`,

@@ -18,6 +18,7 @@ class BlogPost extends Component {
             id: 0
         }
         this.openPost = this.openPost.bind(this);
+        this.openPostSearch = this.openPostSearch.bind(this);
     }
 
     componentDidMount() {
@@ -50,6 +51,20 @@ class BlogPost extends Component {
         window.location = url + this.state.slug;
     }
 
+    // open Post in search
+
+    openPostSearch(e, i) {
+        e.preventDefault();
+        // Setting the location via window because im lazy lmao
+        let url = window.location.origin;
+        let lastChar = url.substr(-1); // Selects the last character
+        if (lastChar !== '/') { // If the last character is not a slash
+            url = url + '/'; // Append a slash to it.
+        }
+        console.log(this);
+        window.location = url + "blog/" + this.state.slug;
+    }
+
     // This function removes all html tags from the title and excerpt.
     // that way the user gets them pretty formatted and without unnecessary html tags
 
@@ -68,9 +83,9 @@ class BlogPost extends Component {
         if (this.state.search) {
             return (<article className={`${styles.postContainer}`}>
                 <section id={this.props.id} className={`${styles.postSearch}`}>
-                    <img className={`${styles.postImageSearch}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
+                    <img className={`${styles.postImageSearch}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPostSearch}/>
                     <section className={`${styles.postTitle}`}>
-                        <h1 className={`${styles.postHeading}`} onClick={this.openPost}>{he.decode(this.props.title)}</h1>
+                        <h1 className={`${styles.postHeading}`} onClick={this.openPostSearch}>{he.decode(this.props.title)}</h1>
                         <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
                     </section>
                 </section>
@@ -111,7 +126,7 @@ const styles = {
         alignItems: 'center',
         alignSelf: 'center',
         justifyContent: 'flex-start',
-        filter: 'grayscale(0.25)',
+        filter: 'grayscale(0.5)',
         ':hover': {
             filter: 'grayscale(0)',
             cursor: 'pointer',

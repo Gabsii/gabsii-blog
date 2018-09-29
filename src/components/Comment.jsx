@@ -40,8 +40,6 @@ class Comment extends Component {
             this.setState({date: `${min} minutes ago`});
         } else if (diff < 82800000) {
             let hours = diffDate.getHours();
-            console.log(hours);
-            console.log(Date.parse(diffDate));
             this.setState({date: `${hours} hours ago`});
         } else if (diff > 82800000 && new Date(now).getFullYear() === new Date(date).getFullYear()) {
             this.setState({date: `on ${new Date(date).getDate()}/${new Date(date).getMonth()}`});
@@ -50,14 +48,7 @@ class Comment extends Component {
         }
     }
 
-    calculateColor() {
-        // color(this.props.img, (err, color) => {
-        //     this.setState(color : color);
-        // });
-    }
-
     render() {
-        // this.calculateTime();
         return (<div className={`${styles.container}`} style={{
                 backgroundColor: this.state.color
             }}>
@@ -80,6 +71,6 @@ const styles = {
     }),
     name: css({fontSize: '1.2em', fontFamily: 'Zwizz', padding: '15px 10px', borderBottom: '1px solid rgba(0, 0, 0, 0.6)', marginBottom: '5px'}),
     date: css({fontSize: '0.8em', color: constants.colors.background, marginTop: '5px', marginLeft: '5px'}),
-    content: css({padding: '15px 25px', fontFamily: 'Noto Serif'})
+    content: css({padding: '15px 25px', fontFamily: 'Noto Serif', wordBreak: 'break-word', paddingBottom: '20px'})
 };
 export default Comment;

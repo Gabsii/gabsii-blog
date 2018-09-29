@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {css} from 'glamor'
-import PageTransition from 'gatsby-plugin-page-transitions';
+// import PageTransition from 'gatsby-plugin-page-transitions';
 import Helmet from 'react-helmet'
 import he from 'he';
 import {graphql} from 'gatsby';
@@ -53,23 +53,29 @@ class BlogPage extends Component {
     }
 
     render() {
-        console.log(this.state);
         const post = this.props.data.wordpressWpBlog;
-        return (<PageTransition>
+        return (<div>
             <Helmet title={"Gabsii - " + he.decode(post.title)} meta={[
                     {
                         name: 'description',
                         content: post.excerpt
                     }, {
                         name: 'keywords',
-                        content: post.excerpt
+                        content: post.acf.keywords
                     }
                 ]}>
                 <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
                 <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
                 <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
                 <link rel="shortcut icon" href={icon} type="image/x-icon"/>
-                <link rel="icon" href={icon} type="image/x-icon"/></Helmet>
+                <link rel="icon" href={icon} type="image/x-icon"/>
+                <meta property="og:title" content={`Gabsii | ` + he.decode(post.title)}/>
+                <meta property="og:type" content="article"/>
+                <meta property="og:url" content={window.location}/>
+                <meta name="author" content="Lukas Gabsi (Gabsii)"/>
+                <html lang="en"/>
+                <script>{console.log(document.getElementsByClassName("wp-block-gallery"))}</script>
+            </Helmet>
             <div className={`${background}`}>
                 <Header type="blogpage"/>
                 <main className={`${divider}`}>
@@ -78,9 +84,12 @@ class BlogPage extends Component {
                         }}>
                         <div className={`${title} ${mobileHidden}`}>
                             <div className={`${categoryContainer}`}>
+                                {console.log()}
                                 {
                                     post.categories.map((category, index) => {
-                                        return (<div className={`${categoryCSS}`} data-id={category.id} key={index}>{category.name}</div>);
+                                        return (<div className={`${categoryCSS}`} data-id={category.id} key={index}>
+                                            <a className={`${link}`} href={window.location.origin + "/blog/?category=" + category.name}>{category.name}</a>
+                                        </div>);
                                     })
 
                                 }
@@ -98,7 +107,9 @@ class BlogPage extends Component {
                             <div className={`${categoryContainer}`}>
                                 {
                                     post.categories.map((category, index) => {
-                                        return (<div className={`${categoryCSS}`} data-id={category.id} key={index}>{category.name}</div>);
+                                        return (<div className={`${categoryCSS}`} data-id={category.id} key={index}>
+                                            <a className={`${link}`} href={window.location.origin + "/blog/?category=" + category.name}>{category.name}</a>
+                                        </div>);
                                     })
                                 }
                             </div>
@@ -150,10 +161,9 @@ class BlogPage extends Component {
                     </section>
                 </main>
             </div>
-        </PageTransition>);
+        </div>);
     }
 }
-
 const background = css({
     backgroundColor: 'white',
     width: '100%',
@@ -245,38 +255,49 @@ const mobileVisible = css({
 const text = css({fontFamily: 'Noto Serif', color: '#000', wordBreak: 'break-word'});
 const italics = css({fontStyle: 'italic'});
 const bold = css({fontWeight: 'bold'});
-
+const link = css({
+    color: 'white',
+    textDecoration: 'none',
+    ':visited': {
+        color: 'white'
+    },
+    ':hover': {
+        color: 'white'
+    }
+});
 export default BlogPage;
-
 export const blogPageQuery = graphql `query($wordpress_id: Int!) {
-                    wordpressWpBlog(wordpress_id : {
-                        eq: $wordpress_id
-                    }) {
-                        wordpress_id
-                        date(formatString : "DD/MM/YYYY")
-                        slug
-                        title
-                        excerpt
-                        author {
-                            name
-                        }
-                        content
-                        better_featured_image {
-                            alt_text
-                            media_details {
-                                sizes {
-                                    medium_large {
-                                        source_url
-                                    }
-                                    large {
-                                        source_url
-                                    }
+                wordpressWpBlog(wordpress_id : {
+                    eq: $wordpress_id
+                }) {
+                    wordpress_id
+                    date(formatString : "DD/MM/YYYY")
+                    slug
+                    title
+                    excerpt
+                    author {
+                        name
+                    }
+                    content
+                    better_featured_image {
+                        alt_text
+                        media_details {
+                            sizes {
+                                medium_large {
+                                    source_url
+                                }
+                                large {
+                                    source_url
                                 }
                             }
                         }
-                        categories {
-                            name
-                            id
-                        }
                     }
-                }`
+                    categories {
+                        name
+                        id
+                    }
+                    acf {
+                        keywords
+                    }
+                }
+            }`
