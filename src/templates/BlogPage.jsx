@@ -11,6 +11,7 @@ import icon from '../img/favicon.ico';
 import Header from '../components/Header.jsx';
 import Comment from '../components/Comment.jsx';
 import Form from '../components/Form.jsx';
+import Category from '../components/Category.jsx';
 
 import '../css/blog.css';
 let constants = require('../js/constants.js');
@@ -54,6 +55,7 @@ class BlogPage extends Component {
 
     render() {
         const post = this.props.data.wordpressWpBlog;
+        console.log(this);
         return (<div>
             <Helmet title={"Gabsii - " + he.decode(post.title)} meta={[
                     {
@@ -71,10 +73,8 @@ class BlogPage extends Component {
                 <link rel="icon" href={icon} type="image/x-icon"/>
                 <meta property="og:title" content={`Gabsii | ` + he.decode(post.title)}/>
                 <meta property="og:type" content="article"/>
-                <meta property="og:url" content={window.location}/>
                 <meta name="author" content="Lukas Gabsi (Gabsii)"/>
                 <html lang="en"/>
-                <script>{console.log(document.getElementsByClassName("wp-block-gallery"))}</script>
             </Helmet>
             <div className={`${background}`}>
                 <Header type="blogpage"/>
@@ -84,14 +84,10 @@ class BlogPage extends Component {
                         }}>
                         <div className={`${title} ${mobileHidden}`}>
                             <div className={`${categoryContainer}`}>
-                                {console.log()}
                                 {
                                     post.categories.map((category, index) => {
-                                        return (<div className={`${categoryCSS}`} data-id={category.id} key={index}>
-                                            <a className={`${link}`} href={window.location.origin + "/blog/?category=" + category.name}>{category.name}</a>
-                                        </div>);
+                                        return (<Category location={this.props.location} category={category} key={index}/>);
                                     })
-
                                 }
                             </div>
                             {he.decode(post.title)}
@@ -107,9 +103,7 @@ class BlogPage extends Component {
                             <div className={`${categoryContainer}`}>
                                 {
                                     post.categories.map((category, index) => {
-                                        return (<div className={`${categoryCSS}`} data-id={category.id} key={index}>
-                                            <a className={`${link}`} href={window.location.origin + "/blog/?category=" + category.name}>{category.name}</a>
-                                        </div>);
+                                        return (<Category location={this.props.location} category={category} key={index}/>);
                                     })
                                 }
                             </div>
@@ -201,16 +195,6 @@ const section = css({
     }
 });
 const categoryContainer = css({display: 'flex', flexDirection: 'row'});
-const categoryCSS = css({
-    backgroundColor: '#EE7778',
-    borderRadius: '10px',
-    padding: '4px 5px',
-    fontSize: '0.45em',
-    margin: '0 5px',
-    fontFamily: 'Noto Serif',
-    fontWeight: 'normal',
-    marginBottom: '1em'
-});
 const author = css({color: constants.colors.fontSecondary, marginTop: '5px', fontSize: '.45em'});
 const title = css({
     fontFamily: 'Noto Serif',
@@ -255,16 +239,6 @@ const mobileVisible = css({
 const text = css({fontFamily: 'Noto Serif', color: '#000', wordBreak: 'break-word'});
 const italics = css({fontStyle: 'italic'});
 const bold = css({fontWeight: 'bold'});
-const link = css({
-    color: 'white',
-    textDecoration: 'none',
-    ':visited': {
-        color: 'white'
-    },
-    ':hover': {
-        color: 'white'
-    }
-});
 export default BlogPage;
 export const blogPageQuery = graphql `query($wordpress_id: Int!) {
                 wordpressWpBlog(wordpress_id : {

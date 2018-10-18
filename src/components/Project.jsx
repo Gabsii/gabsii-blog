@@ -36,7 +36,9 @@ class Project extends Component {
                     background: 'url(' + this.state.img + ')'
                 }}>
                 <div className={`${styles.title}`}>
-                    <h1 className={`${styles.titleName}`}>{this.state.titleName}</h1>
+                    <h1 className={`${styles.titleName}`}>
+                        <a className={`${styles.link}`} href="https://spoti-vote.com">{this.state.titleName}</a>
+                    </h1>
                     <h3 className={`${styles.titleSub}`}>{this.state.index + "/" + this.state.amount}</h3>
                 </div>
             </div>
