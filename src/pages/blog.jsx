@@ -284,7 +284,7 @@ const styles = {
         '@media (min-width: 768px)': {
             position: 'fixed',
             width: 'calc(50% - 100px)',
-            height: 'calc(80vh - 50px)',
+            height: '80vh',
             marginRight: '-50px'
         }
     }),

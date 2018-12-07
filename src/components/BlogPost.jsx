@@ -126,7 +126,7 @@ const styles = {
         alignItems: 'center',
         alignSelf: 'center',
         justifyContent: 'flex-start',
-        filter: 'grayscale(0.5)',
+        filter: 'grayscale(1)',
         ':hover': {
             filter: 'grayscale(0)',
             cursor: 'pointer',
@@ -202,7 +202,7 @@ const styles = {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        filter: 'grayscale(0.25)',
+        filter: 'grayscale(1)',
         ':hover': {
             filter: 'grayscale(0)',
             cursor: 'pointer'
@@ -223,7 +223,7 @@ const styles = {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        filter: 'grayscale(0.25)',
+        filter: 'grayscale(1)',
         ':hover': {
             filter: 'grayscale(0)',
             cursor: 'pointer'
