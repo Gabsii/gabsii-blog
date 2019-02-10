@@ -1,110 +1,79 @@
 import React, {Component} from 'react';
 import {css} from 'glamor'
-import {OutboundLink} from 'gatsby-plugin-google-analytics'
-
-let constants = require('../js/constants.js');
 
 class Project extends Component {
-    constructor() {
-        super();
-        this.state = {
-            titleName: '',
-            img: null,
-            index: 0,
-            amount: 1
-        };
-    }
 
-    componentDidMount() {
-        // check if there are more than 10 Projects
-        // if there are less add a leading 0 to the index
-        this.setState({titleName: this.props.title, img: this.props.img})
-        let newIndex;
-        ((this.props.index + 1) < 10)
-            ? newIndex = '0' + (
-            this.props.index + 1)
-            : newIndex = this.props.index + 1
-        this.setState({
-            index: newIndex,
-            amount: '0' + this.props.amount
-        });
-    }
+    // TODO: add WebGL wave effect
 
     render() {
-        return (<div className={`${styles.background}`}>
-            <div className={`${styles.backgroundImage}`} style={{
-                    background: 'url(' + this.state.img + ')'
-                }}>
-                <div className={`${styles.title}`}>
-                    <h1 className={`${styles.titleName}`}>
-                        <a className={`${styles.link}`} href="https://spoti-vote.com">{this.state.titleName}</a>
-                    </h1>
-                    <h3 className={`${styles.titleSub}`}>{this.state.index + "/" + this.state.amount}</h3>
-                </div>
-            </div>
-            <div className={`${styles.read}`}>
-                <OutboundLink className={`${styles.link}`} href="https://spoti-vote.com">READ MORE</OutboundLink>
+        return (<div className={`${styles.projectWrapper}`}>
+            <canvas className={`${styles.projectImage}`} style={{
+                    background: 'url(' + this.props.background + ')',
+                    objectFit: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover'
+                }}></canvas>
+            <div className={`${styles.projectTextWrapper}`}>
+                <h1 className={`${styles.projectName}`}>
+                    <a className={`${styles.projectLink}`} href={this.props.link}>{this.props.name}</a>
+                </h1>
+                <h2 className={`${styles.projectTLDR}`}>{this.props.TLDR}</h2>
             </div>
         </div>);
     }
 }
 
 const styles = {
-    background: css({
-        backgroundColor: constants.colors.background,
-        minHeight: 'calc(100vh - 50px)',
-        minWidth: 'calc(100% - 50px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '25px',
-        fontFamily: 'Zwizz',
-        color: 'white'
-    }),
-    backgroundImage: css({
-        height: '80vh !important',
-        width: '80vw !important',
-        backgroundPosition: 'center !important',
-        backgroundRepeat: 'no-repeat !important',
-        backgroundSize: '100% !important',
-        display: 'flex !important',
-        alignItems: 'center !important',
-        alignSelf: 'center !important',
-        justifyContent: 'center !important',
-        filter: 'grayscale(0.75) !important',
-        boxShadow: '2px 2px 8px #000000 !important'
-    }),
-    title: css({
-        display: 'flex',
-        alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
+    projectWrapper: css({
         width: '100%',
-        padding: '15px 0px',
-        background: 'rgba(0, 0, 0, 0.5)'
-    }),
-    titleName: css({fontSize: '5em', fontWeight: 'bold', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'}),
-    titleSub: css({fontSize: '1.5em', fontWeight: 'bold', letterSpacing: '5px', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'}),
-    read: css({
-        transform: 'rotate(-90deg)',
-        position: 'absolute',
-        right: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        letterSpacing: '3px',
-        fontFamily: 'Montserrat, sans-serif',
-        fontWeight: 200,
-        ':hover': {
-            fontWeight: 400,
-            cursor: 'pointer'
+        height: '100%',
+        padding: '50px 75px',
+        boxSizing: 'border-box',
+        position: 'relative',
+        '@media (max-width: 600px)': {
+            padding: 0
         }
     }),
-    link: css({
-        color: 'white',
-        textDecoration: 'none',
-        ':visited': {
-            color: 'white'
+    projectImage: css({width: '100%', height: '100%'}),
+    projectTextWrapper: css({
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        textAlign: 'center',
+        width: 'calc(100% - 150px)',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        padding: '10px 0',
+        '@media (max-width: 600px)': {
+            width: '100%'
+        }
+    }),
+    projectName: css({
+        fontFamily: 'Zwizz',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        lineHeight: 'normal',
+        fontSize: '9rem',
+        '@media (max-width: 768px)': {
+            fontSize: '4.5rem'
+        },
+        '@media (max-width: 600px)': {
+            fontSize: '2.5rem'
+        }
+    }),
+    projectLink: css({textDecoration: 'none', color: '#fff'}),
+    projectTLDR: css({
+        fontFamily: 'Zwizz',
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        lineHeight: 'normal',
+        fontSize: '3rem',
+        color: '#B1B1B1',
+        '@media (max-width: 768px)': {
+            fontSize: '2rem'
+        },
+        '@media (max-width: 600px)': {
+            fontSize: '1rem'
         }
     })
 };
