@@ -236,7 +236,7 @@ const mobileVisible = css({
         display: 'none'
     }
 });
-const text = css({fontFamily: 'Noto Serif', color: '#000', wordBreak: 'break-word'});
+const text = css({fontFamily: 'Noto Serif', color: '#000', wordBreak: 'break-word', whiteSpace: 'pre-wrap', overflowWrap: 'break-word'});
 const italics = css({fontStyle: 'italic'});
 const bold = css({fontWeight: 'bold'});
 export default BlogPage;
