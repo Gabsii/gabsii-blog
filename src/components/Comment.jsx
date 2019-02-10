@@ -8,8 +8,7 @@ class Comment extends Component {
     constructor() {
         super();
         this.state = {
-            date: '',
-            color: '#FFFFFF'
+            date: ''
         }
     }
 
@@ -44,14 +43,12 @@ class Comment extends Component {
         } else if (diff > 82800000 && new Date(now).getFullYear() === new Date(date).getFullYear()) {
             this.setState({date: `on ${new Date(date).getDate()}/${new Date(date).getMonth()}`});
         } else if (diff > 82800000 && new Date(now).getFullYear() !== new Date(date).getFullYear()) {
-            this.setState({date: `on ${new Date(date).getDate()}/${new Date(date).getMonth()}/${new Date(date).getFullYear}`});
+            this.setState({date: `on ${new Date(date).getDate()}/${new Date(date).getMonth()}/${new Date(date).getFullYear()}`});
         }
     }
 
     render() {
-        return (<div className={`${styles.container}`} style={{
-                backgroundColor: this.state.color
-            }}>
+        return (<div className={`${styles.container}`}>
             <div className={`${styles.name}`}>{this.props.name}<div className={`${styles.date}`}>posted {this.state.date}</div>
             </div>
             <div className={`${styles.content}`} dangerouslySetInnerHTML={{
@@ -67,7 +64,7 @@ const styles = {
         boxShadow: '0 2px 4px 0 rgba(162, 162, 162, 0.5)',
         color: 'black',
         margin: '10px 0 25px 0',
-        backgroundColor: constants.colors.fontSecondary
+        backgroundColor: '#EDEDED'
     }),
     name: css({fontSize: '1.2em', fontFamily: 'Zwizz', padding: '15px 10px', borderBottom: '1px solid rgba(0, 0, 0, 0.6)', marginBottom: '5px'}),
     date: css({fontSize: '0.8em', color: constants.colors.background, marginTop: '5px', marginLeft: '5px'}),

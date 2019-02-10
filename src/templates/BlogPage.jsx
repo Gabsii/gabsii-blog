@@ -207,7 +207,7 @@ const title = css({
     fontWeight: 'bold',
     padding: '0 .75em',
     margin: '2em 1.5em',
-    wordBreak: 'break-word',
+    wordBreak: 'keep-all',
     '@media (max-width: 768px)': {
         margin: '0.5em .5em 1em .5em',
         padding: '0 0.25em',
@@ -220,7 +220,7 @@ const titleComment = css({
     fontSize: '40px',
     fontWeight: 'bold',
     padding: '0 .75em',
-    wordBreak: 'break-word'
+    wordBreak: 'keep-all'
 });
 const mobileHidden = css({
     '@media (max-width: 768px)': {
@@ -236,7 +236,7 @@ const mobileVisible = css({
         display: 'none'
     }
 });
-const text = css({fontFamily: 'Noto Serif', color: '#000', wordBreak: 'break-word', whiteSpace: 'pre-wrap', overflowWrap: 'break-word'});
+const text = css({fontFamily: 'Noto Serif', color: '#000', wordBreak: 'keep-all'});
 const italics = css({fontStyle: 'italic'});
 const bold = css({fontWeight: 'bold'});
 export default BlogPage;

@@ -89,7 +89,7 @@ const styles = {
     form: css({display: 'flex', flexDirection: 'column'}),
     input: css({
         margin: '10px 0',
-        backgroundColor: constants.colors.fontSecondary,
+        backgroundColor: '#DBDBDB',
         minWidth: '200px',
         border: 'none',
         padding: '0.5em 1em',

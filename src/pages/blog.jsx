@@ -13,23 +13,6 @@ import Header from '../components/Header.jsx';
 
 let constants = require('../js/constants.js');
 
-// <PageTransition defaultStyle={{
-//         transition: 'left 500ms cubic-bezier(0.47, 0, 0.75, 0.72)',
-//         left: '100%',
-//         position: 'absolute',
-//         width: '100%'
-//     }} transitionStyles={{
-//         entering: {
-//             left: '0%'
-//         },
-//         entered: {
-//             left: '0%'
-//         },
-//         exiting: {
-//             left: '100%'
-//         }
-//     }}>
-
 class Blog extends Component {
 
     // This function removes all html tags from the title and excerpt.
@@ -69,7 +52,7 @@ class Blog extends Component {
                 <main className={`${styles.divider}`}>
                     <div className={`${styles.recentPost}`}>
                         <div className={`${styles.recentPostFixed}`}>
-                            <BlogPost id={recent.wordpress_id} slug={recent.slug} title={recent.title} content={this.strip_html_tags(recent.excerpt)} thumbnail={recent.better_featured_image.media_details.sizes.large.source_url} recent={true} alt={recent.better_featured_image.alt_text}/>
+                            <BlogPost id={recent.wordpress_id} slug={recent.slug} title={recent.title} content={this.strip_html_tags(recent.excerpt)} thumbnail={recent.better_featured_image.media_details.sizes.large.source_url || recent.better_featured_image.media_details.sizes.medium_large.source_url} recent={true} alt={recent.better_featured_image.alt_text}/>
                         </div>
                     </div>
                     <div className={`${styles.posts}`}>

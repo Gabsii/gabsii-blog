@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "public",
+  "alias": ["www.gabsii.com"],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "status": 301,
+      "headers": { "Location": "https://gabsii.com/$1" }
+    }
+  ]
+}
