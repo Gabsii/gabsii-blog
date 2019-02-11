@@ -67,7 +67,7 @@ class BlogPage extends Component {
                     }
                 ]}>
                 <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
-                <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
+
                 <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
                 <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                 <link rel="icon" href={icon} type="image/x-icon"/>
@@ -161,7 +161,7 @@ class BlogPage extends Component {
 const background = css({
     backgroundColor: 'white',
     width: '100%',
-    fontFamily: 'Zwizz',
+    fontFamily: 'Zwizz, Arial, Sans-Serif',
     zIndex: 0,
     color: 'black',
     display: 'flex',
@@ -197,7 +197,7 @@ const section = css({
 const categoryContainer = css({display: 'flex', flexDirection: 'row'});
 const author = css({color: constants.colors.fontSecondary, marginTop: '5px', fontSize: '.45em'});
 const title = css({
-    fontFamily: 'Noto Serif',
+    fontFamily: 'Noto Serif, Georgia, Serif',
     color: 'white',
     display: 'flex',
     alignSelf: 'flex-end',
@@ -215,7 +215,7 @@ const title = css({
     }
 });
 const titleComment = css({
-    fontFamily: 'Noto Serif',
+    fontFamily: 'Noto Serif, Georgia, Serif',
     color: 'black',
     fontSize: '40px',
     fontWeight: 'bold',
@@ -236,7 +236,7 @@ const mobileVisible = css({
         display: 'none'
     }
 });
-const text = css({fontFamily: 'Noto Serif', color: '#000', wordBreak: 'keep-all'});
+const text = css({fontFamily: 'Noto Serif, Georgia, Serif', color: '#000', wordBreak: 'keep-all'});
 const italics = css({fontStyle: 'italic'});
 const bold = css({fontWeight: 'bold'});
 export default BlogPage;

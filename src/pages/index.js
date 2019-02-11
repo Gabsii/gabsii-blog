@@ -32,7 +32,7 @@ const paddingLeft = {
 const IndexPage = () => (<div>
     <Helmet title="Gabsii - Lukas Gabsi">
         <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
+
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
         <link rel="shortcut icon" href={icon} type="image/x-icon"/>
         <link rel="icon" href={icon} type="image/x-icon"/>
@@ -153,7 +153,7 @@ const styles = {
         marginTop: '100px'
     }),
     title: css({
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontStyle: 'normal',
         fontWeight: 'bold',
         lineHeight: 'normal',
@@ -167,7 +167,7 @@ const styles = {
         }
     }),
     subHeading: css({
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontStyle: 'normal',
         fontWeight: 'bold',
         lineHeight: 'normal',
@@ -226,7 +226,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontStyle: 'normal',
         fontWeight: 'bold',
         lineHeight: 'normal',
@@ -258,7 +258,7 @@ const styles = {
         margin: '0 0px 25px 0px'
     }),
     heading: css({
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontStyle: 'normal',
         fontWeight: 'bold',
         lineHeight: 'normal',
@@ -286,7 +286,7 @@ const styles = {
     horizontalRow: css({borderBottom: '1px solid black', margin: '0 50px'}),
     paragraph: css({
         padding: '25px 100px',
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontStyle: 'normal',
         fontWeight: 'normal',
         lineHeight: 'normal',
@@ -307,7 +307,7 @@ const styles = {
         width: '100%',
         textAlign: 'center',
         marginTop: '100px',
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontStyle: 'normal',
         fontWeight: 'normal',
         lineHeight: 'normal',
@@ -318,7 +318,7 @@ const styles = {
         }
     }),
     crossed: css({textDecoration: 'line-through'}),
-    skillLinks: css({color: '#F24E1E', fontWeight: 'bold', textDecoration: 'none'}),
+    skillLinks: css({color: '#D43900', fontWeight: 'bold', textDecoration: 'none'}),
     emphasized: css({
         fontSize: '5rem',
         fontWeight: 'bold',

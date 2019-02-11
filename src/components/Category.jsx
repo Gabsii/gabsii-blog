@@ -16,7 +16,7 @@ const categoryCSS = css({
     padding: '4px 5px',
     fontSize: '0.45em',
     margin: '0 5px',
-    fontFamily: 'Noto Serif',
+    fontFamily: 'Noto Serif, Georgia, Serif',
     fontWeight: 'normal',
     marginBottom: '1em',
     color: 'white',

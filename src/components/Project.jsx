@@ -49,7 +49,7 @@ const styles = {
         }
     }),
     projectName: css({
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontStyle: 'normal',
         fontWeight: 'bold',
         lineHeight: 'normal',
@@ -63,7 +63,7 @@ const styles = {
     }),
     projectLink: css({textDecoration: 'none', color: '#fff'}),
     projectTLDR: css({
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontStyle: 'normal',
         fontWeight: 'normal',
         lineHeight: 'normal',

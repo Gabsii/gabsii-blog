@@ -66,8 +66,8 @@ const styles = {
         margin: '10px 0 25px 0',
         backgroundColor: '#EDEDED'
     }),
-    name: css({fontSize: '1.2em', fontFamily: 'Zwizz', padding: '15px 10px', borderBottom: '1px solid rgba(0, 0, 0, 0.6)', marginBottom: '5px'}),
+    name: css({fontSize: '1.2em', fontFamily: 'Zwizz, Arial, Sans-Serif', padding: '15px 10px', borderBottom: '1px solid rgba(0, 0, 0, 0.6)', marginBottom: '5px'}),
     date: css({fontSize: '0.8em', color: constants.colors.background, marginTop: '5px', marginLeft: '5px'}),
-    content: css({padding: '15px 25px', fontFamily: 'Noto Serif', wordBreak: 'break-word', paddingBottom: '20px'})
+    content: css({padding: '15px 25px', fontFamily: 'Noto Serif, Georgia, Serif', wordBreak: 'break-word', paddingBottom: '20px'})
 };
 export default Comment;

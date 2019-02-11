@@ -68,20 +68,9 @@ class Header extends Component {
             position: 'absolute',
             background: 'linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.8))'
         }
-        let about = {
-            backgroundColor: 'inherit',
-            position: 'absolute'
-        }
-        let aboutText = {
-            color: '#FFF'
-        }
         let burger = {
             backgroundColor: '#000'
         }
-        let aboutBurger = {
-            backgroundColor: '#FFF'
-        }
-
         // current page is `/blog`
         if (this.props.type === "blog") {
             return (<header className={`${styles.header}`} id="header" style={fixed}>
@@ -110,7 +99,6 @@ class Header extends Component {
                     }}>
                     <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/blog">Blog</Link>
                     <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/">Projects</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/about">About</Link>
                     <div className={`${styles.socialMediaContainer}`}>
                         <a className={`${styles.socialMediaTag} ${styles.instagram}`} href="https://www.instagram.com/omegabsi/">
                             <i className="fab fa-instagram fa-lg"></i>
@@ -155,52 +143,6 @@ class Header extends Component {
                     }}>
                     <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/blog">Blog</Link>
                     <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/">Projects</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/about">About</Link>
-                    <div className={`${styles.socialMediaContainer}`}>
-                        <a className={`${styles.socialMediaTag} ${styles.instagram}`} href="https://www.instagram.com/omegabsi/">
-                            <i className="fab fa-instagram fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.snapchat}`} href="https://www.snapchat.com/add/le_gabsi">
-                            <i className="fab fa-snapchat-ghost fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.twitter}`} href="https://twitter.com/G4bsi">
-                            <i className="fab fa-twitter fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.linkedin}`} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
-                            <i className="fab fa-linkedin-in fa-lg"></i>
-                        </a>
-                    </div>
-                </nav>
-            </header>);
-            // current page is `/about`
-        } else if (this.props.type === "about") {
-            return (<header className={`${styles.header}`} id="header" style={about}>
-                <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
-                    <div className={`${styles.hamburger}`} id="hamburger-1">
-                        <span className={`${styles.line}`} style={aboutBurger}></span>
-                        <span className={`${styles.line}`} style={aboutBurger}></span>
-                        <span className={`${styles.line}`} style={aboutBurger}></span>
-                    </div>
-                </div>
-                <div className={`${styles.logo}`}>
-                    <Link className={`${styles.link}`} to="/">
-                        <h1 className={`${styles.titleName}`} style={aboutText}>Lukas Gabsi</h1>
-                        <h2 className={`${styles.titleSub}`} style={aboutText}>ルーカス ガブシ</h2>
-                    </Link>
-                </div>
-                <div className={`${styles.nav} ${styles.search}`}>
-                    <Link to="/" className={`${styles.link}`}>
-                        <i style={{
-                                color: 'white'
-                            }} className="fas fa-arrow-left fa-2x"></i>
-                    </Link>
-                </div>
-                <nav className={`${styles.side}`} id="side" style={{
-                        width: 0
-                    }}>
-                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/blog">Blog</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/">Projects</Link>
-                    <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/about">About</Link>
                     <div className={`${styles.socialMediaContainer}`}>
                         <a className={`${styles.socialMediaTag} ${styles.instagram}`} href="https://www.instagram.com/omegabsi/">
                             <i className="fab fa-instagram fa-lg"></i>
@@ -234,7 +176,7 @@ const styles = {
         justifyContent: 'space-between',
         boxShadow: '0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2)'
     }),
-    logo: css({display: 'flex', flexDirection: 'column', fontFamily: 'Zwizz'}),
+    logo: css({display: 'flex', flexDirection: 'column', fontFamily: 'Zwizz, Arial, Sans-Serif'}),
     nav: css({display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}),
     hamburger: css({
         marginLeft: '50px',

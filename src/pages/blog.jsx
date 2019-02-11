@@ -33,19 +33,19 @@ class Blog extends Component {
                 <Helmet title="Gabsii - Blog" meta={[
                         {
                             name: 'description',
-                            content: 'Looks like you found my blog. Congratulations! You now can read about any of my adventures in here.'
+                            content: ''
                         }, {
                             name: 'keywords',
-                            content: 'blog, personal, homepage, webpage, Congratulations, graphql, gatsby, gatsbyjs, ssr, react, wordpress'
+                            content: ''
                         }
                     ]}>
                     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
-                    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
                     <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
                     <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                     <link rel="icon" href={icon} type="image/x-icon"/>
                     <meta name="author" content="Lukas Gabsi (Gabsii)"/>
-
+                    <meta name="description" content="Looks like you found my blog. Congratulations! You now can read about any of my adventures in here."/>
+                    <meta name="keywords" content="blog, personal, homepage, webpage, Lukas, Gabsi, Gabsii, EVS, European Volunteering Service, EFD, travel, travelling, Spain"/>
                     <html lang="en"/>
                 </Helmet>
                 <Header type="blog"/>
@@ -91,7 +91,7 @@ class Blog extends Component {
                         }
                     ]}>
                     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
-                    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
+
                     <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
                     <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                     <link rel="icon" href={icon} type="image/x-icon"/>
@@ -155,7 +155,7 @@ class Blog extends Component {
                         }
                     ]}>
                     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
-                    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"/>
+
                     <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
                     <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                     <link rel="icon" href={icon} type="image/x-icon"/>
@@ -202,7 +202,7 @@ const styles = {
     container: css({
         backgroundColor: constants.colors.backgroundBlog,
         width: '100%',
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         zIndex: 0,
         color: constants.colors.font,
         display: 'flex',
@@ -216,7 +216,7 @@ const styles = {
     container2: css({
         backgroundColor: constants.colors.backgroundBlog,
         width: '100%',
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         zIndex: 0,
         color: constants.colors.font,
         display: 'flex',

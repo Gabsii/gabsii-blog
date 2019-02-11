@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {css} from 'glamor'
+import {css} from 'glamor';
+import LazyLoad from 'react-lazyload';
 
 class Frame extends Component {
 
@@ -16,7 +17,9 @@ class Frame extends Component {
                 backgroundColor,
                 color
             }}>
-            {this.props.children}
+            <LazyLoad height='100%' offset={100} once={true}>
+                {this.props.children}
+            </LazyLoad>
         </section>);
     }
 }

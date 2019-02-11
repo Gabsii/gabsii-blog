@@ -94,7 +94,7 @@ const styles = {
         border: 'none',
         padding: '0.5em 1em',
         boxShadow: '0 2px 4px 0 rgba(162, 162, 162, 0.5)',
-        fontFamily: 'Noto Serif',
+        fontFamily: 'Noto Serif, Georgia, Serif',
         fontSize: '1em',
         resize: 'none'
     }),
@@ -107,7 +107,7 @@ const styles = {
         backgroundColor: constants.colors.background,
         outline: 'none',
         border: 'none',
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         fontWeight: 'bold',
         fontSize: '1em',
         letterSpacing: '2px',

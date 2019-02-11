@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {css} from 'glamor'
 import he from 'he';
+import LazyLoad from 'react-lazyload';
 
 let constants = require('../js/constants.js');
 
@@ -82,34 +83,40 @@ class BlogPost extends Component {
         // Logic if the query parameter is set in the window (?q=xxx)
         if (this.state.search) {
             return (<article className={`${styles.postContainer}`}>
-                <section id={this.props.id} className={`${styles.postSearch}`}>
-                    <img className={`${styles.postImageSearch}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPostSearch}/>
-                    <section className={`${styles.postTitle}`}>
-                        <h1 className={`${styles.postHeading}`} onClick={this.openPostSearch}>{he.decode(this.props.title)}</h1>
-                        <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
+                <LazyLoad height='100%' offset={100} once={true}>
+                    <section id={this.props.id} className={`${styles.postSearch}`}>
+                        <img className={`${styles.postImageSearch}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPostSearch}/>
+                        <section className={`${styles.postTitle}`}>
+                            <h1 className={`${styles.postHeading}`} onClick={this.openPostSearch}>{he.decode(this.props.title)}</h1>
+                            <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
+                        </section>
                     </section>
-                </section>
+                </LazyLoad>
             </article>);
             // Logic if the post is the most recent one (can only exist once)
         } else if (this.state.recent) {
             return (<article className={`${styles.recentPost}`} id={this.props.id} style={{
                     background: 'url(' + this.state.img + ')'
                 }} onClick={this.openPost}>
-                <section className={`${styles.recentTitle}`}>
-                    <h1 className={`${styles.recentHeading}`}>{he.decode(this.props.title)}</h1>
-                    <h3 className={`${styles.recentSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
-                </section>
+                <LazyLoad height='100%' offset={100} once={true}>
+                    <section className={`${styles.recentTitle}`}>
+                        <h1 className={`${styles.recentHeading}`}>{he.decode(this.props.title)}</h1>
+                        <h3 className={`${styles.recentSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
+                    </section>
+                </LazyLoad>
             </article>);
             // Logic if its a normal post
         } else {
             return (<article className={`${styles.postContainer}`}>
-                <section id={this.props.id} className={`${styles.post}`}>
-                    <img className={`${styles.postImage}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
-                    <section className={`${styles.postTitle}`}>
-                        <h1 className={`${styles.postHeading}`} onClick={this.openPost}>{he.decode(this.props.title)}</h1>
-                        <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
+                <LazyLoad height='100%' offset={100} once={true}>
+                    <section id={this.props.id} className={`${styles.post}`}>
+                        <img className={`${styles.postImage}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
+                        <section className={`${styles.postTitle}`}>
+                            <h1 className={`${styles.postHeading}`} onClick={this.openPost}>{he.decode(this.props.title)}</h1>
+                            <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
+                        </section>
                     </section>
-                </section>
+                </LazyLoad>
             </article>);
         }
     }
@@ -141,7 +148,7 @@ const styles = {
     recentTitle: css({
         width: '100%',
         background: 'rgba(0, 0, 0, 0.5)',
-        fontFamily: 'Zwizz',
+        fontFamily: 'Zwizz, Arial, Sans-Serif',
         padding: '15px 10px',
         display: 'flex',
         alignSelf: 'flex-end',
@@ -161,7 +168,7 @@ const styles = {
         }
     }),
     recentSubheading: css({
-        fontFamily: 'Noto Serif',
+        fontFamily: 'Noto Serif, Georgia, Serif',
         fontSize: '1.25em',
         fontWeight: 'normal',
         color: constants.colors.fontSecondary,
@@ -259,7 +266,7 @@ const styles = {
             marginBottom: '1em'
         }
     }),
-    postSubheading: css({fontFamily: 'Noto Serif', fontWeight: 'normal', color: constants.colors.fontSecondary})
+    postSubheading: css({fontFamily: 'Noto Serif, Georgia, Serif', fontWeight: 'normal', color: constants.colors.fontSecondary})
 };
 
 export default BlogPost;
