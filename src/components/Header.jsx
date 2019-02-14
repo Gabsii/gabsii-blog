@@ -56,7 +56,9 @@ class Header extends Component {
         console.log(event);
         console.log(input);
         // set the search query into the url query
-        window.location.href = input;
+        if (typeof window !== `undefined`) {
+            window.location.href = input;
+        }
     }
 
     // handle the submit event for the search form
@@ -65,7 +67,9 @@ class Header extends Component {
         console.log(window.location.href);
         let location = window.location.href.split("?")[0];
         // set the search query into the url query
-        window.location.href = location + "?q=" + this.state.input;
+        if (typeof window !== `undefined`) {
+            window.location.href = location + "?q=" + this.state.input;
+        }
     }
 
     render() {
