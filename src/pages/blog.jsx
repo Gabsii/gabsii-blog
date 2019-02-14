@@ -81,20 +81,16 @@ class Blog extends Component {
 
             // declare an empty array for the posts matching the query
             return (<div className={`${styles.container2}`}>
-                <Helmet title="Gabsii - Blog" meta={[
-                        {
-                            name: 'description',
-                            content: 'Looks like you found my blog. Congratulations! You now can read about any of my adventures in here.'
-                        }, {
-                            name: 'keywords',
-                            content: 'blog, personal, homepage, webpage, Congratulations, graphql, gatsby, gatsbyjs, ssr, react, wordpress'
-                        }
-                    ]}>
+                <Helmet title="Gabsii - Blog">
                     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
 
                     <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
                     <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                     <link rel="icon" href={icon} type="image/x-icon"/>
+                    <meta name="author" content="Lukas Gabsi (Gabsii)"/>
+                    <meta name="description" content="Looks like you found my blog. Congratulations! You now can read about any of my adventures in here."/>
+                    <meta name="keywords" content="blog, personal, homepage, webpage, Lukas, Gabsi, Gabsii, EVS, European Volunteering Service, EFD, travel, travelling, Spain"/>
+                    <html lang="en"/>
                 </Helmet>
                 <Header type="blog"/>
                 <main className={`${styles.divider} ${styles.dividerSearch}`}>
@@ -145,20 +141,16 @@ class Blog extends Component {
 
             // declare an empty array for the posts matching the query
             return (<div className={`${styles.container2}`}>
-                <Helmet title="Gabsii - Blog" meta={[
-                        {
-                            name: 'description',
-                            content: 'Looks like you found my blog. Congratulations! You now can read about any of my adventures in here.'
-                        }, {
-                            name: 'keywords',
-                            content: 'gabsii, lukas gabsi, lukas, gabsi, blog, personal, homepage, webpage, Congratulations, graphql, gatsby, gatsbyjs, ssr, react, wordpress'
-                        }
-                    ]}>
+                <Helmet title="Gabsii - Blog">
                     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
 
                     <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
                     <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                     <link rel="icon" href={icon} type="image/x-icon"/>
+                    <meta name="author" content="Lukas Gabsi (Gabsii)"/>
+                    <meta name="description" content="Looks like you found my blog. Congratulations! You now can read about any of my adventures in here."/>
+                    <meta name="keywords" content="blog, personal, homepage, webpage, Lukas, Gabsi, Gabsii, EVS, European Volunteering Service, EFD, travel, travelling, Spain"/>
+                    <html lang="en"/>
                 </Helmet>
                 <Header type="blog"/>
                 <main className={`${styles.divider} ${styles.dividerSearch}`}>

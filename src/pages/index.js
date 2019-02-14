@@ -31,8 +31,6 @@ const paddingLeft = {
 
 const IndexPage = () => (<div>
     <Helmet title="Gabsii - Lukas Gabsi">
-        <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
-
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
         <link rel="shortcut icon" href={icon} type="image/x-icon"/>
         <link rel="icon" href={icon} type="image/x-icon"/>

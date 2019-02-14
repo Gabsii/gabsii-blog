@@ -7,6 +7,18 @@
       "src": "/(.*)",
       "status": 301,
       "headers": { "Location": "https://gabsii.com/$1" }
+    },{
+        "src": "/static/(.*)",
+        "dest": "/static/$1",
+        "headers": {"Cache-Control": "max-age=60, s-maxage=86400" }
+    },{
+        "src": "/icons/(.*)",
+        "dest": "/icons/$1",
+        "headers": {"Cache-Control": "max-age=60, s-maxage=86400" }
+    },{
+        "src": "/service-worker.js",
+        "dest": "/service-worker.js",
+        "headers": {"Cache-Control": "no-cache" }
     }
   ]
 }

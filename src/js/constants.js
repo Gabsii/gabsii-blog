@@ -3,7 +3,7 @@ let colors = {
     backgroundLite: 'transparent', // background for elements
     backgroundBlog: '#E7E7E7',
     font: '#000', // all texts
-    fontSecondary: '#B3B3B3', // text color for UI elements
+    fontSecondary: '#737373', // text color for UI elements
 };
 
 let breakpoints = {

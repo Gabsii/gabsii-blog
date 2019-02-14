@@ -21,12 +21,18 @@ class BlogPage extends Component {
     constructor() {
         super();
         this.state = {
-            comments: []
+            comments: [],
+            content: ''
         }
+        this.parseStringToHTML.bind(this);
     }
 
     componentDidMount() {
         this.fetchComments();
+
+        // console.log(document);
+
+        this.parseStringToHTML(this.props.data.wordpressWpBlog.content);
     }
 
     // asynchronously fetch all the comments for the current post and add it to the comments array in the state
@@ -53,21 +59,66 @@ class BlogPage extends Component {
         return minutes + ' min'
     }
 
+    parseStringToHTML(txt) {
+        let text = txt;
+
+        let parser = new DOMParser();
+        let htmlDoc = parser.parseFromString(text, 'text/html');
+
+        // console.log(htmlDoc);
+
+        let images = htmlDoc.getElementsByTagName('img');
+        this.changeImageSrc(images);
+
+        this.setState({
+            content: htmlDoc.getElementsByTagName('body')[0].innerHTML
+        })
+    }
+
+    changeImageSrc(images) {
+        for (var i = 0; i < images.length; i++) {
+            images[i].dataset.src = images[i].src;
+            images[i].src = "";
+            images[i].srcset = "";
+        }
+    }
+
+    insertLazyLoadingScript() {
+        const targets = document.querySelectorAll('img');
+
+        const lazyLoad = target => {
+            const io = new IntersectionObserver((entries, observer) => {
+                console.log(entries)
+                entries.forEach(entry => {
+                    console.log('😍');
+
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        const src = img.getAttribute('data-src');
+
+                        img.setAttribute('src', src);
+                        img.classList.add('fade');
+
+                        observer.disconnect();
+                    }
+                });
+            });
+
+            io.observe(target)
+        };
+
+        targets.forEach(lazyLoad);
+
+    }
+
     render() {
         const post = this.props.data.wordpressWpBlog;
-        console.log(this);
+        if (typeof window !== `undefined`) {
+            this.insertLazyLoadingScript();
+        }
         return (<div>
-            <Helmet title={"Gabsii - " + he.decode(post.title)} meta={[
-                    {
-                        name: 'description',
-                        content: post.excerpt
-                    }, {
-                        name: 'keywords',
-                        content: post.acf.keywords
-                    }
-                ]}>
+            <Helmet title={"Gabsii - " + he.decode(post.title)}>
                 <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
-
                 <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
                 <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                 <link rel="icon" href={icon} type="image/x-icon"/>
@@ -75,6 +126,8 @@ class BlogPage extends Component {
                 <meta property="og:type" content="article"/>
                 <meta name="author" content="Lukas Gabsi (Gabsii)"/>
                 <html lang="en"/>
+                <meta name="description" content={post.excerpt}/>
+                <meta name="keywords" content={post.acf.keywords}/>
             </Helmet>
             <div className={`${background}`}>
                 <Header type="blogpage"/>
@@ -110,13 +163,12 @@ class BlogPage extends Component {
                             {he.decode(post.title)}
                             <div className={`${author}`}>
                                 <i className={`${italics}`}>
-                                    by {String(post.author.name).toUpperCase() + " "}
-                                    at {post.date}
+                                    by GABSII at {post.date}
                                 </i>
                             </div>
                         </div>
                         <div id="blogContent" className={`${text}`} dangerouslySetInnerHTML={{
-                                __html: post.content
+                                __html: this.state.content
                             }}></div>
                         <hr style={{
                                 marginTop: '2em'

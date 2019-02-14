@@ -4,6 +4,7 @@
         url('../fonts/Zwizz-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -12,4 +13,5 @@
         url('../fonts/Zwizz-Bold.woff') format('woff');
     font-weight: bold;
     font-style: normal;
+    font-display: fallback;
 }

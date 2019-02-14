@@ -39,12 +39,13 @@
 #blogContent img {
     width: 100%;
     margin-bottom: .5em;
+    min-height: 100px;
 }
 
 #blogContent figcaption {
     margin-top: 10px;
     font-size: .75em;
-    color: #B3B3B3;
+    color: #737373;
     text-align: center;
 }
 
@@ -81,7 +82,7 @@
 
 #blogContent cite{
     font-size: 0.8em;
-    color: #B3B3B3;
+    color: #737373;
 }
 
 #blogContent pre {
