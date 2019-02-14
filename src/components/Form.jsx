@@ -74,9 +74,12 @@ class Form extends Component {
 
     render() {
         return (<form action="" className={`${styles.form}`} autoComplete="off" onSubmit={this.submit}>
-            <input type="text" onChange={this.handleNameInput.bind(this)} required={true} placeholder="Name" name="name" className={`${styles.input}`}/>
-            <input type="text" onChange={this.handleMailInput.bind(this)} required={true} placeholder="E-Mail (your E-Mail will not be displayed)" name="mail" className={`${styles.input}`}/>
-            <textarea type="text" onChange={this.handleMessageInput.bind(this)} required={true} placeholder="Message" name="content" rows="8" className={`${styles.input}`}/>
+            <label className={`${styles.label}`} for="name">Name</label>
+            <input type="text" onChange={this.handleNameInput.bind(this)} required={true} placeholder="Name" name="name" id="name" className={`${styles.input}`}/>
+            <label className={`${styles.label}`} for="mail">Mail</label>
+            <input type="text" onChange={this.handleMailInput.bind(this)} required={true} placeholder="E-Mail (your E-Mail will not be displayed)" name="mail" id="mail" className={`${styles.input}`}/>
+            <label className={`${styles.label}`} for="comment">Message</label>
+            <textarea type="text" onChange={this.handleMessageInput.bind(this)} required={true} placeholder="Message" name="content" id="comment" rows="8" className={`${styles.input}`}/>
             <input type="submit" className={`${styles.submit}`} value="submit"/> {/* Displays an error if uploading the comment did go wrong */}
             <div id="error" style={{
                     display: 'none',
@@ -98,6 +101,7 @@ const styles = {
         fontSize: '1em',
         resize: 'none'
     }),
+    label: css({color: 'black', paddingTop: '5px'}),
     submit: css({
         alignSelf: 'flex-end',
         height: '25px',

@@ -77,6 +77,10 @@ class BlogPage extends Component {
 
     changeImageSrc(images) {
         for (var i = 0; i < images.length; i++) {
+            if (images[i].src.indexOf("http://") === 0) {
+                images[i].src = images[i].src.replace(/^http:\/\//i, 'https://');
+            }
+
             images[i].dataset.src = images[i].src;
             images[i].src = "";
             images[i].srcset = "";
@@ -88,9 +92,7 @@ class BlogPage extends Component {
 
         const lazyLoad = target => {
             const io = new IntersectionObserver((entries, observer) => {
-                console.log(entries)
                 entries.forEach(entry => {
-                    console.log('😍');
 
                     if (entry.isIntersecting) {
                         const img = entry.target;
@@ -118,8 +120,8 @@ class BlogPage extends Component {
         }
         return (<div>
             <Helmet title={"Gabsii - " + he.decode(post.title)}>
-                <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
                 <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
+                <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
                 <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                 <link rel="icon" href={icon} type="image/x-icon"/>
                 <meta property="og:title" content={`Gabsii | ` + he.decode(post.title)}/>
@@ -181,10 +183,13 @@ class BlogPage extends Component {
                                 marginBottom: '1em'
                             }}>Comments:
                         </h2>
-                        <div>{
-                                this.state.comments.map((comment, index) => {
-                                    return (<Comment key={index} name={he.decode(comment.author_name)} content={comment.content.rendered} date={comment.date}/>);
-                                })
+                        <div>
+                            {
+                                this.state.comments.length === 0
+                                    ? (<div className={`${text}`}>There are currently no comments. Be the first one to write one!</div>)
+                                    : (this.state.comments.map((comment, index) => {
+                                        return (<Comment key={index} name={he.decode(comment.author_name)} content={comment.content.rendered} date={comment.date}/>);
+                                    }))
                             }</div>
                         <hr style={{
                                 marginTop: '2em'
@@ -198,7 +203,8 @@ class BlogPage extends Component {
                             </h3>
                             <h6 style={{
                                     fontSize: '0.8em',
-                                    color: constants.colors.fontSecondary
+                                    color: constants.colors.fontSecondary,
+                                    paddingBottom: '10px'
                                 }}>Please note that comments need to be
                                 <b className={`${bold}`}>{" approved "}</b>
                                 first.</h6>

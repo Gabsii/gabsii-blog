@@ -49,6 +49,16 @@ class Header extends Component {
         this.setState({input: event.target.value});
     }
 
+    //
+    openLinks(input, event) {
+        // event.preventDefault();
+
+        console.log(event);
+        console.log(input);
+        // set the search query into the url query
+        window.location.href = input;
+    }
+
     // handle the submit event for the search form
     submit(event) {
         event.preventDefault();
@@ -100,18 +110,18 @@ class Header extends Component {
                     <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/blog">Blog</Link>
                     <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/">Projects</Link>
                     <div className={`${styles.socialMediaContainer}`}>
-                        <a className={`${styles.socialMediaTag} ${styles.instagram}`} href="https://www.instagram.com/omegabsi/">
+                        <button className={`${styles.socialMediaTag} ${styles.instagram}`} onClick={this.openLinks('https://www.instagram.com/omegabsi/').bind(this)}>
                             <i className="fab fa-instagram fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.snapchat}`} href="https://www.snapchat.com/add/le_gabsi">
+                        </button>
+                        <button className={`${styles.socialMediaTag} ${styles.snapchat}`} onClick={this.openLinks('https://www.snapchat.com/add/le_gabsi').bind(this)}>
                             <i className="fab fa-snapchat-ghost fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.twitter}`} href="https://twitter.com/G4bsi">
+                        </button>
+                        <button className={`${styles.socialMediaTag} ${styles.twitter}`} onClick={this.openLinks('https://twitter.com/G4bsi').bind(this)}>
                             <i className="fab fa-twitter fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.linkedin}`} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
+                        </button>
+                        <button className={`${styles.socialMediaTag} ${styles.linkedin}`} onClick={this.openLinks('https://www.linkedin.com/in/lukas-samir-gabsi-734693168/').bind(this)}>
                             <i className="fab fa-linkedin-in fa-lg"></i>
-                        </a>
+                        </button>
                     </div>
                 </nav>
             </header>);
@@ -144,18 +154,18 @@ class Header extends Component {
                     <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/blog">Blog</Link>
                     <Link onClick={this.resetAnimation.bind(this)} className={`${styles.sideLink}`} to="/">Projects</Link>
                     <div className={`${styles.socialMediaContainer}`}>
-                        <a className={`${styles.socialMediaTag} ${styles.instagram}`} href="https://www.instagram.com/omegabsi/">
+                        <button className={`${styles.socialMediaTag} ${styles.instagram}`} onClick={this.openLinks.bind(this, 'https://www.instagram.com/omegabsi/')}>
                             <i className="fab fa-instagram fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.snapchat}`} href="https://www.snapchat.com/add/le_gabsi">
+                        </button>
+                        <button className={`${styles.socialMediaTag} ${styles.snapchat}`} onClick={this.openLinks.bind(this, 'https://www.snapchat.com/add/le_gabsi')}>
                             <i className="fab fa-snapchat-ghost fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.twitter}`} href="https://twitter.com/G4bsi">
+                        </button>
+                        <button className={`${styles.socialMediaTag} ${styles.twitter}`} onClick={this.openLinks.bind(this, 'https://twitter.com/G4bsi')}>
                             <i className="fab fa-twitter fa-lg"></i>
-                        </a>
-                        <a className={`${styles.socialMediaTag} ${styles.linkedin}`} href="https://www.linkedin.com/in/lukas-samir-gabsi-734693168/">
+                        </button>
+                        <button className={`${styles.socialMediaTag} ${styles.linkedin}`} onClick={this.openLinks.bind(this, 'https://www.linkedin.com/in/lukas-samir-gabsi-734693168/')}>
                             <i className="fab fa-linkedin-in fa-lg"></i>
-                        </a>
+                        </button>
                     </div>
                 </nav>
             </header>);
@@ -271,7 +281,7 @@ const styles = {
         padding: '0 25px',
         height: '2em'
     }),
-    socialMediaTag: css({color: 'white'}),
+    socialMediaTag: css({color: 'white', background: 'none', outline: 'none', border: 0}),
     snapchat: css({
         ':hover': {
             color: '#FFFC00'
