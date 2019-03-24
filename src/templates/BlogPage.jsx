@@ -87,7 +87,7 @@ class BlogPage extends Component {
         }
     }
 
-    insertLazyLoadingScript() {
+    LazyLoading() {
         const targets = document.querySelectorAll('img');
 
         const lazyLoad = target => {
@@ -116,7 +116,7 @@ class BlogPage extends Component {
     render() {
         const post = this.props.data.wordpressWpBlog;
         if (typeof window !== `undefined`) {
-            this.insertLazyLoadingScript();
+            this.LazyLoading();
         }
         return (<div>
             <Helmet title={"Gabsii - " + he.decode(post.title)}>

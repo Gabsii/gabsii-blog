@@ -47,7 +47,7 @@ const IndexPage = () => (<div>
             <h2 className={`${styles.subHeading} ${styles.subHeading3}`}>modern.vintage</h2>
             <h2 className={`${styles.subHeading} ${styles.subHeading4}`}>modern.vintage</h2>
         </div>
-        <Link className={`${styles.blog}`} to="/blog">Mom press here (Blog)</Link>
+        <Link className={`${styles.blog}`} to="/blog">Catch me blogging</Link>
     </Frame>
     <Frame backgroundColor="#fff" color="#000">
         <div className={`${styles.headWrapper}`}>
@@ -78,7 +78,7 @@ const IndexPage = () => (<div>
                 <a href="https://unity3d.com/de" className={`${styles.skillLinks}`}>Unity</a>.</p>
             <p>I make my Web Designs using&nbsp;
                 <a href="https://www.figma.com/" className={`${styles.skillLinks}`}>Figma<img alt="emoji-palette" className={`${styles.emoji}`} src={palette}/></a>.</p>
-            <p>My mom wants me to&nbsp;
+            <p>Check out how I survive my travelling in my&nbsp;
                 <Link to="/blog" className={`${styles.skillLinks}`}>blog<img alt="emoji-writing" className={`${styles.emoji}`} src={writing}/></Link>.</p>
         </div>
     </Frame>

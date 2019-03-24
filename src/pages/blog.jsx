@@ -75,8 +75,6 @@ class Blog extends Component {
 
             // get the search query from the url
             const searchQuery = this.props.location.search.split("=")[1];
-            console.log(this.props.location);
-            console.log("yes");
             const res = [];
 
             // declare an empty array for the posts matching the query
