@@ -64,31 +64,31 @@ class BlogPost extends Component {
 
     getPostURL() {
         // Setting the location via window because im lazy lmao
-        let url;
         if (typeof window !== `undefined`) {
-            url = window.location.toString();
+            let url = window.location.toString();
+            let lastChar = url.substr(-1); // Selects the last character
+            if (lastChar !== '/') { // If the last character is not a slash
+                url = url + '/'; // Append a slash to it.
+            }
+            return url + this.state.slug;
         }
-        let lastChar = url.substr(-1); // Selects the last character
-        if (lastChar !== '/') { // If the last character is not a slash
-            url = url + '/'; // Append a slash to it.
-        }
-        return url + this.state.slug;
+        return null;
     }
 
     // open Post in search
 
     getPostURLSearch() {
         // Setting the location via window because im lazy lmao
-        let url;
         if (typeof window !== `undefined`) {
-            url = window.location.origin;
+            let url = window.location.origin;
+            let lastChar = url.substr(-1); // Selects the last character
+            if (lastChar !== '/') { // If the last character is not a slash
+                url = url + '/'; // Append a slash to it.
+            }
+            console.log(this);
+            return url + "blog/" + this.state.slug;
         }
-        let lastChar = url.substr(-1); // Selects the last character
-        if (lastChar !== '/') { // If the last character is not a slash
-            url = url + '/'; // Append a slash to it.
-        }
-        console.log(this);
-        return url + "blog/" + this.state.slug;
+        return null;
     }
 
     // This function removes all html tags from the title and excerpt.
