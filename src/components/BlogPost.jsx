@@ -64,8 +64,9 @@ class BlogPost extends Component {
 
     getPostURL() {
         // Setting the location via window because im lazy lmao
+        let url;
         if (typeof window !== `undefined`) {
-            let url = window.location.toString();
+            url = window.location.toString();
         }
         let lastChar = url.substr(-1); // Selects the last character
         if (lastChar !== '/') { // If the last character is not a slash
@@ -78,8 +79,9 @@ class BlogPost extends Component {
 
     getPostURLSearch() {
         // Setting the location via window because im lazy lmao
+        let url;
         if (typeof window !== `undefined`) {
-            let url = window.location.origin;
+            url = window.location.origin;
         }
         let lastChar = url.substr(-1); // Selects the last character
         if (lastChar !== '/') { // If the last character is not a slash
