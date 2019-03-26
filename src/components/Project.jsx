@@ -54,7 +54,7 @@ const styles = {
         fontWeight: 'bold',
         lineHeight: 'normal',
         fontSize: '9rem',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '4.5rem'
         },
         '@media (max-width: 600px)': {
@@ -69,7 +69,7 @@ const styles = {
         lineHeight: 'normal',
         fontSize: '3rem',
         color: '#B1B1B1',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '2rem'
         },
         '@media (max-width: 600px)': {

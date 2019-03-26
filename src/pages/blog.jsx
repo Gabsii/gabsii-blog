@@ -198,7 +198,7 @@ const styles = {
         display: 'flex',
         flexGrow: 1,
         minHeight: '100%',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             height: 'calc(100% - 50px)',
             width: '100%'
         }
@@ -222,13 +222,13 @@ const styles = {
         top: 0,
         padding: '50px',
         marginTop: '100px',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             flexDirection: 'column',
-            width: 'calc(100% - 50px)'
+            width: 'calc(100% - 50px)',
+            padding: '25px 0'
         },
         '@media (max-width: 1280px)': {
-            width: 'calc(100% - 100px)',
-            padding: '25px 0'
+            width: 'calc(100% - 100px)'
         }
     }),
     dividerSearch: css({height: 'calc(100vh - 200px)'}),
@@ -237,7 +237,7 @@ const styles = {
         flexGrow: 1,
         flexDirection: 'column',
         width: 'calc(100% - 100px)',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             width: '100%'
         }
     }),
@@ -248,14 +248,14 @@ const styles = {
         maxHeight: '100%',
         marginRight: '50px',
         marginBottom: '50px',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             width: '100%',
             marginRight: 0,
             height: 'auto'
         }
     }),
     recentPostFixed: css({
-        '@media (min-width: 768px)': {
+        '@media (min-width: 769px)': {
             position: 'fixed',
             width: 'calc(50% - 100px)',
             height: '80vh',
@@ -264,7 +264,7 @@ const styles = {
     }),
     posts: css({
         width: '50%',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             width: '100%'
         }
     }),

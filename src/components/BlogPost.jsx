@@ -184,7 +184,7 @@ const styles = {
             cursor: 'pointer',
             boxShadow: '0 4px 8px 0 rgba(162, 162, 162, 0.9)'
         },
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             width: '100%',
             height: '300px'
         },
@@ -199,7 +199,7 @@ const styles = {
         alignSelf: 'flex-end',
         flexDirection: 'column',
         color: 'white',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             transform: 'translateY(100%)'
         }
     }),
@@ -207,7 +207,7 @@ const styles = {
         fontSize: '3em',
         fontWeight: 'bold',
         marginBottom: '0.25em',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '1.5em',
             fontWeight: 'bold'
         },
@@ -220,7 +220,7 @@ const styles = {
         fontSize: '1.25em',
         fontWeight: 'normal',
         color: constants.colors.fontSecondary,
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontWeight: 'normal',
             fontSize: '1em',
             color: 'white'

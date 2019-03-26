@@ -157,7 +157,7 @@ const styles = {
         lineHeight: 'normal',
         fontSize: '18rem',
         color: '#FFFFFF',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '9rem'
         },
         '@media (max-width: 600px)': {
@@ -178,7 +178,7 @@ const styles = {
     }),
     subHeading1: css({
         fontSize: '9rem',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '4.5rem'
         },
         '@media (max-width: 600px)': {
@@ -187,7 +187,7 @@ const styles = {
     }),
     subHeading2: css({
         fontSize: '6rem',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '3rem'
         },
         '@media (max-width: 600px)': {
@@ -197,7 +197,7 @@ const styles = {
     subHeading3: css({
         fontSize: '4.5rem',
         textShadow: '-4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff, 4px 4px 0 #fff',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '2.25rem'
         },
         '@media (max-width: 600px)': {
@@ -208,7 +208,7 @@ const styles = {
     subHeading4: css({
         fontSize: '3rem',
         textShadow: '-3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff, 3px 3px 0 #fff',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '1.5rem'
         },
         '@media (max-width: 600px)': {
@@ -261,7 +261,7 @@ const styles = {
         fontWeight: 'bold',
         lineHeight: 'normal',
         fontSize: '9rem',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             fontSize: '4.5rem'
         },
         '@media (max-width: 600px)': {
@@ -273,7 +273,7 @@ const styles = {
         height: '200px',
         width: '200px',
         marginLeft: '50px',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 769px)': {
             height: '100px',
             width: '100px'
         },

@@ -30,22 +30,41 @@ class BlogPage extends Component {
     componentDidMount() {
         this.fetchComments();
 
-        // console.log(document);
-
-        this.parseStringToHTML(this.props.data.wordpressWpBlog.content);
+        if (('IntersectionObserver' in window) || ('IntersectionObserverEntry' in window)) {
+            this.parseStringToHTML(this.props.data.wordpressWpBlog.content);
+        } else {
+            this.setState({content: this.props.data.wordpressWpBlog.content});
+        }
     }
 
     // asynchronously fetch all the comments for the current post and add it to the comments array in the state
     fetchComments() {
         const c = [];
-        fetch('https://wp.gabsii.com/wp-json/wp/v2/comments').then(response => response.json()).then(response => {
-            for (var i = 0; i < response.length; i++) {
-                if (response[i].post === this.props.data.wordpressWpBlog.wordpress_id) {
-                    c.push(response[i]);
+        if (window.fetch) {
+            fetch('https://wp.gabsii.com/wp-json/wp/v2/comments').then(response => response.json()).then(response => {
+                for (var i = 0; i < response.length; i++) {
+                    if (response[i].post === this.props.data.wordpressWpBlog.wordpress_id) {
+                        c.push(response[i]);
+                    }
+                }
+                this.setState({comments: c});
+            });
+        } else {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    let response = JSON.parse(xhr.responseText);
+                    for (var i = 0; i < response.length; i++) {
+                        if (response[i].post === this.props.data.wordpressWpBlog.wordpress_id) {
+                            c.push(response[i]);
+                        }
+                    }
+                    this.setState({comments: c});
                 }
             }
-            this.setState({comments: c});
-        });
+            xhr.open('GET', 'https://wp.gabsii.com/wp-json/wp/v2/comments', true);
+            xhr.send(null);
+        }
     }
 
     // calculates the time required to read the whole article
@@ -90,7 +109,7 @@ class BlogPage extends Component {
     LazyLoading() {
         const targets = document.querySelectorAll('img');
 
-        if (('IntersectionObserver' in window) || ('IntersectionObserverEntry' in window) || ('intersectionRatio' in window.IntersectionObserverEntry.prototype)) {
+        if (('IntersectionObserver' in window) || ('IntersectionObserverEntry' in window)) {
             const lazyLoad = target => {
                 const io = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
@@ -239,7 +258,7 @@ const heroImage = css({
     backgroundRepeat: 'no-repeat !important',
     backgroundSize: 'cover !important',
     display: 'flex !important',
-    '@media (max-width: 768px)': {
+    '@media (max-width: 769px)': {
         height: 'calc(100vh - 250px) !important'
     }
 });
@@ -249,7 +268,7 @@ const section = css({
     margin: '0 10%',
     filter: 'brightness(1)',
     padding: '50px 14px 50px 14px',
-    '@media (max-width: 768px)': {
+    '@media (max-width: 769px)': {
         padding: '25px 14px',
         margin: '0 1rem'
     }
@@ -268,7 +287,7 @@ const title = css({
     padding: '0 .75em',
     margin: '2em 1.5em',
     wordBreak: 'keep-all',
-    '@media (max-width: 768px)': {
+    '@media (max-width: 769px)': {
         margin: '0.5em .5em 1em .5em',
         padding: '0 0.25em',
         borderLeft: '1px solid #EE7778'
@@ -283,16 +302,16 @@ const titleComment = css({
     wordBreak: 'keep-all'
 });
 const mobileHidden = css({
-    '@media (max-width: 768px)': {
+    '@media (max-width: 769px)': {
         visibility: 'hidden'
     }
 });
 const mobileVisible = css({
-    '@media (max-width: 768px)': {
+    '@media (max-width: 769px)': {
         color: 'black',
         visibility: 'visible'
     },
-    '@media (min-width: 768px)': {
+    '@media (min-width: 769px)': {
         display: 'none'
     }
 });
