@@ -16,10 +16,13 @@ class BlogPost extends Component {
             oldest: false,
             search: false,
             img: '',
-            id: 0
+            id: 0,
+            marginHeight: 0
         }
-        this.openPost = this.openPost.bind(this);
-        this.openPostSearch = this.openPostSearch.bind(this);
+        this.getPostURL = this.getPostURL.bind(this);
+        this.getPostURLSearch = this.getPostURLSearch.bind(this);
+
+        this.myRef = React.createRef();
     }
 
     componentDidMount() {
@@ -27,7 +30,25 @@ class BlogPost extends Component {
         //
         // Checks if the current post is the most recently uploaded one
         if (this.props.recent !== undefined && this.props.recent !== null && this.props.recent === true) {
-            this.setState({recent: true});
+            this.setState({
+                recent: true
+            }, () => {
+                // const marginHeight = setTimeout(() => {
+                //     console.log(this.myRef.current.clientHeight);
+                //     return this.myRef.current.clientHeight;
+                // }, 300).then(() => {
+                //     this.setState({marginHeight: marginHeight});
+                // });
+
+                new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(this.myRef.current.clientHeight);
+                    }, 10);
+                }).then((res) => {
+                    this.setState({marginHeight: res});
+                });
+
+            });
         }
         // Checks if the current post is the least recently uploaded one
         if (this.props.oldest !== undefined && this.props.oldest !== null && this.props.oldest === true) {
@@ -41,21 +62,19 @@ class BlogPost extends Component {
 
     // This function is invoked each time a user presses the current blogpost Component
 
-    openPost(e, i) {
-        e.preventDefault();
+    getPostURL() {
         // Setting the location via window because im lazy lmao
         let url = window.location.toString();
         let lastChar = url.substr(-1); // Selects the last character
         if (lastChar !== '/') { // If the last character is not a slash
             url = url + '/'; // Append a slash to it.
         }
-        window.location = url + this.state.slug;
+        return url + this.state.slug;
     }
 
     // open Post in search
 
-    openPostSearch(e, i) {
-        e.preventDefault();
+    getPostURLSearch() {
         // Setting the location via window because im lazy lmao
         let url = window.location.origin;
         let lastChar = url.substr(-1); // Selects the last character
@@ -63,7 +82,7 @@ class BlogPost extends Component {
             url = url + '/'; // Append a slash to it.
         }
         console.log(this);
-        window.location = url + "blog/" + this.state.slug;
+        return url + "blog/" + this.state.slug;
     }
 
     // This function removes all html tags from the title and excerpt.
@@ -79,45 +98,64 @@ class BlogPost extends Component {
 
     //using the he.decode function from the he library to display the text utf8 encoded
 
-    render() {
-        // Logic if the query parameter is set in the window (?q=xxx)
-        if (this.state.search) {
-            return (<article className={`${styles.postContainer}`}>
+    // Logic if the query parameter is set in the window (?q=xxx)
+    renderSearchPost() {
+        return (<article className={`${styles.postContainer}`}>
+            <a className={`${styles.link}`} href={this.getPostURLSearch()}>
                 <LazyLoad height='100%' offset={100} once={true}>
                     <section id={this.props.id} className={`${styles.postSearch}`}>
-                        <img className={`${styles.postImageSearch}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPostSearch}/>
+                        <img className={`${styles.postImageSearch}`} src={this.props.thumbnail} alt={this.props.alt}/>
                         <section className={`${styles.postTitle}`}>
-                            <h1 className={`${styles.postHeading}`} onClick={this.openPostSearch}>{he.decode(this.props.title)}</h1>
+                            <h1 className={`${styles.postHeading}`}>{he.decode(this.props.title)}</h1>
                             <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
                         </section>
                     </section>
                 </LazyLoad>
-            </article>);
-            // Logic if the post is the most recent one (can only exist once)
-        } else if (this.state.recent) {
-            return (<article className={`${styles.recentPost}`} id={this.props.id} style={{
-                    background: 'url(' + this.state.img + ')'
-                }} onClick={this.openPost}>
-                <LazyLoad height='100%' offset={100} once={true}>
-                    <section className={`${styles.recentTitle}`}>
+            </a>
+        </article>);
+    }
+
+    // Logic if the post is the most recent one (can only exist once)
+    renderRecentPost() {
+        return (<a className={`${styles.link}`} href={this.getPostURL()}>
+            <LazyLoad height='100%' offset={100} once={true}>
+                <article className={`${styles.recentPost}`} id={this.props.id} style={{
+                        backgroundImage: 'url(' + this.state.img + ')',
+                        marginBottom: this.state.marginHeight + 25
+                    }}>
+                    <section className={`${styles.recentTitle}`} ref={this.myRef}>
                         <h1 className={`${styles.recentHeading}`}>{he.decode(this.props.title)}</h1>
                         <h3 className={`${styles.recentSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
                     </section>
-                </LazyLoad>
-            </article>);
-            // Logic if its a normal post
-        } else {
-            return (<article className={`${styles.postContainer}`}>
+                </article>
+            </LazyLoad>
+        </a>);
+    }
+
+    // Logic if its a normal post
+    renderNormalPost() {
+        return (<article className={`${styles.postContainer}`}>
+            <a className={`${styles.link}`} href={this.getPostURL()}>
                 <LazyLoad height='100%' offset={100} once={true}>
                     <section id={this.props.id} className={`${styles.post}`}>
-                        <img className={`${styles.postImage}`} src={this.props.thumbnail} alt={this.props.alt} onClick={this.openPost}/>
+                        <img className={`${styles.postImage}`} src={this.props.thumbnail} alt={this.props.alt}/>
                         <section className={`${styles.postTitle}`}>
-                            <h1 className={`${styles.postHeading}`} onClick={this.openPost}>{he.decode(this.props.title)}</h1>
+                            <h1 className={`${styles.postHeading}`}>{he.decode(this.props.title)}</h1>
                             <h3 className={`${styles.postSubheading}`}>{he.decode(this.strip_html_tags(this.props.content))}</h3>
                         </section>
                     </section>
                 </LazyLoad>
-            </article>);
+            </a>
+        </article>);
+    }
+
+    render() {
+        if (this.state.search) {
+            return this.renderSearchPost();
+        } else if (this.state.recent) {
+            return this.renderRecentPost();
+        } else {
+            return this.renderNormalPost();
         }
     }
 }
@@ -134,6 +172,7 @@ const styles = {
         alignSelf: 'center',
         justifyContent: 'flex-start',
         filter: 'grayscale(1)',
+        transition: 'all 1s ease',
         ':hover': {
             filter: 'grayscale(0)',
             cursor: 'pointer',
@@ -153,7 +192,10 @@ const styles = {
         display: 'flex',
         alignSelf: 'flex-end',
         flexDirection: 'column',
-        color: 'white'
+        color: 'white',
+        '@media (max-width: 768px)': {
+            transform: 'translateY(100%)'
+        }
     }),
     recentHeading: css({
         fontSize: '3em',
@@ -174,7 +216,8 @@ const styles = {
         color: constants.colors.fontSecondary,
         '@media (max-width: 768px)': {
             fontWeight: 'normal',
-            fontSize: '1em'
+            fontSize: '1em',
+            color: 'white'
         }
     }),
     postContainer: css({
@@ -210,6 +253,7 @@ const styles = {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         filter: 'grayscale(1)',
+        transition: 'all 1s ease',
         ':hover': {
             filter: 'grayscale(0)',
             cursor: 'pointer'
@@ -231,6 +275,7 @@ const styles = {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         filter: 'grayscale(1)',
+        transition: 'all 1s ease',
         ':hover': {
             filter: 'grayscale(0)',
             cursor: 'pointer'
@@ -266,7 +311,8 @@ const styles = {
             marginBottom: '1em'
         }
     }),
-    postSubheading: css({fontFamily: 'Noto Serif, Georgia, Serif', fontWeight: 'normal', color: constants.colors.fontSecondary})
+    postSubheading: css({fontFamily: 'Noto Serif, Georgia, Serif', fontWeight: 'normal', color: constants.colors.fontSecondary}),
+    link: css({textDecoration: 'none'})
 };
 
 export default BlogPost;

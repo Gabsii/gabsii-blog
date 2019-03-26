@@ -227,7 +227,8 @@ const styles = {
             width: 'calc(100% - 50px)'
         },
         '@media (max-width: 1280px)': {
-            width: 'calc(100% - 100px)'
+            width: 'calc(100% - 100px)',
+            padding: '25px 0'
         }
     }),
     dividerSearch: css({height: 'calc(100vh - 200px)'}),

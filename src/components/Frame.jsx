@@ -30,6 +30,9 @@ const styles = {
         '@media (max-width: 600px)': {
             maxHeight: '500px'
         },
+        '@media (min-width: 600px)': {
+            minHeight: '900px'
+        },
         position: 'relative'
     })
 };

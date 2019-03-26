@@ -290,11 +290,11 @@ const styles = {
         lineHeight: 'normal',
         fontSize: '3rem',
         justifySelf: 'center',
-        '@media (max-width: 768px)': {
+        '@media (max-width: 786px)': {
             fontSize: '1.5rem'
         },
         '@media (max-width: 600px)': {
-            padding: '25px 0 0 0',
+            padding: '25px 1em 0',
             fontSize: '1rem'
         }
     }),
