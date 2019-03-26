@@ -90,26 +90,28 @@ class BlogPage extends Component {
     LazyLoading() {
         const targets = document.querySelectorAll('img');
 
-        const lazyLoad = target => {
-            const io = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
+        if (('IntersectionObserver' in window) || ('IntersectionObserverEntry' in window) || ('intersectionRatio' in window.IntersectionObserverEntry.prototype)) {
+            const lazyLoad = target => {
+                const io = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
 
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        const src = img.getAttribute('data-src');
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src');
 
-                        img.setAttribute('src', src);
-                        img.classList.add('fade');
+                            img.setAttribute('src', src);
+                            img.classList.add('fade');
 
-                        observer.disconnect();
-                    }
+                            observer.disconnect();
+                        }
+                    });
                 });
-            });
 
-            io.observe(target)
-        };
+                io.observe(target)
+            };
 
-        targets.forEach(lazyLoad);
+            targets.forEach(lazyLoad);
+        }
 
     }
 
@@ -120,16 +122,17 @@ class BlogPage extends Component {
         }
         return (<div>
             <Helmet title={"Gabsii - " + he.decode(post.title)}>
-                <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext" rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Noto+Serif" rel="stylesheet"/>
                 <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet"/>
                 <link rel="shortcut icon" href={icon} type="image/x-icon"/>
                 <link rel="icon" href={icon} type="image/x-icon"/>
                 <meta property="og:title" content={`Gabsii | ` + he.decode(post.title)}/>
                 <meta property="og:type" content="article"/>
                 <meta name="author" content="Lukas Gabsi (Gabsii)"/>
-                <html lang="en"/>
                 <meta name="description" content={post.excerpt}/>
                 <meta name="keywords" content={post.acf.keywords}/>
+                <html lang="en"/>
+                <body class="increaseFontSize"/>
             </Helmet>
             <div className={`${background}`}>
                 <Header type="blogpage"/>
@@ -243,13 +246,12 @@ const heroImage = css({
 const section = css({
     zIndex: 100,
     color: 'white',
-    maxWidth: '750px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    margin: '0 10%',
     filter: 'brightness(1)',
     padding: '50px 14px 50px 14px',
     '@media (max-width: 768px)': {
-        padding: '25px 14px'
+        padding: '25px 14px',
+        margin: '0 1rem'
     }
 });
 const categoryContainer = css({display: 'flex', flexDirection: 'row'});

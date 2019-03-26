@@ -196,6 +196,9 @@ const styles = {
         marginLeft: '50px',
         ':hover': {
             cursor: 'pointer'
+        },
+        '@media (max-width: 600px)': {
+            marginLeft: '1em'
         }
     }),
     line: css({
@@ -206,7 +209,12 @@ const styles = {
         margin: '8px 0',
         transition: 'all 0.3s ease-in-out'
     }),
-    search: css({marginRight: '50px'}),
+    search: css({
+        marginRight: '50px',
+        '@media (max-width: 600px)': {
+            marginRight: '1em'
+        }
+    }),
     search_bar: css({
         width: '75px',
         border: 'none',
