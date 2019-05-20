@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {css} from 'glamor'
-// import PageTransition from 'gatsby-plugin-page-transitions';
 import Helmet from 'react-helmet'
 import he from 'he';
 import {graphql} from 'gatsby';
@@ -25,6 +24,7 @@ class BlogPage extends Component {
             content: ''
         }
         this.parseStringToHTML.bind(this);
+        this.closeModal.bind(this)
     }
 
     componentDidMount() {
@@ -86,7 +86,7 @@ class BlogPage extends Component {
 
         // console.log(htmlDoc);
 
-        let images = htmlDoc.getElementsByTagName('img');
+        let images = htmlDoc.querySelectorAll('#blogContent img');
         this.changeImageSrc(images);
 
         this.setState({
@@ -106,8 +106,8 @@ class BlogPage extends Component {
         }
     }
 
-    LazyLoading() {
-        const targets = document.querySelectorAll('img');
+    lazyLoading() {
+        const targets = document.querySelectorAll('#blogContent img');
 
         if (('IntersectionObserver' in window) || ('IntersectionObserverEntry' in window)) {
             const lazyLoad = target => {
@@ -134,10 +134,34 @@ class BlogPage extends Component {
 
     }
 
+    modalImage() {
+        const targets = document.querySelectorAll('#blogContent img');
+
+        var modal = document.getElementById("modalWrapper"),
+            modalImg = document.getElementById("modalImg"),
+            captionText = document.getElementById("modalCaption");
+
+        for (var i = 0; i < targets.length; i++) {
+            targets[i].onclick = function(e) {
+                modal.style.display = "block";
+                modalImg.src = this.currentSrc;
+                captionText.innerHTML = e.target.nextSibling.innerHTML;
+            }
+        }
+
+    }
+
+    closeModal(e) {
+        var modal = document.getElementById("modalWrapper");
+
+        modal.style.display = 'none';
+    }
+
     render() {
         const post = this.props.data.wordpressWpBlog;
         if (typeof window !== `undefined`) {
-            this.LazyLoading();
+            this.lazyLoading();
+            this.modalImage();
         }
         return (<div>
             <Helmet title={"Gabsii - " + he.decode(post.title)}>
@@ -233,7 +257,12 @@ class BlogPage extends Component {
                             <Form id={post.wordpress_id}/>
                         </div>
                     </section>
+
                 </main>
+            </div>
+            <div id="modalWrapper" className={`${modal.wrapper}`} onClick={this.closeModal}>
+                <img id="modalImg" className={`${modal.img}`} alt=""/>
+                <span id="modalCaption" className={`${modal.caption}`}></span>
             </div>
         </div>);
     }
@@ -318,6 +347,36 @@ const mobileVisible = css({
 const text = css({fontFamily: 'Noto Serif, Georgia, Serif', color: '#000', wordBreak: 'keep-all'});
 const italics = css({fontStyle: 'italic'});
 const bold = css({fontWeight: 'bold'});
+const modal = {
+    wrapper: css({
+        display: 'none',
+        position: 'fixed',
+        zIndex: '101',
+        padding: '100px',
+        left: '0',
+        top: '0',
+        width: 'calc(100% - 200px)',
+        height: 'calc(100% - 200px)',
+        overflow: 'auto',
+        backgroundColor: 'rgba(0,0,0,0.9)',
+        '@media (max-width: 769px)': {
+            padding: '20px',
+            width: 'calc(100% - 40px)',
+            height: 'calc(100% - 40px)'
+        }
+    }),
+    img: css({margin: 'auto', display: 'block', maxWidth: '80%', maxHeight: '80%'}),
+    caption: css({
+        margin: 'auto',
+        display: 'block',
+        color: '#8C8C8C',
+        fontFamily: 'Noto Sans',
+        fontSize: '14px',
+        wordBreak: 'keep-all',
+        textAlign: 'center',
+        padding: '20px 0'
+    })
+}
 export default BlogPage;
 export const blogPageQuery = graphql `query($wordpress_id: Int!) {
                 wordpressWpBlog(wordpress_id : {

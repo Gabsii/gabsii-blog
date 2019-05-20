@@ -69,6 +69,11 @@
     display: inline-block;
 }
 
+#blogContent img:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
 #blogContent figcaption {
     /* margin-top: 10px; */
     font-size: .7111em;
