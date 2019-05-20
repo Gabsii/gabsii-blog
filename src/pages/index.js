@@ -38,6 +38,10 @@ const IndexPage = () => (<div>
         <meta name="description" content="Hello and welcome to my personal Homepage. Here you can either see my current projects, read about my adventures in life (EVS in particular) or check a short-form resume"/>
         <meta name="keywords" content="personal, Homepage, web, react, gatsby, gatsbyjs,, lukas, gabsi, gabsii, wordpress, projects, EVS, adventures, life, resume"/>
         <html lang="en"/>
+        <script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>{
+                `(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-4957107490063182", enable_page_level_ads: true});`
+            }</script>
     </Helmet>
     <Frame backgroundColor="#000" color="#fff">
         <div className={`${styles.titleWrapper}`}>
