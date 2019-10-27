@@ -47,6 +47,10 @@ class Blog extends Component {
                     <meta name="description" content="Looks like you found my blog. Congratulations! You now can read about any of my adventures in here."/>
                     <meta name="keywords" content="blog, personal, homepage, webpage, Lukas, Gabsi, Gabsii, EVS, European Volunteering Service, EFD, travel, travelling, Spain"/>
                     <html lang="en"/>
+                    <script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <script>{
+                            `(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-4957107490063182", enable_page_level_ads: true});`
+                        }</script>
                 </Helmet>
                 <Header type="blog"/>
                 <main className={`${styles.divider}`}>
@@ -217,10 +221,10 @@ const styles = {
         display: 'flex',
         flexGrow: 1,
         flexDirection: 'row',
-        width: 'calc(100% - 100px)',
+        width: 'calc(100% - 50px)',
         position: 'relative',
         top: 0,
-        padding: '50px',
+        padding: '25px',
         marginTop: '100px',
         '@media (max-width: 769px)': {
             flexDirection: 'column',
@@ -242,12 +246,7 @@ const styles = {
         }
     }),
     recentPost: css({
-        width: '50%',
-        height: '80vh',
         flex: 1,
-        maxHeight: '100%',
-        marginRight: '50px',
-        marginBottom: '50px',
         '@media (max-width: 769px)': {
             width: '100%',
             marginRight: 0,
@@ -257,9 +256,8 @@ const styles = {
     recentPostFixed: css({
         '@media (min-width: 769px)': {
             position: 'fixed',
-            width: 'calc(50% - 100px)',
-            height: '80vh',
-            marginRight: '-50px'
+            width: 'calc(50% - 50px)', // 2 * DividerPadding = 50px
+            height: 'calc(100% - 150px)' // HeaderHeight + (2 * DividerPadding) = 150px
         }
     }),
     posts: css({

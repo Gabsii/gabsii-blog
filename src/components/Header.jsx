@@ -188,7 +188,10 @@ const styles = {
         alignItems: 'center',
         textAlign: 'center',
         justifyContent: 'space-between',
-        boxShadow: '0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2)'
+        boxShadow: '0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2)',
+        '@media (max-width: 600px)': {
+            height: '75px'
+        }
     }),
     logo: css({display: 'flex', flexDirection: 'column', fontFamily: 'Zwizz, Arial, Sans-Serif'}),
     nav: css({display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}),
@@ -210,9 +213,9 @@ const styles = {
         transition: 'all 0.3s ease-in-out'
     }),
     search: css({
-        marginRight: '50px',
+        paddingRight: '50px',
         '@media (max-width: 600px)': {
-            marginRight: '1em'
+            paddingRight: '1em'
         }
     }),
     search_bar: css({
@@ -271,8 +274,8 @@ const styles = {
             color: constants.colors.fontSecondary
         }
     }),
-    titleName: css({fontWeight: 'bold', fontSize: '2.25em'}),
-    titleSub: css({fontWeight: 'normal', fontSize: '1em', margin: 0}),
+    titleName: css({fontWeight: 'bold', fontSize: '32px'}),
+    titleSub: css({fontWeight: 'normal', fontSize: '16px', margin: 0}),
     link: css({
         color: constants.colors.font,
         textDecoration: 'none',

@@ -163,6 +163,7 @@ class BlogPage extends Component {
             this.lazyLoading();
             this.modalImage();
         }
+        console.log("ok");
         return (<div>
             <Helmet title={"Gabsii - " + he.decode(post.title)}>
                 <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Noto+Serif" rel="stylesheet"/>
@@ -176,6 +177,10 @@ class BlogPage extends Component {
                 <meta name="keywords" content={post.acf.keywords}/>
                 <html lang="en"/>
                 <body class="increaseFontSize"/>
+                <script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <script>{
+                        `(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-4957107490063182", enable_page_level_ads: true});`
+                    }</script>
             </Helmet>
             <div className={`${background}`}>
                 <Header type="blogpage"/>
@@ -352,11 +357,11 @@ const modal = {
         display: 'none',
         position: 'fixed',
         zIndex: '101',
-        padding: '100px',
+        padding: '50px',
         left: '0',
         top: '0',
-        width: 'calc(100% - 200px)',
-        height: 'calc(100% - 200px)',
+        width: 'calc(100% - 100px)',
+        height: 'calc(100% - 100px)',
         overflow: 'auto',
         backgroundColor: 'rgba(0,0,0,0.9)',
         '@media (max-width: 769px)': {
@@ -365,16 +370,23 @@ const modal = {
             height: 'calc(100% - 40px)'
         }
     }),
-    img: css({margin: 'auto', display: 'block', maxWidth: '80%', maxHeight: '80%'}),
+    img: css({
+        margin: 'auto', display: 'block', maxWidth: '100%', maxHeight: 'calc(100% - 100px)',
+        // ':hover': {
+        //     transform: 'scale(2)'
+        // }
+    }),
     caption: css({
         margin: 'auto',
         display: 'block',
+
         color: '#8C8C8C',
         fontFamily: 'Noto Sans',
         fontSize: '14px',
         wordBreak: 'keep-all',
         textAlign: 'center',
-        padding: '20px 0'
+        padding: '20px 0',
+        maxHeight: '100px'
     })
 }
 export default BlogPage;

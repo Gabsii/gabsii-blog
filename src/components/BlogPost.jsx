@@ -228,7 +228,7 @@ const styles = {
     }),
     postContainer: css({
         width: '100%',
-        marginBottom: '50px',
+        marginBottom: '25px',
         boxShadow: '0 2px 4px 0 rgba(162, 162, 162, 0.5)',
         ':last-of-type': {
             marginBottom: 0

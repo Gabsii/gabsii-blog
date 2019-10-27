@@ -13,7 +13,7 @@ import laptop from '../img/emojis/laptop.png';
 import man from '../img/emojis/man.png';
 import palette from '../img/emojis/palette.png';
 import snake from '../img/emojis/snake.png';
-import spain from '../img/emojis/spain.png';
+import chatbot from '../img/chatbot.png';
 import web from '../img/emojis/web.png';
 import writing from '../img/emojis/writing.png';
 import spotiVote from '../img/spotiVote.jpg';
@@ -62,11 +62,11 @@ const IndexPage = () => (<div>
         <div className={`${styles.paragraph}`}>
             <p>My name is Lukas Samir Gabsi.
                 <img alt="emoji-man" className={`${styles.emoji}`} src={man}/></p>
-            <p>I am 19 years old (or young?!)</p>
-            <p>I am from Austria, but I'm currently in Spain.
+            <p>I am 20 years old (or young?!)</p>
+            <p>I am from Austria, between a lake and mountains.
                 <img alt="emoji-austria" className={`${styles.emoji}`} src={austria} style={{
                         paddingRight: 0
-                    }}/><img alt="emoji-" className={`${styles.emoji}`} src={spain} style={paddingLeft}/></p>
+                    }}/></p>
             <p>I program cool stuff&nbsp;
                 <i className={`${styles.crossed}`}>sometimes.</i><img alt="emoji-laptop" className={`${styles.emoji}`} src={laptop}/></p>
         </div>
@@ -110,6 +110,9 @@ const IndexPage = () => (<div>
     </Frame>
     <Frame backgroundColor="#282828" color="#fff">
         <Project name="Spotipy-Dataviz" TLDR="Visualize your Spotify Playlists Data!" background="https://picsum.photos/1200/800" link="/"/>
+    </Frame>
+    <Frame backgroundColor="#282828" color="#fff">
+        <Project name="Gabsii Chatbot" TLDR="Chat with an artificial me!" background={chatbot} link="https://lab.gabsii.com/bot"/>
     </Frame>
     <Frame backgroundColor="#fff" color="#000">
         <div className={`${styles.headWrapper}`}>
