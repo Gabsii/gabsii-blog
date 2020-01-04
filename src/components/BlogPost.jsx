@@ -131,7 +131,7 @@ class BlogPost extends Component {
               />
               <section className={`${styles.postTitle}`}>
                 <h1 className={`${styles.postHeading}`}>
-                  {he.decode(this.props.title)}
+                  {he.decode(this.props.title || '')}
                 </h1>
                 <h3 className={`${styles.postSubheading}`}>
                   {he.decode(this.strip_html_tags(this.props.content))}
@@ -159,7 +159,7 @@ class BlogPost extends Component {
           >
             <section className={`${styles.recentTitle}`} ref={this.myRef}>
               <h1 className={`${styles.recentHeading}`}>
-                {he.decode(this.props.title)}
+                {he.decode(this.props.title || '')}
               </h1>
               <h3 className={`${styles.recentSubheading}`}>
                 {he.decode(this.strip_html_tags(this.props.content))}
@@ -185,7 +185,7 @@ class BlogPost extends Component {
               />
               <section className={`${styles.postTitle}`}>
                 <h1 className={`${styles.postHeading}`}>
-                  {he.decode(this.props.title)}
+                  {he.decode(this.props.title || '')}
                 </h1>
                 <h3 className={`${styles.postSubheading}`}>
                   {he.decode(this.strip_html_tags(this.props.content))}
