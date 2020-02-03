@@ -4,7 +4,7 @@
   "alias": ["www.gabsii.com", "gabsii.com"],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "^http://(.*)",
       "status": 301,
       "headers": { "Location": "https://gabsii.com/$1" }
     },{
