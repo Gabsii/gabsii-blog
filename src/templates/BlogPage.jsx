@@ -33,9 +33,9 @@ class BlogPage extends Component {
       'IntersectionObserver' in window ||
       'IntersectionObserverEntry' in window
     ) {
-      this.parseStringToHTML(this.props.data.wordpressWpBlog.content)
+      this.parseStringToHTML(this.props.data.wordpressPost.content)
     } else {
-      this.setState({ content: this.props.data.wordpressWpBlog.content })
+      this.setState({ content: this.props.data.wordpressPost.content })
     }
   }
 
@@ -48,7 +48,7 @@ class BlogPage extends Component {
         .then(response => {
           for (var i = 0; i < response.length; i++) {
             if (
-              response[i].post === this.props.data.wordpressWpBlog.wordpress_id
+              response[i].post === this.props.data.wordpressPost.wordpress_id
             ) {
               c.push(response[i])
             }
@@ -62,7 +62,7 @@ class BlogPage extends Component {
           let response = JSON.parse(xhr.responseText)
           for (var i = 0; i < response.length; i++) {
             if (
-              response[i].post === this.props.data.wordpressWpBlog.wordpress_id
+              response[i].post === this.props.data.wordpressPost.wordpress_id
             ) {
               c.push(response[i])
             }
@@ -165,12 +165,11 @@ class BlogPage extends Component {
   }
 
   render() {
-    const post = this.props.data.wordpressWpBlog
+    const post = this.props.data.wordpressPost
     if (typeof window !== `undefined`) {
       this.lazyLoading()
       this.modalImage()
     }
-    console.log('ok')
     return (
       <div>
         <Helmet title={'Gabsii - ' + he.decode(post.title)}>
