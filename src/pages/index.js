@@ -25,10 +25,6 @@ import linkedin from '../img/contact/linkedin.svg'
 import Frame from '../components/Frame.jsx'
 import Project from '../components/Project.jsx'
 
-const paddingLeft = {
-  paddingLeft: 0,
-}
-
 const IndexPage = () => (
   <div>
     <Helmet title="Gabsii - Lukas Gabsi">

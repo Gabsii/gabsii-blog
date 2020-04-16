@@ -88,3 +88,5 @@ typings/
 .env
 
 start.bat
+ghost
+strapi

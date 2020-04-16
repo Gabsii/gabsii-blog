@@ -329,7 +329,10 @@ class BlogPage extends Component {
         <div
           id="modalWrapper"
           className={`${modal.wrapper}`}
+          role="button"
           onClick={this.closeModal}
+          onKeydown={this.closeModal}
+          tabIndex="0"
         >
           <img id="modalImg" className={`${modal.img}`} alt="" />
           <span id="modalCaption" className={`${modal.caption}`}></span>
@@ -474,7 +477,7 @@ const modal = {
 export default BlogPage
 export const blogPageQuery = graphql`
   query($wordpress_id: Int!) {
-    wordpressWpBlog(wordpress_id: { eq: $wordpress_id }) {
+    wordpressPost(wordpress_id: { eq: $wordpress_id }) {
       wordpress_id
       date(formatString: "DD/MM/YYYY")
       slug

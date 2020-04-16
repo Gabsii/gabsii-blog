@@ -23,7 +23,7 @@ class Blog extends Component {
   }
 
   render() {
-    let recent = this.props.data.allWordpressWpBlog.edges[0].node
+    let recent = this.props.data.allWordpressPost.edges[0].node
     // check if the user is currently searching for something using the search bar in the Header
     if (
       this.props.location.search === undefined ||
@@ -93,11 +93,11 @@ class Blog extends Component {
             <div className={`${styles.posts}`}>
               {/* map through the entire array of blog entries and create a blogpost element for each */}
               {//eslint-disable-next-line
-              this.props.data.allWordpressWpBlog.edges.map((node, index) => {
+              this.props.data.allWordpressPost.edges.map((node, index) => {
                 let nodes = node.node
                 if (
                   index !== 0 &&
-                  index !== this.props.data.allWordpressWpBlog.edges.length - 1
+                  index !== this.props.data.allWordpressPost.edges.length - 1
                 ) {
                   return (
                     <BlogPost
@@ -115,7 +115,7 @@ class Blog extends Component {
                   )
                 } else if (
                   index ===
-                  this.props.data.allWordpressWpBlog.edges.length - 1
+                  this.props.data.allWordpressPost.edges.length - 1
                 ) {
                   return (
                     <BlogPost
@@ -182,7 +182,7 @@ class Blog extends Component {
               </div>
               {/* filter through all the blog posts and check if the search query is contained in the title or in the excerpt */}
               {//eslint-disable-next-line
-              this.props.data.allWordpressWpBlog.edges.filter(({ node }) => {
+              this.props.data.allWordpressPost.edges.filter(({ node }) => {
                 let title = node.title.toLowerCase()
                 let excerpt = node.excerpt.toLowerCase()
                 if (title.includes(searchQuery)) {
@@ -268,7 +268,7 @@ class Blog extends Component {
               </div>
               {/* filter through all the blog posts and check if the search query is contained in the title or in the excerpt */}
               {//eslint-disable-next-line
-              this.props.data.allWordpressWpBlog.edges.filter(({ node }) => {
+              this.props.data.allWordpressPost.edges.filter(({ node }) => {
                 let categories = node.categories
 
                 for (var i = 0; i < categories.length; i++) {
@@ -400,7 +400,7 @@ const styles = {
 export default Blog // query all the blogposts, sort them by their fields in descending order
 export const postsQuery = graphql`
   {
-    allWordpressWpBlog(sort: { fields: [date], order: DESC }) {
+    allWordpressPost(sort: { fields: [date], order: DESC }) {
       edges {
         node {
           wordpress_id

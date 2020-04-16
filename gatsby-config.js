@@ -19,27 +19,27 @@ module.exports = {
                 verboseOutput: true,
                 includedRoutes: [
                     "**/wp/**/categories",
-                    "**/wp/**/blog",
+                    "**/wp/**/posts",
                     "**/wp/**/users",
                   ],
             }
         }, 
-        {       
-            resolve: '@pasdo501/gatsby-source-woocommerce',
-            options: {
-               // Base URL of Wordpress site
-              api: 'wp.gabsii.com',
-              // true if using https. otherwise false.
-              https: true,
-              api_keys: {
-                consumer_key: 'ck_ac9fc87e3da6b07eb0db13c70a32d4689a08843e',
-                consumer_secret: 'cs_fd3d4e02130babeb3114003b448f2be0b6546f9c'
-              },
-              // Array of strings with fields you'd like to create nodes for...
-              fields: ['products', 'products/categories', 'orders'],
-              api_version: 'wc/v3'
-            }
-        },
+        // {       
+        //     resolve: '@pasdo501/gatsby-source-woocommerce',
+        //     options: {
+        //        // Base URL of Wordpress site
+        //       api: 'wp.gabsii.com',
+        //       // true if using https. otherwise false.
+        //       https: true,
+        //       api_keys: {
+        //         consumer_key: 'ck_ac9fc87e3da6b07eb0db13c70a32d4689a08843e',
+        //         consumer_secret: 'cs_fd3d4e02130babeb3114003b448f2be0b6546f9c'
+        //       },
+        //       // Array of strings with fields you'd like to create nodes for...
+        //       fields: ['products', 'products/categories', 'orders'],
+        //       api_version: 'wc/v3'
+        //     }
+        // },
         {
             resolve: `gatsby-plugin-google-tagmanager`,
             options: {

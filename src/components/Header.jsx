@@ -87,13 +87,13 @@ class Header extends Component {
     if (this.props.type === 'blog') {
       return (
         <header className={`${styles.header}`} id="header" style={fixed}>
-          <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
+          <button className={`${styles.nav}`} onClick={this.animate.bind(this)}>
             <div className={`${styles.hamburger}`} id="hamburger-1">
               <span className={`${styles.line}`} style={burger}></span>
               <span className={`${styles.line}`} style={burger}></span>
               <span className={`${styles.line}`} style={burger}></span>
             </div>
-          </div>
+          </button>
           <div className={`${styles.logo}`}>
             <Link className={`${styles.link}`} to="/">
               <h1 className={`${styles.titleName}`}>Gabsii</h1>
@@ -182,13 +182,13 @@ class Header extends Component {
     } else if (this.props.type === 'blogpage') {
       return (
         <header className={`${styles.header}`} id="header" style={absolute}>
-          <div className={`${styles.nav}`} onClick={this.animate.bind(this)}>
+          <button className={`${styles.nav}`} onClick={this.animate.bind(this)}>
             <div className={`${styles.hamburger}`} id="hamburger-1">
               <span className={`${styles.line}`} style={burger}></span>
               <span className={`${styles.line}`} style={burger}></span>
               <span className={`${styles.line}`} style={burger}></span>
             </div>
-          </div>
+          </button>
           <div className={`${styles.logo}`}>
             <Link className={`${styles.link}`} to="/">
               <h1 className={`${styles.titleName}`}>Gabsii</h1>
