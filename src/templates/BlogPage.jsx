@@ -183,6 +183,7 @@ class BlogPage extends Component {
           />
           <link rel="shortcut icon" href={icon} type="image/x-icon" />
           <link rel="icon" href={icon} type="image/x-icon" />
+          <link rel="canonical" href={`https://gabsii.com/blog/${post.slug}`}/>
           <meta
             property="og:title"
             content={`Gabsii | ` + he.decode(post.title)}
