@@ -188,6 +188,8 @@ class BlogPage extends Component {
             content={`Gabsii | ` + he.decode(post.title)}
           />
           <meta property="og:type" content="article" />
+          <meta property="og:url" content={`https://gabsii.com/blog/${post.slug}`} />
+          <meta property="og:image" content={post.better_featured_image.media_details.sizes.large.source_url} />
           <meta name="author" content="Lukas Gabsi (Gabsii)" />
           <meta name="description" content={post.excerpt} />
           <meta name="keywords" content={post.acf.keywords} />
