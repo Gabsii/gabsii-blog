@@ -65,10 +65,3 @@ exports.createPages = ({graphql, actions}) => {
       })
     });
 };
-
-// fixes build errors that occured when running `gatsby build`
-//
-// exports.modifyBabelrc = ({babelrc}) => ({
-//     ...babelrc,
-//     plugins: babelrc.plugins.concat(['transform-regenerator'])
-// });

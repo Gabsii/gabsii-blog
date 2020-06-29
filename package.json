@@ -1,16 +1,16 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
-  "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "name": "gabsii",
+  "description": "Gabsii's personal page",
+  "version": "2.0.0",
+  "author": "Lukas Gabsii <lukas.gabsi@gmail.com>",
   "dependencies": {
-    "@pasdo501/gatsby-source-woocommerce": "^0.11.0",
     "aphrodite": "^2.2.3",
     "gatsby": "^2.23.3",
     "gatsby-plugin-glamor": "^2.3.4",
     "gatsby-plugin-google-analytics": "^2.3.4",
     "gatsby-plugin-google-tagmanager": "^2.3.5",
     "gatsby-plugin-manifest": "^2.4.11",
+    "gatsby-plugin-nprogress": "^2.3.4",
     "gatsby-plugin-offline": "^3.2.9",
     "gatsby-plugin-postcss": "^2.3.4",
     "gatsby-plugin-react-helmet": "^3.3.4",
@@ -22,12 +22,10 @@
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.0",
     "postcss-reporter": "^6.0.0",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
-    "react-helmet": "^5.2.0",
-    "react-lazyload": "^2.6.8",
-    "regenerator-runtime": "^0.13.3",
-    "xmldom": "^0.1.27"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
+    "react-lazyload": "^2.6.8"
   },
   "keywords": [
     "gatsby"
@@ -36,20 +34,14 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gatsby build && now --public ./public && now alias"
-  },
-  "now": {
-    "name": "public",
-    "alias": "gabsii.com"
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "devDependencies": {
     "babel-plugin-transform-regenerator": "^6.26.0",
-    "prettier": "^1.14.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "prettier": "^2.0.0"
   }
 }

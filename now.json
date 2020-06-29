@@ -1,7 +1,4 @@
 {
-  "version": 2,
-  "name": "public",
-  "alias": ["www.gabsii.com", "gabsii.com"],
   "routes": [
     {
       "src": "^http://(.*)",
