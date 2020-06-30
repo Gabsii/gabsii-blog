@@ -1,4 +1,24 @@
 @font-face {
+    font-family: 'Calamity Sans';
+    src: url('../fonts/Calamity-Regular.woff2') format('woff2'),
+        url('../fonts/Calamity-Regular.woff') format('woff'),
+        url('../fonts/Calamity-Regular.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: 'Calamity Sans';
+    src: url('../fonts/Calamity-Bold.woff2') format('woff2'),
+        url('../fonts/Calamity-Bold.woff') format('woff'),
+        url('../fonts/Calamity-Bold.otf') format('otf');
+    font-weight: bold;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
     font-family: 'Zwizz';
     src: url('../fonts/Zwizz-Regular.woff2') format('woff2'),
         url('../fonts/Zwizz-Regular.woff') format('woff');
