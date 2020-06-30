@@ -15,7 +15,7 @@
     "gatsby-plugin-postcss": "^2.3.4",
     "gatsby-plugin-react-helmet": "^3.3.4",
     "gatsby-plugin-sitemap": "^2.4.5",
-    "gatsby-source-wordpress": "^3.3.11",
+    "gatsby-source-wordpress": "^3.3.15",
     "glamor": "^2.20.40",
     "he": "^1.2.0",
     "postcss-browser-reporter": "^0.6.0",
