@@ -50,4 +50,4 @@ my personal webpage built from scratch
 ## Server Architecture:
 
 - ReactJS Port 80
-- Wordpress Backend Port 8001
+- Wordpress Backend Port 8001 
