@@ -6,6 +6,7 @@
   "dependencies": {
     "aphrodite": "^2.2.3",
     "babel-plugin-styled-components": "^1.10.7",
+    "framer-motion": "^1.11.1",
     "gatsby": "^2.23.3",
     "gatsby-plugin-glamor": "^2.3.4",
     "gatsby-plugin-google-analytics": "^2.3.4",
@@ -28,7 +29,8 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-lazyload": "^2.6.8",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "windups": "^1.1.2"
   },
   "keywords": [
     "gatsby"

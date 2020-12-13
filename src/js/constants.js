@@ -6,15 +6,16 @@ let colors = {
   fontSecondary: '#737373', // text color for UI elements
 }
 
-let breakpoints = {
-  //only focuses on width
-  small: 375, // [0;375] 375x667 small Smartphones
-  medium: 760, // ]375;760] large Smartphones
-  large: 980, // ]760;980] Tablets
-  xlarge: 1280, // ]980;1280] Laptops (everything else is DESKTOP FIRST)
+const breakpoints = {
+  min: '(min-width: 320px)',
+  xs: '(min-width: 480px)',
+  sm: '(min-width: 768px)',
+  md: '(min-width: 1024px)',
+  lg: '(min-width: 1280px)',
+  xl: '(min-width: 1440px)',
 }
 
 module.exports = {
   colors: colors,
-  breakpoints: breakpoints,
+  breakpoints,
 }

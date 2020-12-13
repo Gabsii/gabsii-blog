@@ -21,6 +21,7 @@ module.exports = {
                 includedRoutes: [
                     "**/wp/**/categories",
                     "**/wp/**/posts",
+                    "**/wp/**/project",
                     "**/wp/**/users",
                   ],
             }

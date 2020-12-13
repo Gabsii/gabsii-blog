@@ -23,12 +23,11 @@ class Blog extends Component {
   }
 
   render() {
+    console.log(this.props.data.allWordpressPost);
+    this.props.data.allWordpressPost.edges.forEach((p) => console.log(p.node.better_featured_image.media_details.sizes));
     let recent = this.props.data.allWordpressPost.edges[0].node
+    console.log({recent});
     // check if the user is currently searching for something using the search bar in the Header
-    if (
-      this.props.location.search === undefined ||
-      this.props.location.search === ''
-    ) {
       return (
         <div className={`${styles.container}`}>
           <Helmet
@@ -80,10 +79,8 @@ class Blog extends Component {
                   title={recent.title}
                   content={this.strip_html_tags(recent.excerpt)}
                   thumbnail={
-                    recent.better_featured_image.media_details.sizes.large
-                      .source_url ||
-                    recent.better_featured_image.media_details.sizes
-                      .medium_large.source_url
+                    recent.better_featured_image.media_details.sizes.thumbnail
+                      .source_url 
                   }
                   recent={true}
                   alt={recent.better_featured_image.alt_text}
@@ -108,7 +105,7 @@ class Blog extends Component {
                       content={this.strip_html_tags(nodes.excerpt)}
                       thumbnail={
                         nodes.better_featured_image.media_details.sizes
-                          .medium_large.source_url
+                          .thumbnail.source_url
                       }
                       alt={nodes.better_featured_image.alt_text}
                     />
@@ -126,7 +123,7 @@ class Blog extends Component {
                       content={this.strip_html_tags(nodes.excerpt)}
                       thumbnail={
                         nodes.better_featured_image.media_details.sizes
-                          .medium_large.source_url
+                          .thumbnail.source_url
                       }
                       oldest={true}
                       alt={nodes.better_featured_image.alt_text}
@@ -138,172 +135,6 @@ class Blog extends Component {
           </main>
         </div>
       )
-    } else if (this.props.location.search.indexOf('q=') > -1) {
-      // get the search query from the url
-      const searchQuery = this.props.location.search.split('=')[1]
-      const res = []
-
-      // declare an empty array for the posts matching the query
-      return (
-        <div className={`${styles.container2}`}>
-          <Helmet title="Gabsii - Blog">
-            <link
-              href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-              rel="stylesheet"
-            />
-
-            <link
-              href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext"
-              rel="stylesheet"
-            />
-            <link rel="shortcut icon" href={icon} type="image/x-icon" />
-            <link rel="icon" href={icon} type="image/x-icon" />
-            <meta name="author" content="Lukas Gabsi (Gabsii)" />
-            <meta
-              name="description"
-              content="Looks like you found my blog. Congratulations! You now can read about any of my adventures in here."
-            />
-            <meta
-              name="keywords"
-              content="blog, personal, homepage, webpage, Lukas, Gabsi, Gabsii, EVS, European Volunteering Service, EFD, travel, travelling, Spain"
-            />
-            <html lang="en" />
-          </Helmet>
-          <Header type="blog" />
-          <main className={`${styles.divider} ${styles.dividerSearch}`}>
-            <div className={`${styles.searchResultsContainer}`}>
-              <div className={`${styles.back}`}>
-                <Link to="/blog" className={`${styles.link}`}>
-                  <i className="fas fa-arrow-left fa-lg"></i>
-                  <span className={`${styles.backText}`}>
-                    Return to the blog
-                  </span>
-                </Link>
-              </div>
-              {/* filter through all the blog posts and check if the search query is contained in the title or in the excerpt */}
-              {//eslint-disable-next-line
-              this.props.data.allWordpressPost.edges.filter(({ node }) => {
-                let title = node.title.toLowerCase()
-                let excerpt = node.excerpt.toLowerCase()
-                if (title.includes(searchQuery)) {
-                  res.push(node)
-                } else if (excerpt.includes(searchQuery)) {
-                  for (var i = 0; i < res.length; i++) {
-                    if (res[i].wordpress_id === node.wordpress_id) {
-                      break
-                    }
-                  }
-                  res.push(node)
-                  // not contained in either
-                }
-              })}
-              {/* display all the blogposts that match the query */}
-              {res.length !== 0 ? (
-                res.map((r, index) => {
-                  return (
-                    <BlogPost
-                      key={index}
-                      id={r.wordpress_id}
-                      slug={r.slug}
-                      title={r.title}
-                      content={this.strip_html_tags(r.excerpt)}
-                      thumbnail={
-                        r.better_featured_image.media_details.sizes.medium_large
-                          .source_url
-                      }
-                      alt={r.better_featured_image.alt_text}
-                    />
-                  )
-                })
-              ) : (
-                <div>Whoopsie Doopsie. Your search was unsuccessful!</div>
-              )}
-            </div>
-          </main>
-        </div>
-      )
-    } else {
-      // get the search query from the url
-      const searchQuery = this.props.location.search.split('=')[1]
-      const res = []
-
-      // console.log(searchQuery);
-
-      // declare an empty array for the posts matching the query
-      return (
-        <div className={`${styles.container2}`}>
-          <Helmet title="Gabsii - Blog">
-            <link
-              href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-              rel="stylesheet"
-            />
-
-            <link
-              href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&amp;subset=latin-ext"
-              rel="stylesheet"
-            />
-            <link rel="shortcut icon" href={icon} type="image/x-icon" />
-            <link rel="icon" href={icon} type="image/x-icon" />
-            <meta name="author" content="Lukas Gabsi (Gabsii)" />
-            <meta
-              name="description"
-              content="Looks like you found my blog. Congratulations! You now can read about any of my adventures in here."
-            />
-            <meta
-              name="keywords"
-              content="blog, personal, homepage, webpage, Lukas, Gabsi, Gabsii, EVS, European Volunteering Service, EFD, travel, travelling, Spain"
-            />
-            <html lang="en" />
-          </Helmet>
-          <Header type="blog" />
-          <main className={`${styles.divider} ${styles.dividerSearch}`}>
-            <div className={`${styles.searchResultsContainer}`}>
-              <div className={`${styles.back}`}>
-                <Link to="/blog" className={`${styles.link}`}>
-                  <i className="fas fa-arrow-left fa-lg"></i>
-                  <span className={`${styles.backText}`}>
-                    Return to the blog
-                  </span>
-                </Link>
-              </div>
-              {/* filter through all the blog posts and check if the search query is contained in the title or in the excerpt */}
-              {//eslint-disable-next-line
-              this.props.data.allWordpressPost.edges.filter(({ node }) => {
-                let categories = node.categories
-
-                for (var i = 0; i < categories.length; i++) {
-                  let cat = categories[i].name
-                  if (cat.includes(searchQuery)) {
-                    res.push(node)
-                  }
-                }
-              })}
-              {/* display all the blogposts that match the query */}
-              {res.length !== 0 ? (
-                res.map((r, index) => {
-                  return (
-                    <BlogPost
-                      key={index}
-                      id={r.wordpress_id}
-                      slug={r.slug}
-                      title={r.title}
-                      content={this.strip_html_tags(r.excerpt)}
-                      thumbnail={
-                        r.better_featured_image.media_details.sizes.medium_large
-                          .source_url
-                      }
-                      alt={r.better_featured_image.alt_text}
-                    />
-                  )
-                })
-              ) : (
-                <div>Whoopsie Doopsie. Your search was unsuccessful!</div>
-              )}
-            </div>
-          </main>
-        </div>
-      )
-    }
   }
 }
 const styles = {
@@ -399,32 +230,25 @@ const styles = {
 }
 export default Blog // query all the blogposts, sort them by their fields in descending order
 export const postsQuery = graphql`
-  {
-    allWordpressPost(sort: { fields: [date], order: DESC }) {
-      edges {
-        node {
-          wordpress_id
-          title
-          excerpt
-          slug
-          better_featured_image {
-            alt_text
-            media_details {
-              sizes {
-                medium_large {
-                  source_url
-                }
-                large {
-                  source_url
-                }
+{
+  allWordpressPost {
+    edges {
+      node {
+        title
+        excerpt
+        better_featured_image {
+          media_details {
+            sizes {
+              thumbnail {
+                source_url
               }
             }
           }
-          categories {
-            name
-          }
+          alt_text
+          description
         }
       }
     }
   }
+}
 `

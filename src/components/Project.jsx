@@ -1,33 +1,31 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { css } from 'glamor'
 
-class Project extends Component {
+const Project = ({name, TLDR, link, background}) => {
   // TODO: add WebGL wave effect
-
-  render() {
-    return (
-      <div className={`${styles.projectWrapper}`}>
-        <canvas
-          className={`${styles.projectImage}`}
-          style={{
-            background: 'url(' + this.props.background + ')',
-            objectFit: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-          }}
-        ></canvas>
-        <div className={`${styles.projectTextWrapper}`}>
-          <h1 className={`${styles.projectName}`}>
-            <a className={`${styles.projectLink}`} href={this.props.link}>
-              {this.props.name}
-            </a>
-          </h1>
-          <h2 className={`${styles.projectTLDR}`}>{this.props.TLDR}</h2>
-        </div>
+  return (
+    <div className={`${styles.projectWrapper}`}>
+      <canvas
+        aria-label={name}
+        className={`${styles.projectImage}`}
+        style={{
+          background: 'url(' + background + ')',
+          objectFit: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
+      ></canvas>
+      <div className={`${styles.projectTextWrapper}`}>
+        <h1 className={`${styles.projectName}`}>
+          <a className={`${styles.projectLink}`} href={link}>
+            {name}
+          </a>
+        </h1>
+        <h2 className={`${styles.projectTLDR}`}>{TLDR}</h2>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 const styles = {
