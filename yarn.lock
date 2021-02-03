@@ -5527,10 +5527,10 @@ gatsby-page-utils@^0.6.0:
     lodash "^4.17.20"
     micromatch "^4.0.2"
 
-gatsby-plugin-glamor@^2.3.4:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-glamor/-/gatsby-plugin-glamor-2.7.0.tgz#2fb4ab2ed6c7a472906c3df52bb8d01798cb68ac"
-  integrity sha512-WqlITx6iFqNaFS9Ts/52dWOihqsyMPgwh9EGyitP6qXUMiqzg4IOhB6elXOP3qooOkRzNG0EDwZDC+DtFQH7DA==
+gatsby-plugin-glamor@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-glamor/-/gatsby-plugin-glamor-2.10.0.tgz#2122213be2db37613d44e73e04728c99e16fe8ba"
+  integrity sha512-ljyP11B2g4zjNhMXaltANTqkORU9WSG/7Q6xnfQBrlJ96TUXZh5mZ+a2/rxBKpupoACikDsKuLyPL4Qtq5QsWg==
   dependencies:
     "@babel/runtime" "^7.12.5"
 
