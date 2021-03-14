@@ -1,52 +1,35 @@
 {
   "name": "gabsii",
   "description": "Gabsii's personal page",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "author": "Lukas Gabsii <lukas.gabsi@gmail.com>",
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "type-check": "tsc",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
-    "aphrodite": "^2.2.3",
-    "babel-plugin-styled-components": "^1.10.7",
-    "framer-motion": "^1.11.1",
-    "gatsby": "^2.23.3",
-    "gatsby-plugin-glamor": "^2.3.4",
-    "gatsby-plugin-google-analytics": "^2.3.4",
-    "gatsby-plugin-google-tagmanager": "^2.3.5",
-    "gatsby-plugin-manifest": "^2.4.11",
-    "gatsby-plugin-nprogress": "^2.3.4",
-    "gatsby-plugin-offline": "^3.2.9",
-    "gatsby-plugin-postcss": "^2.3.4",
-    "gatsby-plugin-react-helmet": "^3.3.4",
-    "gatsby-plugin-sitemap": "^2.4.5",
-    "gatsby-plugin-styled-components": "^3.3.6",
-    "gatsby-source-wordpress": "^3.3.11",
-    "glamor": "^2.20.40",
-    "he": "^1.2.0",
-    "postcss-browser-reporter": "^0.6.0",
-    "postcss-cssnext": "^3.1.0",
-    "postcss-import": "^12.0.0",
-    "postcss-reporter": "^6.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "framer-motion": "^3.10.0",
+    "next": "^10.0.8",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
-    "react-lazyload": "^2.6.8",
     "styled-components": "^5.1.1",
-    "windups": "^1.1.2"
+    "windups": "^1.1.9"
   },
   "keywords": [
-    "gatsby"
+    "nextjs"
   ],
   "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "dev": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
-  },
   "devDependencies": {
-    "babel-plugin-transform-regenerator": "^6.26.0",
-    "prettier": "^2.0.0"
+    "@types/node": "^14.14.34",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.2",
+    "@types/styled-components": "^5.1.8",
+    "babel-plugin-styled-components": "^1.12.0",
+    "prettier": "^2.0.0",
+    "typescript": "^4.2.3"
   }
 }

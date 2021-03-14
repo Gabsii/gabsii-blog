@@ -1,7 +1,7 @@
 import React from 'react'
 import { css } from 'glamor'
 
-const Project = ({name, TLDR, link, background}) => {
+const Project = ({ name, TLDR, link, background }) => {
   // TODO: add WebGL wave effect
   return (
     <div className={`${styles.projectWrapper}`}>

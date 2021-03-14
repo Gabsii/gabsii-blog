@@ -42,9 +42,9 @@ class Form extends Component {
   submit(event) {
     event.preventDefault()
     // this function encodes the message into x-www-form
-    const toUrlEncoded = obj =>
+    const toUrlEncoded = (obj) =>
       Object.keys(obj)
-        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]))
+        .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]))
         .join('&')
     const dataObj = {
       author_name: this.state.name,
@@ -61,7 +61,7 @@ class Form extends Component {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: toUrlEncoded(dataObj),
-    }).then(response => {
+    }).then((response) => {
       // reload page if comment was posted
       if (response.status === 201) {
         console.log(response)

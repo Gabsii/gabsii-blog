@@ -6,6 +6,6 @@ const Main = styled.main`
   margin: 0 auto;
   padding: 2rem 0;
   color: #ffffff;
-`;
+`
 
-export default Main;
+export default Main

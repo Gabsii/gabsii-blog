@@ -1,32 +1,10 @@
 # Project dependencies
-.cache
 node_modules
 yarn-error.log
+.next
 
 # Build directory
-/public
 .DS_Store
-
-*.log
-wordpress/wp-config.php
-wordpress/wp-content/advanced-cache.php
-wordpress/wp-content/backup-db/
-wordpress/wp-content/backups/
-wordpress/wp-content/blogs.dir/
-wordpress/wp-content/cache/
-wordpress/wp-content/upgrade/
-wordpress/wp-content/uploads/
-wordpress/wp-content/mu-plugins/
-wordpress/wp-content/wp-cache-config.php
-wordpress/wp-content/plugins/hello.php
-wordpress/wp-content/aiowps_backups/
-wordpress/wp-content/ai1wm-backups/
-
-wordpress/.htaccess
-wordpress/license.txt
-wordpress/readme.html
-wordpress/sitemap.xml
-wordpress/sitemap.xml.gz
 
 # Logs
 logs
@@ -86,8 +64,4 @@ typings/
 
 # dotenv environment variables file
 .env
-
-start.bat
-ghost
-strapi
 .now

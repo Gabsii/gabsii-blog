@@ -44,15 +44,11 @@ table {
     border-spacing: 0;
 }
 
-html, body, #___gatsby {
+html, body, #__next {
     height: 100%;
     width: 100%;
     background-color: #191414;
 }
-
-#gatsby-focus-wrapper {
-    height: 100%;
-  }
 
 .zelda-botw-triangle-up {
     width: 0;
@@ -68,4 +64,32 @@ html, body, #___gatsby {
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     border-top: 7px solid white;
+}
+
+.zelda-botw-triangle-top-left {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    margin: 0 -0.25rem;
+}
+
+.zelda-botw-triangle-top-right {
+    position: absolute; 
+    right: 0; 
+    top: 0;
+    margin: 0 -0.25rem;
+}
+
+.zelda-botw-triangle-bottom-left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0 -0.25rem;
+}
+
+.zelda-botw-triangle-bottom-right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0 -0.25rem;
 }

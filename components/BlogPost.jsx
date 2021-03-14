@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { css } from 'glamor'
-import he from 'he'
+// import he from 'he'
 import LazyLoad from 'react-lazyload'
 
 let constants = require('../js/constants.js')
@@ -45,11 +45,11 @@ class BlogPost extends Component {
           //     this.setState({marginHeight: marginHeight});
           // });
 
-          new Promise(resolve => {
+          new Promise((resolve) => {
             setTimeout(() => {
               resolve(this.myRef.current.clientHeight)
             }, 10)
-          }).then(res => {
+          }).then((res) => {
             this.setState({ marginHeight: res })
           })
         }
@@ -115,7 +115,7 @@ class BlogPost extends Component {
     return str.replace(/<[^>]*>/g, '')
   }
 
-  //using the he.decode function from the he library to display the text utf8 encoded
+  //using the  function from the he library to display the text utf8 encoded
 
   // Logic if the query parameter is set in the window (?q=xxx)
   renderSearchPost() {
@@ -131,10 +131,10 @@ class BlogPost extends Component {
               />
               <section className={`${styles.postTitle}`}>
                 <h1 className={`${styles.postHeading}`}>
-                  {he.decode(this.props.title || '')}
+                  {this.props.title || ''}
                 </h1>
                 <h3 className={`${styles.postSubheading}`}>
-                  {he.decode(this.strip_html_tags(this.props.content))}
+                  {this.strip_html_tags(this.props.content)}
                 </h3>
               </section>
             </section>
@@ -159,10 +159,10 @@ class BlogPost extends Component {
           >
             <section className={`${styles.recentTitle}`} ref={this.myRef}>
               <h1 className={`${styles.recentHeading}`}>
-                {he.decode(this.props.title || '')}
+                {this.props.title || ''}
               </h1>
               <h3 className={`${styles.recentSubheading}`}>
-                {he.decode(this.strip_html_tags(this.props.content))}
+                {this.strip_html_tags(this.props.content)}
               </h3>
             </section>
           </article>
@@ -185,10 +185,10 @@ class BlogPost extends Component {
               />
               <section className={`${styles.postTitle}`}>
                 <h1 className={`${styles.postHeading}`}>
-                  {he.decode(this.props.title || '')}
+                  {this.props.title || ''}
                 </h1>
                 <h3 className={`${styles.postSubheading}`}>
-                  {he.decode(this.strip_html_tags(this.props.content))}
+                  {this.strip_html_tags(this.props.content)}
                 </h3>
               </section>
             </section>
