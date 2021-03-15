@@ -7,7 +7,11 @@ import NewHeader from '../components/Header'
 import styled from 'styled-components'
 
 import { Triangle } from '../components/TriangleBox';
-import stripHtmlTags from '../utils/stripHtmlTags';
+import { getAllEntriesByType } from '../utils/entries'
+import { POSTS_LOCATION } from '../utils/constants'
+import { EntriesOverview } from '../types/entries'
+import PostList from '../components/PostList'
+import { GetStaticProps } from 'next'
 
 const PostsWrapper = styled.div`
   display: flex;
@@ -44,102 +48,40 @@ const ActivePost = styled.div`
     font-weight: bold;
   }
 
+  hr {
+    width: 100%;
+  }
 
   a {
-    color: white;
+    color: #B99F65;
     font-weight: bold;
     margin-top: 10px;
 
     &:visited {
-      color: white;
+      color: #B99F65;
     }
   }
 
   li {
     display: inline-block;
-    line-height: normal;
     margin-bottom: 20px;
-
-    a {
-      text-decoration: none;
-      color: #B99F65; 
-      margin-top: 0;
-      font-weight: normal;
-    }
-
-    &::after {
-      content:'';
-      margin-right: 1ch;
-    }
-  }
-`;
-
-const PostList = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 65vh;
-  width: 50%;
-  margin-right: 75px;
-  padding: 20px;
-  overflow: hidden;
-  overflow-y: auto;
-`;
-
-const Post = styled(Link)`
-  width: 100%;
-  height: 75px;
-  margin: 5px 0;
-  padding: 10px;
-  color: white;
-  text-decoration: none;
-  border: 1px solid #ffffff;
-  filter: brightness(0.4);
-  transition: all 0.25s;
-  position: relative;
-  display: flex;
-
-  ${({selected}) => selected && `
-    background: grey;  
-    filter: brightness(1);
-    box-shadow: rgba(255, 255, 190, 0.4) 0px 0px 6px 2px;
-  `}
-  
-  &:visited {
-    color: white;
-  }
-
-  img {
-    margin-right: 15px;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    
-    overflow: hidden;
-  }
-
-  h3 {
-    line-height: 1.5;
-    font-size: 24px;
-    font-weight: bold;
-    width: 100%;
-
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
-  li {
-    display: inline-block;
+    margin-top: 0;
+    color: #B99F65; 
+    text-decoration: none;
+    text-transform: uppercase;
     line-height: normal;
+    font-weight: normal;
 
     &::after {
       content:'';
       margin-right: 1ch;
     }
   }
-`
+  
+  p {
+    margin-top: 5px;
+  }
+`;
 
 const initialPages = [
   {
@@ -153,34 +95,14 @@ const initialPages = [
   null,
 ];
 
-const triangleConfig = [
-  {
-    animateParams: { rotate: '-45deg', x: [0, -6, 0], y: [0, -6, 0]},
-    className: 'zelda-botw-triangle-up zelda-botw-triangle-top-left',
-  },
-  {
-    animateParams: { rotate: '45deg', x: [0, 6, 0], y: [0, -6, 0]},
-    className: 'zelda-botw-triangle-up zelda-botw-triangle-top-right',
-  },
-  {
-    animateParams: { rotate: '45deg', x: [0, -6, 0], y: [0, 6, 0]},
-    className: 'zelda-botw-triangle-down zelda-botw-triangle-bottom-left',
-  },
-  {
-    animateParams: { rotate: '-45deg', x: [0, 6, 0], y: [0, 6, 0]},
-    className: 'zelda-botw-triangle-down zelda-botw-triangle-bottom-right',
-  },
-]
-
 type BlogProps = {
-  posts: string[]
+  posts: EntriesOverview
 }
 
 const Blog = ({
   posts
 }: BlogProps) => {
-  // const [activePost, setActivePost] = useState(posts[0]);
-  const activePost = null;
+  const [activePost, setActivePost] = useState(posts[0]);
 
   return (
     <>
@@ -190,52 +112,22 @@ const Blog = ({
       <NewHeader pages={initialPages} />
       <Main>
         <PostsWrapper>
-          <PostList>
-            {posts.map((post) => {
-              return (
-                <Post
-                  key={post?.title}
-                  selected={activePost === post}
-                  to={`/blog/${post?.slug}`}
-                  onMouseOver={() => setActivePost(post)}
-                >
-                  {
-                    activePost === post && (
-                      triangleConfig.map((triangle, index) => (
-                        <Triangle key={`Triangle-${index}`} animateParams={triangle?.animateParams} className={triangle?.className} />
-                      ))
-                    )
-                  }
-                  <img src={post?.better_featured_image?.media_details?.sizes?.thumbnail?.source_url} height="50" width="50" loading="lazy" />
-                  <div>
-                    <h3 dangerouslySetInnerHTML={{ __html: post?.title }} />
-                    <ul>
-                    {
-                      post?.categories.map((category) => {
-                        return (
-                          <li key={`${post?.title}-${category?.name}`}>{category?.name}</li>
-                        )
-                      })
-                    }
-                    </ul>
-                  </div>
-                </Post>
-              )
-            })}
-          </PostList>
+          <PostList posts={posts} activePost={activePost} setActivePost={setActivePost} />
           <ActivePost>
-            <BackgroundImage src={activePost?.better_featured_image?.media_details?.sizes?.medium_large?.source_url} />
+            <BackgroundImage src={activePost?.coverImage} />
             <h2 dangerouslySetInnerHTML={{ __html: activePost?.title }} />
             <hr/>
+            <ul>
             {
               activePost?.categories?.map((category) => {
                 return (
-                  <li key={`${activePost?.title}-${category?.name}`}><Link to={`?category=${category?.slug}`}>{category?.name}</Link></li>
-                )
-              })
-            }
-            <p dangerouslySetInnerHTML={{ __html: stripHtmlTags(activePost?.excerpt) }} />
-            <Link to={`/blog/${activePost?.slug}`}>Read More</Link>
+                  <li key={`${activePost?.title}-${category}`}><Link href={`?category=${category?.slug}`}>{category}</Link></li>
+                  )
+                })
+              }
+            </ul>
+            <p dangerouslySetInnerHTML={{ __html: 'EXCERPT' }} />
+            <Link href={`/blog/${activePost?.slug}`}>Read More</Link>
         </ActivePost>
         </PostsWrapper>
       </Main>
@@ -244,3 +136,13 @@ const Blog = ({
 }
 
 export default Blog
+
+export const getStaticProps: GetStaticProps = async () => {
+  const posts = getAllEntriesByType(POSTS_LOCATION);
+
+  return {
+    props: {
+      posts
+    }
+  };
+}

@@ -4,7 +4,6 @@ import NextHead from 'next/head';
 const Head = ({ children }: {children: React.ReactNode}) => {
   return (
     <NextHead>
-      <html lang="en" />
       <meta name="author" content="Lukas Gabsi (Gabsii)" />
       <meta
         name="description"

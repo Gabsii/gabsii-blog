@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
+import { GetStaticProps } from 'next'
 import styled, { keyframes } from 'styled-components'
+import { motion } from 'framer-motion'
+import { useWindupString } from 'windups'
 
 import useKeyPress from '../utils/hooks/useKeyPress'
 import NewHeader from '../components/Header'
 import Main from '../components/Main'
 import ProjectSlider from '../components/ProjectSlider'
-import { motion } from 'framer-motion'
-import { useWindupString } from 'windups'
 import Head from '../components/Head'
-import { breakpoints } from '../js/constants'
+import { breakpoints, PROJECTS_LOCATION } from '../utils/constants'
+import { getAllEntriesByType } from '../utils/entries'
+import { EntriesOverview } from '../types/entries'
 
 const pulse = keyframes`
   0% {
@@ -59,7 +62,7 @@ const H3 = styled.h3`
   text-shadow: 0px 0px 4px #9efafe;
 `
 
-const HR = styled(motion.div)`
+const HR = styled(motion.div)<{extended: string}>`
   margin: 10px auto 20px;
   max-width: ${({ extended }) => (extended ? '500px' : '350px')};
 
@@ -79,7 +82,7 @@ const HR = styled(motion.div)`
     height: 6px;
     position: absolute;
     top: 50%;
-    background: url('/arrow-decoration-tip.svg') center center no-repeat;
+    background: url('/img/arrow-decoration-tip.svg') center center no-repeat;
   }
 
   &::before {
@@ -130,13 +133,14 @@ const initialPages = [
   },
 ]
 
-const Projects = ({ data }) => {
+type ProjectProps = {
+  projects: EntriesOverview
+}
+
+const Projects = ({ projects }: ProjectProps) => {
   const [activeIndex, setActiveProject] = useState(0)
   const leftPressed = useKeyPress('ArrowLeft')
   const rightPressed = useKeyPress('ArrowRight')
-
-  // const projects = data.allWordpressWpProject.edges
-  const projects = [];
 
   useEffect(() => {
     if (leftPressed && activeIndex > 0) {
@@ -145,15 +149,15 @@ const Projects = ({ data }) => {
       setActiveProject(activeIndex + 1)
     }
   }, [rightPressed, leftPressed, projects.length])
-  // const activeProject = projects[activeIndex].node
-  const activeProject = [];
+  const activeProject = projects[activeIndex]
 
-  const [intro] = useWindupString(activeProject?.acf?.project_intro || '', {
-    pace: () => 7,
-  })
-  const [description] = useWindupString(activeProject?.excerpt || '', {
-    pace: () => 3,
-  })
+  // TODO:
+  // const [intro] = useWindupString(activeProject?.acf?.project_intro || '', {
+  //   pace: () => 7,
+  // })
+  // const [description] = useWindupString(activeProject?.excerpt || '', {
+  //   pace: () => 3,
+  // })
 
   return (
     <>
@@ -164,7 +168,7 @@ const Projects = ({ data }) => {
       <Main>
         <Center>
           <Title>
-            <a href={activeProject?.acf?.project_url?.url}>
+            <a href={activeProject?.url}>
               {activeProject?.title}
             </a>
             <HR
@@ -178,13 +182,15 @@ const Projects = ({ data }) => {
             setActiveProject={setActiveProject}
           />
           <ProjectInfo>
-            <H3>{intro}</H3>
+            {/* TODO */}
+            {/* <H3>{intro}</H3> */}
             <HR
               initial={{ width: '40px', opacity: 0 }}
               animate={{ width: '100%', opacity: 1 }}
               extended
             />
-            <Excerpt dangerouslySetInnerHTML={{ __html: description }} />
+            {/* TODO */}
+            {/* <Excerpt dangerouslySetInnerHTML={{ __html: description }} /> */}
           </ProjectInfo>
         </Center>
       </Main>
@@ -193,3 +199,13 @@ const Projects = ({ data }) => {
 }
 
 export default Projects
+
+export const getStaticProps: GetStaticProps = async () => {
+  const projects = getAllEntriesByType(PROJECTS_LOCATION);
+
+  return {
+    props: {
+      projects
+    }
+  };
+}

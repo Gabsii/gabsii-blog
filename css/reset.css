@@ -71,6 +71,7 @@ html, body, #__next {
     left: 0;
     top: 0; 
     margin: 0 -0.25rem;
+    transform: rotate(-45deg);
 }
 
 .zelda-botw-triangle-top-right {
@@ -78,6 +79,7 @@ html, body, #__next {
     right: 0; 
     top: 0;
     margin: 0 -0.25rem;
+    transform: rotate(45deg);
 }
 
 .zelda-botw-triangle-bottom-left {
@@ -85,6 +87,7 @@ html, body, #__next {
     left: 0;
     bottom: 0;
     margin: 0 -0.25rem;
+    transform: rotate(45deg);
 }
 
 .zelda-botw-triangle-bottom-right {
@@ -92,4 +95,5 @@ html, body, #__next {
     right: 0;
     bottom: 0;
     margin: 0 -0.25rem;
+    transform: rotate(-45deg);
 }

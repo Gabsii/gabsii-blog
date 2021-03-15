@@ -3,7 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import TriangleBox from './TriangleBox'
-import { breakpoints } from '../js/constants'
+import { breakpoints } from '../utils/constants'
+import { EntriesOverview } from '../types/entries'
 
 const ProjectShowcase = styled.div`
   width: 100%;
@@ -52,7 +53,13 @@ const ProjectWrapper = styled.div`
   width: 150px;
 `
 
-const ProjectSlider = ({ projects, activeIndex, setActiveProject }) => {
+type ProjectSliderProps = {
+  projects: EntriesOverview, 
+  activeIndex: Number, 
+  setActiveProject: (activeProjectIndex: Number) => void 
+};
+
+const ProjectSlider = ({ projects, activeIndex, setActiveProject }: ProjectSliderProps) => {
   return (
     <>
       <ProjectShowcase>
@@ -61,10 +68,9 @@ const ProjectSlider = ({ projects, activeIndex, setActiveProject }) => {
             {index === activeIndex && <TriangleBox />}
             <Img
               src={
-                project.node.better_featured_image.media_details.sizes.thumbnail
-                  .source_url
+                project.coverImage
               }
-              alt={project.node.better_featured_image.alt_text}
+              alt={project.title}
               loading="lazy"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

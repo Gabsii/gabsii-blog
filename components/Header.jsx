@@ -87,7 +87,7 @@ const Triangle = styled.div`
 const NewHeader = ({ pages }) => {
   const QPressed = useKeyPress('q')
   const EPressed = useKeyPress('e')
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
     if (QPressed && pages[0] !== null) {
