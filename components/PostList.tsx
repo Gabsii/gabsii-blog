@@ -2,8 +2,7 @@ import Link from 'next/link';
 import styled from "styled-components";
 
 import { EntriesOverview, EntryOverview } from "../types/entries";
-import { triangleConfig } from '../utils/constants';
-import TriangleBox, { Triangle } from './TriangleBox';
+import TriangleBox from './TriangleBox';
 
 const PostListWrapper = styled.div`
   display: flex;
