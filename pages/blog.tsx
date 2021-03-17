@@ -8,7 +8,7 @@ import styled from 'styled-components'
 
 import { getAllEntriesByType } from '../utils/entries'
 import { POSTS_LOCATION } from '../utils/constants'
-import { EntriesOverview } from '../types/entries'
+import { PostsOverview, PostOverview } from '../types/entries'
 import PostList from '../components/PostList'
 import { GetStaticProps} from 'next'
 import useKeyPress from '../utils/hooks/useKeyPress'
@@ -85,7 +85,7 @@ const ActivePost = styled.div`
 `;
 
 type BlogProps = {
-  posts: EntriesOverview
+  posts: PostsOverview
 }
 
 const Blog = ({
@@ -116,7 +116,7 @@ const Blog = ({
               {
                 activePost?.categories?.map((category) => {
                   return (
-                    <li key={`${activePost?.title}-${category}`}><Link href={`?category=${category?.slug}`}>{category}</Link></li>
+                    <li key={`${activePost?.title}-${category}`}>{category}</li>
                   )
                 })
               }
@@ -133,7 +133,11 @@ const Blog = ({
 export default Blog
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllEntriesByType(POSTS_LOCATION);
+  const posts: PostsOverview = getAllEntriesByType(POSTS_LOCATION, (post: PostOverview) => {
+    return {
+      categories: post.categories || null,
+    }
+  });
 
   return {
     props: {

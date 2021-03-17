@@ -9,7 +9,7 @@ function getSlugByType(type: string): string[]
   return fs.readdirSync(postsDirectory);
 }
 
-export function getAllEntriesByType(path: string): EntriesOverview
+export function getAllEntriesByType(path: string, returnFunction: Function = () => {}): EntriesOverview
 { 
   const slugs = getSlugByType(path);
 
@@ -21,9 +21,9 @@ export function getAllEntriesByType(path: string): EntriesOverview
       slug,
       title: data?.title,
       date: data?.date,
-      categories: data?.categories || null,
-      coverImage: `${path.replace('public/', '')}/${slug}/images/${data?.coverImage}`,
-    }
+      coverImage: `/${path.replace('public/', '')}/${slug}/images/${data?.coverImage}`,
+      ...returnFunction(data), 
+    };
   }).sort((entry1, entry2) => entry1?.date > entry2?.date ? -1 : 1);
 
   return entries;

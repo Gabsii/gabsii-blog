@@ -11,7 +11,7 @@ import ProjectSlider from '../components/ProjectSlider'
 import Head from '../components/Head'
 import { breakpoints, PROJECTS_LOCATION } from '../utils/constants'
 import { getAllEntriesByType } from '../utils/entries'
-import { EntriesOverview } from '../types/entries'
+import { EntriesOverview, EntryOverview, ProjectOverview, ProjectsOverview } from '../types/entries'
 
 const pulse = keyframes`
   0% {
@@ -116,9 +116,9 @@ const ProjectInfo = styled.div`
 
   margin-top: 4rem;
 
-  /* @media ${breakpoints.lg} {
+  @media ${breakpoints.lg} {
     display: block;
-  } */
+  }
 `
 
 type ProjectProps = {
@@ -139,13 +139,12 @@ const Projects = ({ projects }: ProjectProps) => {
   }, [rightPressed, leftPressed, projects.length])
   const activeProject = projects[activeIndex]
 
-  // TODO:
-  // const [intro] = useWindupString(activeProject?.acf?.project_intro || '', {
-  //   pace: () => 7,
-  // })
-  // const [description] = useWindupString(activeProject?.excerpt || '', {
-  //   pace: () => 3,
-  // })
+  const [intro] = useWindupString(activeProject?.intro || '', {
+    pace: () => 7,
+  })
+  const [description] = useWindupString(activeProject?.excerpt || '', {
+    pace: () => 3,
+  })
 
   return (
     <>
@@ -170,15 +169,13 @@ const Projects = ({ projects }: ProjectProps) => {
             setActiveProject={setActiveProject}
           />
           <ProjectInfo>
-            {/* TODO */}
-            {/* <H3>{intro}</H3> */}
+            <H3>{intro}</H3>
             <HR
               initial={{ width: '40px', opacity: 0 }}
               animate={{ width: '100%', opacity: 1 }}
               extended
             />
-            {/* TODO */}
-            {/* <Excerpt dangerouslySetInnerHTML={{ __html: description }} /> */}
+            <Excerpt dangerouslySetInnerHTML={{ __html: description }} />
           </ProjectInfo>
         </Center>
       </Main>
@@ -189,7 +186,12 @@ const Projects = ({ projects }: ProjectProps) => {
 export default Projects
 
 export const getStaticProps: GetStaticProps = async () => {
-  const projects = getAllEntriesByType(PROJECTS_LOCATION);
+  const projects: ProjectsOverview = getAllEntriesByType(PROJECTS_LOCATION, (project: ProjectOverview) => {
+    return {
+      intro: project?.intro,
+      excerpt: project?.excerpt,
+    }
+  } );
 
   return {
     props: {

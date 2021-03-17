@@ -82,7 +82,7 @@ const ProjectSlider = ({ projects, activeIndex, setActiveProject }: ProjectSlide
               animate={{ opacity: 1 }}
               >
               <Img
-                src={`/${project.coverImage}`}
+                src={project.coverImage}
                 alt={project.title}
                 height="150"
                 width="150"

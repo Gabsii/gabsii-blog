@@ -1,5 +1,7 @@
 ---
 title: 'Spoti-Vote'
 date: '2020-07-06'
-coverImage: 'Bildschirmfoto-am-2020-07-06-um-18.51.19.png'
+coverImage: 'spoti-vote.png'
+excerpt: 'Spoti-Vote brings <em>democracy</em> to music! Using our service you will be able to listen to music that <em>the group</em> wants. '
+intro: 'Democracy for music!'
 ---
