@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react'
 import { GetStaticProps } from 'next'
 import styled, { keyframes } from 'styled-components'
 import { motion } from 'framer-motion'
-import { useWindupString } from 'windups'
 
 import useKeyPress from '../utils/hooks/useKeyPress'
 import Header from '../components/Header'
 import Main from '../components/Main'
 import ProjectSlider from '../components/ProjectSlider'
 import Head from '../components/Head'
-import { breakpoints, PROJECTS_LOCATION } from '../utils/constants'
+import { PROJECTS_LOCATION } from '../utils/constants'
 import { getAllEntriesByType } from '../utils/entries'
 import { ProjectOverview, ProjectsOverview } from '../types/entries'
+import ActiveProject from '../components/ActiveProject'
 
 const pulse = keyframes`
   0% {
@@ -53,16 +53,7 @@ const Center = styled.div`
   font-family: 'Calamity Sans';
 `
 
-const H3 = styled.h3`
-  text-align: center;
-  font-size: 2rem;
-  color: #9efafe;
-  line-height: 2.5rem;
-  height: 40px;
-  text-shadow: 0px 0px 4px #9efafe;
-`
-
-const HR = styled(motion.div)<{extended?: boolean}>`
+export const HR = styled(motion.div)<{extended?: boolean}>`
   margin: 10px auto 20px;
   max-width: ${({ extended }) => (extended ? '500px' : '350px')};
 
@@ -98,29 +89,6 @@ const HR = styled(motion.div)<{extended?: boolean}>`
   }
 `
 
-const Excerpt = styled.p`
-  max-width: 400px;
-  min-height: 50px;
-  text-align: center;
-  margin: 0 auto;
-
-  em {
-    color: #d27e3f;
-    text-shadow: 0px 0px 5px #d27e3f;
-  }
-`
-
-const ProjectInfo = styled.div`
-  width: 100%;
-  display: none;
-
-  margin-top: 4rem;
-
-  @media ${breakpoints.lg} {
-    display: block;
-  }
-`
-
 type ProjectProps = {
   projects: ProjectsOverview
 }
@@ -139,13 +107,6 @@ const Projects = ({ projects }: ProjectProps) => {
   }, [rightPressed, leftPressed, projects.length])
   const activeProject = projects[activeIndex]
 
-  const [intro] = useWindupString(activeProject?.intro || '', {
-    pace: () => 7,
-  })
-  const [description] = useWindupString(activeProject?.excerpt || '', {
-    pace: () => 3,
-  })
-
   return (
     <>
       <Head>
@@ -155,9 +116,7 @@ const Projects = ({ projects }: ProjectProps) => {
       <Main>
         <Center>
           <Title>
-            <h2>
-              {activeProject?.title}
-            </h2>
+            {activeProject?.title}
             <HR
               initial={{ width: '40px', opacity: 0 }}
               animate={{ width: '100%', opacity: 1 }}
@@ -168,15 +127,7 @@ const Projects = ({ projects }: ProjectProps) => {
             activeIndex={activeIndex}
             setActiveProject={setActiveProject}
           />
-          <ProjectInfo>
-            <H3>{intro}</H3>
-            <HR
-              initial={{ width: '40px', opacity: 0 }}
-              animate={{ width: '100%', opacity: 1 }}
-              extended
-            />
-            <Excerpt dangerouslySetInnerHTML={{ __html: description }} />
-          </ProjectInfo>
+          <ActiveProject project={activeProject}/>
         </Center>
       </Main>
     </>

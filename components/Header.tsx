@@ -1,5 +1,6 @@
 import NextLink from 'next/link'
 import styled from 'styled-components'
+import { breakpoints } from '../utils/constants'
 
 import useNav from '../utils/hooks/useNav'
 
@@ -65,7 +66,11 @@ const ButtonHint = styled.div`
   text-align: center;
   width: 15px;
   box-sizing: content-box;
-  color: #000000;
+  color: #efefef;
+
+  @media ${breakpoints.md} {
+    color: #000000;
+  }
 `
 
 const TriangleButton = styled.div`
