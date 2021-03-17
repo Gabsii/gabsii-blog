@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useWindupString } from 'windups'
 
 import useKeyPress from '../utils/hooks/useKeyPress'
-import NewHeader from '../components/Header'
+import Header from '../components/Header'
 import Main from '../components/Main'
 import ProjectSlider from '../components/ProjectSlider'
 import Head from '../components/Head'
@@ -62,7 +62,7 @@ const H3 = styled.h3`
   text-shadow: 0px 0px 4px #9efafe;
 `
 
-const HR = styled(motion.div)<{extended: string}>`
+const HR = styled(motion.div)<{extended?: boolean}>`
   margin: 10px auto 20px;
   max-width: ${({ extended }) => (extended ? '500px' : '350px')};
 
@@ -121,18 +121,6 @@ const ProjectInfo = styled.div`
   } */
 `
 
-const initialPages = [
-  null,
-  {
-    name: 'Projects',
-    url: '/projects',
-  },
-  {
-    name: 'Gabsii',
-    url: '/',
-  },
-]
-
 type ProjectProps = {
   projects: EntriesOverview
 }
@@ -162,9 +150,9 @@ const Projects = ({ projects }: ProjectProps) => {
   return (
     <>
       <Head>
-        <title>Projects</title>
+        <title>Projects | Gabsii</title>
       </Head>
-      <NewHeader pages={initialPages} />
+      <Header/>
       <Main>
         <Center>
           <Title>

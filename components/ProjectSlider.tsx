@@ -1,6 +1,7 @@
+import React, { Dispatch, SetStateAction } from 'react'
 import { motion } from 'framer-motion'
-import React from 'react'
 import styled from 'styled-components'
+import NextImage from 'next/image';
 
 import TriangleBox from './TriangleBox'
 import { breakpoints } from '../utils/constants'
@@ -23,10 +24,20 @@ const ProjectShowcase = styled.div`
   }
 `
 
-const Img = styled(motion.img)`
+const ImgWrapper = styled(motion.div)`
+  z-index: 1;
+
+  div {
+    position: static !important;
+  }
+`
+
+const Img = styled(NextImage)<{isActive: boolean}>`
   height: 150px;
   width: 150px;
 
+  z-index: 0;
+  object-fit: cover;
   scroll-snap-align: start;
   transition: all 0.25s;
 
@@ -36,12 +47,12 @@ const Img = styled(motion.img)`
 
   /* todo: add transition */
 
-  ${({ isactive }) =>
-    isactive &&
+  ${({ isActive }) =>
+    isActive &&
     `
     // outline: 2px solid #9efafe; 
     box-shadow: rgba(255, 255, 190, 0.4) 0px 0px 6px 2px;
-    border: 1px solid rgba(248,247,217, 1); 
+    border: 1px solid rgba(248,247,217, 1) !important; 
   `}
 `
 
@@ -56,7 +67,7 @@ const ProjectWrapper = styled.div`
 type ProjectSliderProps = {
   projects: EntriesOverview, 
   activeIndex: Number, 
-  setActiveProject: (activeProjectIndex: Number) => void 
+  setActiveProject: Dispatch<SetStateAction<number>>
 };
 
 const ProjectSlider = ({ projects, activeIndex, setActiveProject }: ProjectSliderProps) => {
@@ -66,19 +77,20 @@ const ProjectSlider = ({ projects, activeIndex, setActiveProject }: ProjectSlide
         {projects.map((project, index) => (
           <ProjectWrapper key={`project-${index}`}>
             {index === activeIndex && <TriangleBox />}
-            <Img
-              src={
-                project.coverImage
-              }
-              alt={project.title}
-              loading="lazy"
+            <ImgWrapper
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              height="150"
-              width="150"
-              isactive={index === activeIndex ? 'true' : undefined}
-              onClick={() => setActiveProject(index)}
-            />
+              >
+              <Img
+                src={`/${project.coverImage}`}
+                alt={project.title}
+                height="150"
+                width="150"
+                isActive={index === activeIndex}
+                onMouseOver={() => setActiveProject(index)}
+                priority
+                />
+            </ImgWrapper>
           </ProjectWrapper>
         ))}
       </ProjectShowcase>

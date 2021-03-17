@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import Head from '../components/Head'
@@ -6,12 +6,13 @@ import Main from '../components/Main'
 import NewHeader from '../components/Header'
 import styled from 'styled-components'
 
-import { Triangle } from '../components/TriangleBox';
 import { getAllEntriesByType } from '../utils/entries'
 import { POSTS_LOCATION } from '../utils/constants'
 import { EntriesOverview } from '../types/entries'
 import PostList from '../components/PostList'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, NextPage } from 'next'
+import useKeyPress from '../utils/hooks/useKeyPress'
+import { useRouter } from 'next/router'
 
 const PostsWrapper = styled.div`
   display: flex;
@@ -83,18 +84,6 @@ const ActivePost = styled.div`
   }
 `;
 
-const initialPages = [
-  {
-    name: 'Gabsii',
-    url: '/',
-  },
-  {
-    name: 'Blog',
-    url: '/blog',
-  },
-  null,
-];
-
 type BlogProps = {
   posts: EntriesOverview
 }
@@ -103,32 +92,38 @@ const Blog = ({
   posts
 }: BlogProps) => {
   const [activePost, setActivePost] = useState(posts[0]);
+  const router = useRouter();
+  const enterPressed = useKeyPress('Enter');
+
+  useEffect(() => {
+    enterPressed && activePost && router.push(`/blog/${activePost.slug}`)
+  }, [enterPressed])
 
   return (
     <>
       <Head>
-        <title>Blog</title>
+        <title>Blog | Gabsii</title>
       </Head>
-      <NewHeader pages={initialPages} />
+      <NewHeader />
       <Main>
         <PostsWrapper>
           <PostList posts={posts} activePost={activePost} setActivePost={setActivePost} />
           <ActivePost>
             <BackgroundImage src={activePost?.coverImage} />
             <h2 dangerouslySetInnerHTML={{ __html: activePost?.title }} />
-            <hr/>
+            <hr />
             <ul>
-            {
-              activePost?.categories?.map((category) => {
-                return (
-                  <li key={`${activePost?.title}-${category}`}><Link href={`?category=${category?.slug}`}>{category}</Link></li>
+              {
+                activePost?.categories?.map((category) => {
+                  return (
+                    <li key={`${activePost?.title}-${category}`}><Link href={`?category=${category?.slug}`}>{category}</Link></li>
                   )
                 })
               }
             </ul>
             <p dangerouslySetInnerHTML={{ __html: 'EXCERPT' }} />
             <Link href={`/blog/${activePost?.slug}`}>Read More</Link>
-        </ActivePost>
+          </ActivePost>
         </PostsWrapper>
       </Main>
     </>

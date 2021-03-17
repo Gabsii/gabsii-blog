@@ -56,6 +56,7 @@ html, body, #__next {
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     border-bottom: 7px solid white;
+    z-index: 10;
 }
 
 .zelda-botw-triangle-down {
@@ -64,6 +65,7 @@ html, body, #__next {
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     border-top: 7px solid white;
+    z-index: 10;
 }
 
 .zelda-botw-triangle-top-left {
