@@ -133,7 +133,7 @@ const Blog = ({
 export default Blog
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts: PostsOverview = getAllEntriesByType(POSTS_LOCATION, (post: PostOverview) => {
+  const posts = getAllEntriesByType(POSTS_LOCATION, (post: PostOverview) => {
     return {
       categories: post.categories || null,
     }

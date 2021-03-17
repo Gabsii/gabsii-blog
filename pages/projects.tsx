@@ -155,9 +155,9 @@ const Projects = ({ projects }: ProjectProps) => {
       <Main>
         <Center>
           <Title>
-            <a href={activeProject?.url}>
+            <h2>
               {activeProject?.title}
-            </a>
+            </h2>
             <HR
               initial={{ width: '40px', opacity: 0 }}
               animate={{ width: '100%', opacity: 1 }}
@@ -186,7 +186,7 @@ const Projects = ({ projects }: ProjectProps) => {
 export default Projects
 
 export const getStaticProps: GetStaticProps = async () => {
-  const projects: ProjectsOverview = getAllEntriesByType(PROJECTS_LOCATION, (project: ProjectOverview) => {
+  const projects = getAllEntriesByType(PROJECTS_LOCATION, (project: ProjectOverview) => {
     return {
       intro: project?.intro,
       excerpt: project?.excerpt,
