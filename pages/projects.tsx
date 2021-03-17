@@ -11,7 +11,7 @@ import ProjectSlider from '../components/ProjectSlider'
 import Head from '../components/Head'
 import { breakpoints, PROJECTS_LOCATION } from '../utils/constants'
 import { getAllEntriesByType } from '../utils/entries'
-import { EntriesOverview, EntryOverview, ProjectOverview, ProjectsOverview } from '../types/entries'
+import { ProjectOverview, ProjectsOverview } from '../types/entries'
 
 const pulse = keyframes`
   0% {
@@ -122,7 +122,7 @@ const ProjectInfo = styled.div`
 `
 
 type ProjectProps = {
-  projects: EntriesOverview
+  projects: ProjectsOverview
 }
 
 const Projects = ({ projects }: ProjectProps) => {

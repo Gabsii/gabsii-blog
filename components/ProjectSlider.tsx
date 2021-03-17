@@ -5,7 +5,7 @@ import NextImage from 'next/image';
 
 import TriangleBox from './TriangleBox'
 import { breakpoints } from '../utils/constants'
-import { EntriesOverview } from '../types/entries'
+import { ProjectsOverview } from '../types/entries'
 
 const ProjectShowcase = styled.div`
   width: 100%;
@@ -65,7 +65,7 @@ const ProjectWrapper = styled.div`
 `
 
 type ProjectSliderProps = {
-  projects: EntriesOverview, 
+  projects: ProjectsOverview, 
   activeIndex: Number, 
   setActiveProject: Dispatch<SetStateAction<number>>
 };

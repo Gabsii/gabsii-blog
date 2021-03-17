@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styled from "styled-components";
 
-import { EntriesOverview, EntryOverview } from "../types/entries";
+import { PostsOverview, PostOverview } from "../types/entries";
 import TriangleBox from './TriangleBox';
 
 const PostListWrapper = styled.div`
@@ -71,7 +71,7 @@ const PostElement = styled.a<{isActive: boolean, onMouseOver: () => void}>`
   }
 `
 
-const PostList = ({posts, activePost, setActivePost}: {posts: EntriesOverview, activePost: EntryOverview, setActivePost: (id: EntryOverview) => void}) => {
+const PostList = ({posts, activePost, setActivePost}: {posts: PostsOverview, activePost: PostOverview, setActivePost: (id: PostOverview) => void}) => {
   return (
     <PostListWrapper>
       {posts.map((post) => {
