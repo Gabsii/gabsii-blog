@@ -43,23 +43,20 @@ function useNav(): NavHook
 
   const currentPageIndex: number = pages.findIndex((page) => page.url === router.asPath);
 
-  pages.forEach((page, index) => index === currentPageIndex ? page.centered = true : page.centered = false);
-
-  if (currentPageIndex === 0 ) {
-    pages[2].visible = false;
-    pages[0].visible = true;
-  } else if (currentPageIndex === 1) {
-    pages[0].visible = true;
-    pages[2].visible = true;
-  } else if (currentPageIndex === 2) {
-    pages[0].visible = false;
-    pages[2].visible = true;
-  }
+  pages.forEach((page, index) => {
+    // page is centered if it is the current page
+    page.centered = index === currentPageIndex;
+    
+    // Only display the neighbours of the centered page 
+    Math.abs(index - currentPageIndex) > 1 ? pages[index].visible = false : pages[index].visible = true;
+  });
 
   useEffect(() => {
     if (QPressed && pages[currentPageIndex - 1]) {
+      // navigate to page on the left
       router.push(pages[currentPageIndex - 1].url)
     } else if (EPressed && pages[currentPageIndex + 1]) {
+      // navigate to page on the right
       router.push(pages[currentPageIndex + 1].url)
     }
   }, [EPressed, QPressed, pages])
