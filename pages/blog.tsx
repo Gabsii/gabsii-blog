@@ -10,7 +10,7 @@ import { getAllEntriesByType } from '../utils/entries'
 import { POSTS_LOCATION } from '../utils/constants'
 import { EntriesOverview } from '../types/entries'
 import PostList from '../components/PostList'
-import { GetStaticProps, NextPage } from 'next'
+import { GetStaticProps} from 'next'
 import useKeyPress from '../utils/hooks/useKeyPress'
 import { useRouter } from 'next/router'
 
