@@ -10,21 +10,6 @@ module.exports = {
         `gatsby-plugin-postcss`,
         `gatsby-plugin-sitemap`, 
         {
-            resolve: "gatsby-source-wordpress",
-            options: {
-                baseUrl: "wp.gabsii.com",
-                protocol: "https",
-                hostingWPCOM: false,
-                useACF: true,
-                verboseOutput: true,
-                includedRoutes: [
-                    "**/wp/**/categories",
-                    "**/wp/**/posts",
-                    "**/wp/**/users",
-                  ],
-            }
-        }, 
-        {
             resolve: `gatsby-plugin-nprogress`,
             options: {
               // Setting a color is optional.
