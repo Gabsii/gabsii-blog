@@ -1,5 +1,4 @@
 import React from 'react'
-// import PageTransition from 'gatsby-plugin-page-transitions';
 import Helmet from 'react-helmet'
 import { Link } from 'gatsby'
 import { css } from 'glamor'
@@ -23,7 +22,6 @@ import instagram from '../img/contact/instagram.svg'
 import linkedin from '../img/contact/linkedin.svg'
 
 import Frame from '../components/Frame.jsx'
-import Project from '../components/Project.jsx'
 
 const IndexPage = () => (
   <div>
@@ -54,151 +52,9 @@ const IndexPage = () => (
       <div className={`${styles.titleWrapper}`}>
         <h1 className={`${styles.title}`}>Gabsii</h1>
         <h2 className={`${styles.subHeading} ${styles.subHeading1}`}>
-          modern.vintage
-        </h2>
-        <h2 className={`${styles.subHeading} ${styles.subHeading2}`}>
-          modern.vintage
-        </h2>
-        <h2 className={`${styles.subHeading} ${styles.subHeading3}`}>
-          modern.vintage
-        </h2>
-        <h2 className={`${styles.subHeading} ${styles.subHeading4}`}>
-          modern.vintage
+          is currently reworking this whole bit
         </h2>
       </div>
-      <Link className={`${styles.blog}`} to="/blog">
-        Catch me blogging
-      </Link>
-    </Frame>
-    <Frame backgroundColor="#fff" color="#000">
-      <div className={`${styles.headWrapper}`}>
-        <h1 className={`${styles.heading}`}>Who am I?</h1>
-        <img
-          alt="profile"
-          className={`${styles.profilPicture}`}
-          src={profilePicture}
-        />
-      </div>
-      <hr className={`${styles.horizontalRow}`} />
-      <div className={`${styles.paragraph}`}>
-        <p>
-          My name is Lukas Samir Gabsi.
-          <img alt="emoji-man" className={`${styles.emoji}`} src={man} />
-        </p>
-        <p>I am 20 years old (or young?!)</p>
-        <p>
-          I am from Austria, between a lake and mountains.
-          <img
-            alt="emoji-austria"
-            className={`${styles.emoji}`}
-            src={austria}
-            style={{
-              paddingRight: 0,
-            }}
-          />
-        </p>
-        <p>
-          I program cool stuff&nbsp;
-          <i className={`${styles.crossed}`}>sometimes.</i>
-          <img alt="emoji-laptop" className={`${styles.emoji}`} src={laptop} />
-        </p>
-      </div>
-      <hr className={`${styles.horizontalRow}`} />
-      <div className={`${styles.paragraph}`}>
-        <p>
-          I do Web Development
-          <img alt="emoji-web" className={`${styles.emoji}`} src={web} />
-          (especially&nbsp;
-          <a href="https://reactjs.org/" className={`${styles.skillLinks}`}>
-            ReactJS
-          </a>
-          )
-        </p>
-        <p>
-          and I recently started&nbsp;
-          <a href="https://www.python.org/" className={`${styles.skillLinks}`}>
-            Python
-            <img alt="emoji-snake" className={`${styles.emoji}`} src={snake} />
-          </a>
-          and&nbsp;
-          <a href="https://unity3d.com/de" className={`${styles.skillLinks}`}>
-            Unity
-          </a>
-          .
-        </p>
-        <p>
-          I make my Web Designs using&nbsp;
-          <a href="https://www.figma.com/" className={`${styles.skillLinks}`}>
-            Figma
-            <img
-              alt="emoji-palette"
-              className={`${styles.emoji}`}
-              src={palette}
-            />
-          </a>
-          .
-        </p>
-        <p>
-          Check out how I survive my travelling in my&nbsp;
-          <Link to="/blog" className={`${styles.skillLinks}`}>
-            blog
-            <img
-              alt="emoji-writing"
-              className={`${styles.emoji}`}
-              src={writing}
-            />
-          </Link>
-          .
-        </p>
-      </div>
-    </Frame>
-    <Frame backgroundColor="#000" color="#fff">
-      <div className={`${styles.headWrapper}`}>
-        <h1 className={`${styles.heading}`}>Projects</h1>
-      </div>
-      <hr className={`${styles.horizontalRow}`} />
-      <div className={`${styles.paragraph}`}>
-        <p>
-          I like developing software that helps people get easier through their
-          day.
-        </p>
-        <p>I started all my project with a final solution in mind:</p>
-        <br />
-        <p
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          <em className={`${styles.emphasized}`}>To solve a problem.</em>
-        </p>
-        <br />
-        <br />
-        <p>Scroll down to see some of my favourite projects!</p>
-      </div>
-    </Frame>
-    <Frame backgroundColor="#282828" color="#fff">
-      <Project
-        name="Spoti-Vote"
-        TLDR="A Social Jukebox Webapp!"
-        background={spotiVote}
-        link="https://spoti-vote.com"
-      />
-    </Frame>
-    <Frame backgroundColor="#282828" color="#fff">
-      <Project
-        name="Spotipy-Dataviz"
-        TLDR="Visualize your Spotify Playlists Data!"
-        background="https://picsum.photos/1200/800"
-        link="/"
-      />
-    </Frame>
-    <Frame backgroundColor="#282828" color="#fff">
-      <Project
-        name="Gabsii Chatbot"
-        TLDR="Chat with an artificial me!"
-        background={chatbot}
-        link="https://lab.gabsii.com/bot"
-      />
     </Frame>
     <Frame backgroundColor="#fff" color="#000">
       <div className={`${styles.headWrapper}`}>
@@ -244,7 +100,7 @@ const IndexPage = () => (
             />
             <a
               className={`${styles.contactLinks}`}
-              href="https://www.instagram.com/omegabsi"
+              href="https://www.instagram.com/not.gabsi"
             >
               Instagram
             </a>
