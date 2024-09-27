@@ -107,7 +107,7 @@ export default function Sidebar() {
           </li>
           <li>
             <Link href="/contact" className="text-md">
-              let's chat →
+              {`let's chat →`}
             </Link>
           </li>
           <li className='relative h-16 w-16'>

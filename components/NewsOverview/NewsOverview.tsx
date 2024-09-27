@@ -35,7 +35,7 @@ export default function NewsOverview() {
       </div>
       <hr className="border border-secondary" />
       {articles.map((article) => (
-        <div className="">
+        <div className="" key={article.slug}>
           {/* TODO: hover animation (show image) */}
           <Link href={article.slug} className="max-w-1200 mx-auto flex items-end justify-between pt-6 pb-5">
             <h3 className="h-max text-2xl font-piazzolla font-medium">{article.title}</h3>
