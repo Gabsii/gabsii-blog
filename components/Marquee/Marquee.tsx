@@ -92,7 +92,7 @@ export function VelocityScroll({
         className="w-full overflow-hidden whitespace-nowrap"
         ref={containerRef}
       >
-        <motion.div className={`inline-block ${className}`} style={{ x }}>
+        <motion.div className={`inline-block ${className}`} style={{ transform: `translateX(${x})` }}>
           {Array.from({ length: repetitions }).map((_, i) => (
             <span key={i} ref={i === 0 ? textRef : null} className={'text-primary bg-secondary'}>
               {children}{" "}
