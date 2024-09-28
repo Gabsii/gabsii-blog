@@ -47,4 +47,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   );
 });
 
+// Set the display name for the component
+Button.displayName = 'Button';
+
 export default Button;
