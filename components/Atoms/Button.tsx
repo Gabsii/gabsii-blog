@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion, MotionProps } from 'framer-motion';
 import { cn } from "@/util/cn";
 
@@ -8,11 +9,19 @@ type ButtonProps = {
   children?: React.ReactNode;
 } & React.ComponentProps<'button'> & MotionProps;
 
-export default function Button({ variant = 'default', isInverted = false, className, wrapperClassName, children, ...props }: ButtonProps) {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
+  variant = 'default',
+  isInverted = false,
+  className,
+  wrapperClassName,
+  children,
+  ...props
+}, ref) => {
   return (
     <div className={cn(`relative inline-flex w-full min-w-fit max-w-full ${variant === 'small' ? 'h-6 md:h-8 lg:h-10' : 'h-9 md:h-12 lg:h-16'}`, wrapperClassName)}>
       <motion.button
-        whileTap={{ translateX: 0, translateY: 0, transition: { duration: 0.1, } }}
+        ref={ref}
+        whileTap={{ translateX: 0, translateY: 0, transition: { duration: 0.1 } }}
         whileHover={{ translateX: 4, translateY: -4, transition: { type: "spring", bounce: 0.5, duration: 0.05 } }}
         className={cn(`
           font-suisse font-medium uppercase
@@ -36,4 +45,6 @@ export default function Button({ variant = 'default', isInverted = false, classN
       />
     </div>
   );
-}
+});
+
+export default Button;
