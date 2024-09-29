@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MotionConfig } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import "./globals.css";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
           </MotionConfig>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
