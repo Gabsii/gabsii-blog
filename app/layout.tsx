@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MotionConfig } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 
@@ -21,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html className="scroll-smooth" lang="en">
       <body className={`bg-primary text-secondary ${piazzolla.variable} ${suisseIntl.variable}`}>
         <BackgroundColumns />
         <ThemeProvider>
@@ -33,6 +34,7 @@ export default function RootLayout({
             <Footer />
           </MotionConfig>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
