@@ -1,11 +1,37 @@
+import ContactForm from "@/components/ContactForm/ContactForm";
+import { VelocityScroll } from "@/components/Marquee/Marquee";
+import NewsOverview from "@/components/NewsOverview/NewsOverview";
+import ProjectSlider from "@/components/ProjectSlider/ProjectSlider";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Under construction...
-        </p>
-      </div>
-    </main>
+    <>
+      <Hero />
+      {/* <ProjectSlider /> */}
+      {/* <NewsOverview /> */}
+      {/* <ContactForm /> */}
+    </>
   );
 }
+
+
+// TODO: weather location
+const Hero = () => (
+  <section className="p-24 relative h-screen">
+    <div className="max-w-1200 mx-auto w-full grid grid-cols-4 gap-[1px]">
+      <div className="col-span-full flex flex-col font-suisse font-medium">
+        <VelocityScroll default_velocity={10} text="Gabsii" className="text-9xl" />
+        <div className="mt-32 font-piazzolla font-light text-5xl leading-normal col-span-2 col-start-2 flex flex-col items-center text-center">
+          <div>
+            is a <span className="font-medium">creative, freelance full-stack developer</span>
+            <br />building <span className="font-medium">memorable</span> and <b>performant</b>
+            <p className="mx-auto w-max font-medium">✨ virtual experiences ✨</p>
+          </div>
+          <span className="mt-2 font-light text-xl"><span className="mr-2">🟢</span>available for work</span>
+        </div>
+      </div>
+      <ScrollIndicator />
+    </div>
+  </section>
+)
