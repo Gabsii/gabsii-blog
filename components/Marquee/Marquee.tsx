@@ -70,7 +70,7 @@ export function VelocityScroll({
       return () => window.removeEventListener("resize", calculateRepetitions);
     }, [children]);
 
-    const x = useTransform(baseX, (v) => `${wrap(-100 / repetitions, 0, v)}%`);
+    const xTransform = useTransform(baseX, (v) => `${wrap(-100 / repetitions, 0, v)}%`);
 
     const directionFactor = React.useRef<number>(1);
     useAnimationFrame((t, delta) => {
@@ -87,14 +87,16 @@ export function VelocityScroll({
       baseX.set(baseX.get() + moveBy);
     });
 
+
+    // tbh no clue how to fix the type error on the motion.div
     return (
       <div
         className="w-full overflow-hidden whitespace-nowrap"
         ref={containerRef}
       >
-        <motion.div className={`inline-block ${className}`} style={{ transform: `translateX(${x})` }}>
+        <motion.div className={`inline-block ${className}`} style={{ x: xTransform as any }}>
           {Array.from({ length: repetitions }).map((_, i) => (
-            <span key={i} ref={i === 0 ? textRef : null} className={'text-primary bg-secondary'}>
+            <span key={i} ref={i === 0 ? textRef : null} className={'text-primary bg-secondary'} aria-hidden={true}>
               {children}{" "}
             </span>
           ))}
