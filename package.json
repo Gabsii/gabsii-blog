@@ -24,6 +24,7 @@
     "@payloadcms/storage-s3": "3.0.0-beta.109",
     "@remixicon/react": "^4.2.0",
     "aws-crt": "^1.22.0",
+    "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
     "framer-motion": "^11.9.0",
     "graphql": "^16.8.1",
