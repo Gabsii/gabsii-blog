@@ -17,6 +17,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.658.1",
     "@aws-sdk/lib-storage": "^3.658.1",
+    "@hookform/resolvers": "^3.9.0",
     "@payloadcms/db-postgres": "3.0.0-beta.109",
     "@payloadcms/next": "3.0.0-beta.109",
     "@payloadcms/richtext-lexical": "3.0.0-beta.109",
@@ -30,6 +31,7 @@
     "payload": "3.0.0-beta.109",
     "react": "19.0.0-rc-5dcb0097-20240918",
     "react-dom": "19.0.0-rc-5dcb0097-20240918",
+    "react-hook-form": "^7.53.0",
     "sharp": "0.32.6",
     "tailwind-merge": "^2.5.2"
   },

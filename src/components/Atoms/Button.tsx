@@ -8,7 +8,7 @@ type ButtonProps = {
   wrapperClassName?: string;
   isInverted?: boolean;
   children?: React.ReactNode;
-} & React.HTMLAttributes<HTMLButtonElement> & HTMLMotionProps<'button'>;
+} & React.ButtonHTMLAttributes<HTMLButtonElement> & HTMLMotionProps<"button">;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'default',
