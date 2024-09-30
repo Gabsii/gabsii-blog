@@ -1,5 +1,6 @@
 import React from 'react';
-import { motion, MotionProps } from 'framer-motion';
+import { HTMLMotionProps, motion } from 'framer-motion';
+
 import { cn } from "~/util/cn";
 
 type ButtonProps = {
@@ -7,7 +8,7 @@ type ButtonProps = {
   wrapperClassName?: string;
   isInverted?: boolean;
   children?: React.ReactNode;
-} & React.ComponentProps<'button'> & MotionProps;
+} & React.HTMLAttributes<HTMLButtonElement> & HTMLMotionProps<'button'>;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'default',
@@ -23,6 +24,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         ref={ref}
         whileTap={{ translateX: 0, translateY: 0, transition: { duration: 0.1 } }}
         whileHover={{ translateX: 4, translateY: -4, transition: { type: "spring", bounce: 0.5, duration: 0.05 } }}
+        // @ts-ignore fml this is a bug in framer motion
         className={cn(`
           font-suisse font-medium uppercase
           min-w-fit w-full h-full z-10 overflow-hidden
@@ -47,7 +49,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   );
 });
 
-// Set the display name for the component
 Button.displayName = 'Button';
 
 export default Button;
