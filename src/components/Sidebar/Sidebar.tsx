@@ -18,6 +18,7 @@ const MotionLink = motion(Link)
 const SlideInButton = function ({ children, isMenuOpen }: SlideInButtonProps) {
   return (
     <motion.div
+      // @ts-ignore fml this is a bug in framer motion
       className={"relative w-full bg-primary uppercase overflow-hidden col-span-full border-2 border-secondary"}
       variants={childrenVariants}
       whileHover="hover"
@@ -26,6 +27,7 @@ const SlideInButton = function ({ children, isMenuOpen }: SlideInButtonProps) {
     >
       {/* Sliding Background */}
       <motion.div
+        // @ts-ignore fml this is a bug in framer motion
         className="absolute inset-0 bg-secondary z-0"
         initial={{ translateY: "100%" }}
         variants={{
@@ -127,6 +129,7 @@ export default function Sidebar() {
 
       {/* Overlay Menu */}
       <motion.div
+        // @ts-ignore fml this is a bug in framer motion
         className={`fixed inset-0 z-40
           lg:w-[calc(100% - 3.125rem)] lg:left-[3.125rem] lg:top-0
           flex items-center justify-center
@@ -134,7 +137,9 @@ export default function Sidebar() {
         animate={isMenuOpen ? "open" : "closed"}
         variants={overlayVariants}
       >
+        {/* @ts-ignore fml this is a bug in framer motion */}
         <motion.nav variants={nestedVariants} className="text-center max-w-1200 w-full lg:mx-auto mx-8">
+          {/* @ts-ignore fml this is a bug in framer motion */}
           <motion.ul variants={nestedVariants} className="p-4 grid grid-cols-4 gap-[1px]">
             <SlideInButton isMenuOpen={isMenuOpen}>
               Home
