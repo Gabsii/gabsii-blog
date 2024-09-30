@@ -1,6 +1,6 @@
 'use client'
 
-import { black, white } from '@/tailwind.config'
+import { black, white } from '~/tailwind.config'
 import React, { createContext, useState, useContext, useEffect } from 'react'
 
 type Theme = 'light' | 'dark'

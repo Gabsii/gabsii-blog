@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { RiMenuLine, RiCloseLargeLine, RiMoonClearFill, RiSunLine } from "@remixicon/react";
 
-import { useTheme } from '@/util/context/ThemeContext'
+import { useTheme } from '~/util/context/ThemeContext'
 import { childrenVariants, MotionButton, nestedVariants, overlayVariants } from './animations';
 
 type SlideInButtonProps = {

@@ -2,7 +2,7 @@
 
 import NextLink, { LinkProps } from 'next/link'
 
-import { cn } from '@/util/cn'
+import { cn } from '~/util/cn'
 import NewsletterForm from './NewsletterForm'
 
 const Link = ({ children, className, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & LinkProps) =>

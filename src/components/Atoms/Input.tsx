@@ -1,4 +1,4 @@
-import { cn } from "@/util/cn";
+import { cn } from "~/util/cn";
 
 type InputProps = {
   label?: string;

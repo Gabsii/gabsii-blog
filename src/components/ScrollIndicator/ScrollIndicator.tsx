@@ -1,6 +1,6 @@
 import Image from "next/image";
-import scroll from '@/img/scroll.svg'
-// import Scroll from '@/img/scroll.svg'
+import scroll from '~/img/scroll.svg'
+
 
 // TODO: figure out how to invert
 export default function ScrollIndicator() {

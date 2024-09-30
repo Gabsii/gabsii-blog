@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { MotionConfig } from "framer-motion";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import "./globals.css";
 
 import Sidebar from '@/components/Sidebar/Sidebar'
 
-import { ThemeProvider } from "@/util/context/ThemeContext";
-import { piazzolla, suisseIntl } from "@/util/fonts/fonts";
+import { ThemeProvider } from "~/util/context/ThemeContext";
+import { piazzolla, suisseIntl } from "~/util/fonts/fonts";
 import Footer from "@/components/Footer/Footer";
 
 // TODO
@@ -23,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="scroll-smooth" lang="en">
+    <html lang="en">
       <body className={`bg-primary text-secondary ${piazzolla.variable} ${suisseIntl.variable}`}>
         <BackgroundColumns />
         <ThemeProvider>
@@ -35,8 +33,6 @@ export default function RootLayout({
             <Footer />
           </MotionConfig>
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

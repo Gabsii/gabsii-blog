@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, MotionProps } from 'framer-motion';
-import { cn } from "@/util/cn";
+import { cn } from "~/util/cn";
 
 type ButtonProps = {
   variant?: 'default' | 'small';
