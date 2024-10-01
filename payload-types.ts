@@ -15,6 +15,7 @@ export interface Config {
     media: Media;
     projects: Project;
     'contact-forms': ContactForm;
+    'newsletter-signups': NewsletterSignup;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -113,6 +114,16 @@ export interface ContactForm {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-signups".
+ */
+export interface NewsletterSignup {
+  id: number;
+  email: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -133,6 +144,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'contact-forms';
         value: number | ContactForm;
+      } | null)
+    | ({
+        relationTo: 'newsletter-signups';
+        value: number | NewsletterSignup;
       } | null);
   globalSlug?: string | null;
   user: {
