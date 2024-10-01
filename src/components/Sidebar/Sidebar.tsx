@@ -10,12 +10,14 @@ import { childrenVariants, MotionButton, nestedVariants, overlayVariants } from 
 
 type SlideInButtonProps = {
   isMenuOpen: boolean;
+  href?: string;
+  toggleMenu: () => void;
 } & React.ComponentProps<'li'>
 
 const MotionLink = motion(Link)
 
 // TODO: figure out how to properly stagger the menu items
-const SlideInButton = function ({ children, isMenuOpen }: SlideInButtonProps) {
+const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }: SlideInButtonProps) {
   return (
     <motion.div
       // @ts-ignore fml this is a bug in framer motion
@@ -38,7 +40,8 @@ const SlideInButton = function ({ children, isMenuOpen }: SlideInButtonProps) {
 
       {/* Text */}
       <MotionLink
-        href="/"
+        href={href}
+        onClick={toggleMenu}
         className="relative z-10 flex items-center justify-center py-1 h-9 md:h-12 lg:h-16 px-4 md:px-6 lg:px-8
                 text-2xl hover:underline text-secondary"
         variants={{
@@ -140,25 +143,25 @@ export default function Sidebar() {
         {/* @ts-ignore fml this is a bug in framer motion */}
         <motion.nav variants={nestedVariants} className="text-center max-w-1200 w-full lg:mx-auto mx-8">
           {/* @ts-ignore fml this is a bug in framer motion */}
-          <motion.ul variants={nestedVariants} className="p-4 grid grid-cols-4 gap-[1px]">
-            <SlideInButton isMenuOpen={isMenuOpen}>
+          <motion.ul variants={nestedVariants} className="p-4 grid grid-cols-4 gap-px">
+            <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               Home
             </SlideInButton>
-            {/* <SlideInButton isMenuOpen={isMenuOpen}>
+            {/* <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               Works
             </SlideInButton>
-            <SlideInButton isMenuOpen={isMenuOpen}>
+            <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               Work
             </SlideInButton>
-            <SlideInButton isMenuOpen={isMenuOpen}>
+            <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               Journal
             </SlideInButton>
-            <SlideInButton isMenuOpen={isMenuOpen}>
+            <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               About
-            </SlideInButton>
-            <SlideInButton isMenuOpen={isMenuOpen}>
+            </SlideInButton>*/}
+            <SlideInButton href="/contact" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               Contact
-            </SlideInButton> */}
+            </SlideInButton>
             <li className='flex justify-center col-start-4'>
               <MotionButton
                 onClick={() => {

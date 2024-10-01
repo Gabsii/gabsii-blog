@@ -4,10 +4,11 @@ import { MotionConfig } from "framer-motion";
 import "./globals.css";
 
 import Sidebar from '@/components/Sidebar/Sidebar'
+import Footer from "@/components/Footer/Footer";
+import { Toaster } from "@/components/Toast/Toaster";
 
 import { ThemeProvider } from "~/util/context/ThemeContext";
 import { piazzolla, suisseIntl } from "~/util/fonts/fonts";
-import Footer from "@/components/Footer/Footer";
 
 // TODO
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({
             <main className="min-h-screen">
               {children}
             </main>
+            <Toaster />
             <Footer />
           </MotionConfig>
         </ThemeProvider>

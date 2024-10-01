@@ -107,10 +107,10 @@ export function VelocityScroll({
   }
 
   return (
-    <div className="relative col-span-full h-32 mt-64">
-      <div className="max-w-1200 mx-auto grid grid-cols-4 gap-[1px] w-full relative h-0">
+    <div className="relative col-span-full h-12 lg:h-32 mt-64">
+      <div className="max-w-1200 mx-auto grid grid-cols-4 gap-px w-full relative h-0">
         <div className="col-start-2 col-span-2 relative">
-          <div className="backdrop-invert absolute w-full h-32 top-full z-10 left-[1px]"></div>
+          <div className="backdrop-invert absolute w-full h-12 lg:h-32 top-full z-10 left-px"></div>
         </div>
       </div>
       <ParallaxText baseVelocity={default_velocity} className={className}>

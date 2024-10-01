@@ -10,11 +10,11 @@ import { s3Storage } from "@payloadcms/storage-s3";
 import { Users } from "@/collections/Users";
 import { Media } from "@/collections/Media";
 import { Projects } from "@/collections/Projects";
+import { Contact } from "@/collections/Contact";
+import { NewsletterSignups } from "@/collections/NewsletterSignups";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
-
-console.log("config loaded");
 
 export default buildConfig({
   admin: {
@@ -23,7 +23,10 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Projects],
+  graphQL: {
+    disable: true,
+  },
+  collections: [Users, Media, Projects, Contact, NewsletterSignups],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
@@ -37,7 +40,6 @@ export default buildConfig({
   sharp,
   plugins: [
     s3Storage({
-      // enabled: process.env.NODE_ENV === "production",
       collections: {
         media: {
           prefix: `${process.env.NODE_ENV}/media/`,

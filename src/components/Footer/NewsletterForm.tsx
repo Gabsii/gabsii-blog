@@ -4,15 +4,38 @@ import { useState } from 'react'
 
 import Input from '../Atoms/Input'
 import Button from '../Atoms/Button'
+import { useToast } from '~/util/hooks/use-toast';
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState('')
+  const { toast } = useToast();
 
   // TODO
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle email submission logic here
-    console.log('Email submitted:', email)
+
+    const res = await fetch('/newsletter/submit', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (res.status !== 201) {
+      toast({
+        title: 'Error',
+        description: 'An error occurred. Please try again later.',
+        variant: 'error'
+      })
+      return;
+    }
+
+    toast({
+      title: 'Successfully signed up!',
+      description: 'I hope, you hope to hear from me soon :)',
+    })
+
     setEmail('')
   }
 
@@ -34,7 +57,7 @@ export default function NewsletterForm() {
           type="submit"
           isInverted
         >
-          SEND
+          Send
         </Button>
       </div>
     </form>
