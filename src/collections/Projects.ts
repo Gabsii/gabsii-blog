@@ -1,4 +1,14 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, OptionObject } from 'payload'
+
+import { HardFacts } from '../blocks/HardFacts/HardFacts'
+
+export const ServicesOptions = [
+  { label: 'Design', value: 'design' },
+  { label: 'Frontend Development', value: 'frontend' },
+  { label: 'Backend Development', value: 'backend' },
+  { label: 'Full-Stack Development', value: 'fullstack' },
+  { label: 'SEO Optimization', value: 'seo' },
+] as const;
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
@@ -22,11 +32,18 @@ export const Projects: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    // ! wait for v3 support of https://github.com/NouanceLabs/payload-better-fields-plugin for auto-slug
+    {
+      name: 'slug',
+      label: 'Slug',
+      type: 'text',
+      required: true,
+      index: true,
+    },
     {
       name: 'subtitle',
       label: 'Subtitle',
       type: 'text',
-      required: true,
     },
     {
       name: 'url',
@@ -70,20 +87,17 @@ export const Projects: CollectionConfig = {
       admin: {
         isClearable: true,
       },
-      options: [
-        { label: 'Design', value: 'design' },
-        { label: 'Frontend Development', value: 'frontend' },
-        { label: 'Backend Development', value: 'backend' },
-        { label: 'Full-Stack Development', value: 'fullstack' },
-        { label: 'SEO Optimization', value: 'seo' },
+      // type juggling
+      options: ServicesOptions as unknown as OptionObject[],
+    },
+    {
+      name: 'content',
+      label: 'Content',
+      type: 'blocks',
+      required: true,
+      blocks: [
+        HardFacts,
       ],
     },
-    // {
-    //   name: 'content',
-    //   label: 'Content',
-    //   type: 'blocks',
-    //   required: true,
-    //   blocks: [],
-    // },
   ],
 }

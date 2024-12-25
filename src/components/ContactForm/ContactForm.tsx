@@ -1,23 +1,16 @@
 "use client";
 
+// import { SubmitHandler, useForm } from "react-hook-form";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import z from "zod";
 
 import Button from "../Atoms/Button";
 import Input from "../Atoms/Input";
 import Textarea from "../Atoms/Textarea";
 
 import { useToast } from "~/util/hooks/use-toast";
-
-export type FormFields = z.infer<typeof FormFieldsSchema>;
-
-export const FormFieldsSchema = z.object({
-  name: z.string({ required_error: "Please let us know how we should call you" }).trim(),
-  email: z.string({ required_error: "How should I contact you without an email?" }).email().trim(),
-  message: z.string({ required_error: "You already made it so far! What's your message for me?" }).trim(),
-  terms: z.boolean({ required_error: "Sorry, GDPR has my hands tied here. Please just accept the terms" }),
-}).required();
+import Section from "../Atoms/Section";
+import { FormFields, FormFieldsSchema } from "./FormConfig";
 
 export default function ContactForm({ title = 'Say Hello' }: { title?: string }) {
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormFields>({
@@ -52,13 +45,10 @@ export default function ContactForm({ title = 'Say Hello' }: { title?: string })
   return (
     <section className="bg-secondary text-primary snap-center" id="contact">
       <div className="max-w-1200 mx-auto">
-        <h2 className="px-8 lg:px-24 text-9xl pb-8 font-medium">{title}</h2>
+        <h2 className="px-8 lg:px-24 text-5xl lg:text-9xl py-4 lg:pb-8 font-medium">{title}</h2>
       </div>
       <hr className="border border-primary" />
-      <form className="
-          max-w-1200 mx-auto p-8 lg:p-24
-          grid grid-cols-4 gap-12 relative
-        "
+      <Section as="form" className="p-8 lg:p-24 grid grid-cols-4 gap-12 relative"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="col-span-full xl:col-span-2">
@@ -81,7 +71,7 @@ export default function ContactForm({ title = 'Say Hello' }: { title?: string })
           {isSubmitting ? '🤔' : 'Hello'}
         </Button>
         {errors.root && <span className="text-sm text-red font-suisse font-light col-span-full">{errors.root?.message}</span>}
-      </form>
+      </Section>
     </section>
   )
 }

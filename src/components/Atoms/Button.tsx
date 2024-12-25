@@ -1,5 +1,6 @@
-import React from 'react';
-import { HTMLMotionProps, motion } from 'framer-motion';
+import { forwardRef } from 'react';
+import { HTMLMotionProps } from 'framer-motion';
+import * as motion from 'framer-motion/client';
 
 import { cn } from "~/util/cn";
 
@@ -10,7 +11,7 @@ type ButtonProps = {
   children?: React.ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement> & HTMLMotionProps<"button">;
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'default',
   isInverted = false,
   className,

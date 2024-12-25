@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { FormFieldsSchema, type FormFields } from '@/components/ContactForm/ContactForm'
+import { FormFieldsSchema, type FormFields } from '@/components/ContactForm/FormConfig'
 
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
 
-// TODO: validate against zod
 export async function POST(request: NextRequest) {
   const body: FormFields = await request.json()
 

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 import Button from '../Atoms/Button';
 
-export const MotionButton = motion(Button);
+export const MotionButton = motion.create(Button);
 
 export const overlayVariants = {
   open: {

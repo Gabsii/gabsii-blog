@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import Image from 'next/image';
+import { useState } from 'react'
+import { motion as m } from 'framer-motion';
+import * as motion from 'framer-motion/client';
 import { RiMenuLine, RiCloseLargeLine, RiMoonClearFill, RiSunLine } from "@remixicon/react";
 
 import { useTheme } from '~/util/context/ThemeContext'
@@ -14,14 +16,14 @@ type SlideInButtonProps = {
   toggleMenu: () => void;
 } & React.ComponentProps<'li'>
 
-const MotionLink = motion(Link)
+const MotionLink = m(Link)
 
 // TODO: figure out how to properly stagger the menu items
 const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }: SlideInButtonProps) {
   return (
     <motion.div
       // @ts-ignore fml this is a bug in framer motion
-      className={"relative w-full bg-primary uppercase overflow-hidden col-span-full border-2 border-secondary"}
+      className="relative w-full bg-primary uppercase overflow-hidden col-span-full border-2 border-secondary"
       variants={childrenVariants}
       whileHover="hover"
       initial="closed"
@@ -30,11 +32,11 @@ const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }
       {/* Sliding Background */}
       <motion.div
         // @ts-ignore fml this is a bug in framer motion
-        className="absolute inset-0 bg-secondary z-0"
+        className="absolute inset-0 bg-secondary z-0 opacity-0"
         initial={{ translateY: "100%" }}
         variants={{
-          hover: { translateY: "0%", transition: { duration: 0.3, ease: "easeOut" } },
-          initial: { translateY: "100%" },
+          hover: { translateY: "0%", opacity: 1, transition: { duration: 0.3, ease: "easeOut" } },
+          initial: { translateY: "100%", opacity: 0 },
         }}
       />
 
@@ -77,7 +79,7 @@ export default function Sidebar() {
       >
         {/* TODO: replace with logo */}
         <Link href="/" className="p-3 text-2xl font-bold">
-          G
+          <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-white.svg"} alt="logo" width={24} height={40} />
         </Link>
 
         {/* TODO: animate such that the arrow moves upwards */}
@@ -120,6 +122,7 @@ export default function Sidebar() {
               <MotionButton
                 onClick={toggleMenu}
                 wrapperClassName='h-full'
+                className='border-b-0 border-r-0'
                 aria-label="Toggle menu"
                 isInverted
               >
