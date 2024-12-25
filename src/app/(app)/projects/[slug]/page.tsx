@@ -10,8 +10,10 @@ import ProjectContentRegistry from "@/components/ProjectContentRegistry/ProjectC
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
 
-type ProjectPageParams = {
-  slug: string
+type ProjectPagePropsParams = {
+  params: {
+    slug: string
+  }
 }
 type ServiceValue = typeof ServicesOptions[number]['value'];
 
@@ -33,7 +35,7 @@ export async function generateStaticParams() {
 }
 
 // @ts-ignore
-export default async function ProjectPage({ params }: { params: ProjectPageParams }) {
+export default async function ProjectPage({ params }: ProjectPagePropsParams) {
   const { totalDocs, docs } = await (await getPayload({ config })).find({
     collection: 'projects',
     where: {
