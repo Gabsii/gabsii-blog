@@ -10,6 +10,9 @@ import ProjectContentRegistry from "@/components/ProjectContentRegistry/ProjectC
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
 
+type ProjectPageParams = Promise<{
+    slug: string
+}>
 type ServiceValue = typeof ServicesOptions[number]['value'];
 
 const mappedServices: Record<ServiceValue, string> = ServicesOptions.reduce((obj, { value, label }) => ({ ...obj, [value as ServiceValue]: label }), {} as Record<ServiceValue, string>);
@@ -24,13 +27,17 @@ export async function generateStaticParams() {
     }
   })
 
-  return projects.docs.map((project) => ({
+  const slugs = projects.docs.map((project) => ({
     slug: project.slug,
-  }))
+  }));
+
+  console.log(slugs);
+
+  return slugs
 }
 
 // @ts-ignore
-export default async function ProjectPage({ params: { slug } }) {
+export default async function ProjectPage({ params: { slug } }: { params: ProjectPageParams }) {
   const { totalDocs, docs } = await (await getPayload({ config })).find({
     collection: 'projects',
     where: {

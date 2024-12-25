@@ -18,7 +18,7 @@ export default function Textarea({ label, ...props }: TextareaProps) {
         focus-within:after:animate-growltr focus-within:after:w-full
       ">
         <textarea
-          rows={9 || props.rows}
+          rows={props.rows || 9}
           className="resize-none px-4 py-2 w-full
         border-2 border-primary bg-secondary
         font-suisse font-medium text-sm text-primary
