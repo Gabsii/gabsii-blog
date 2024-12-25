@@ -18,6 +18,10 @@ export default async function ProjectSlider() {
     }
   })
 
+  if (totalDocs === 0) {
+    return null;
+  }
+
   return (
     <section className="bg-secondary text-primary" style={{ height: `${totalDocs * 100}vh` }} id="slider">
       <ProjectSliderWrapper projects={projects} />
