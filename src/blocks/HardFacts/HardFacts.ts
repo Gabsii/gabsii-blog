@@ -3,6 +3,7 @@ import type { Block } from 'payload';
 export const HardFacts: Block = {
   slug: 'hard-facts',
   imageURL: '/payload/blocks/hard-facts.png',
+  imageAltText: 'Hard Facts Block',
   fields: [
     {
       type: 'text',
