@@ -31,13 +31,13 @@ export async function generateStaticParams() {
     slug: project.slug,
   }));
 
-  console.log(slugs);
-
   return slugs
 }
 
 // @ts-ignore
-export default async function ProjectPage({ params: { slug } }: { params: ProjectPageParams }) {
+export default async function ProjectPage({ params }: { params: ProjectPageParams }) {
+  const { slug } = await params;
+
   const { totalDocs, docs } = await (await getPayload({ config })).find({
     collection: 'projects',
     where: {
