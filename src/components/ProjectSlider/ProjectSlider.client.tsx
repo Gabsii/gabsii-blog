@@ -7,7 +7,9 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 import type { Project, Media } from '~/payload-types';
 
-export const ProjectSliderWrapper = ({ projects }: { projects: Project[] }) => {
+type ProjectSliderWrapperProps = Pick<Project, 'title' | 'slug' | 'image'>;
+
+export const ProjectSliderWrapper = ({ projects }: { projects: ProjectSliderWrapperProps[]}) => {
   const targetRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -32,7 +34,7 @@ export const ProjectSliderWrapper = ({ projects }: { projects: Project[] }) => {
 }
 
 
-const ProjectSlide = ({ project, current, total }: { project: Project, current: number, total: string | number }) => {
+const ProjectSlide = ({ project, current, total }: { project: ProjectSliderWrapperProps, current: number, total: string | number }) => {
   const image = project.image as Media;
 
   return (
