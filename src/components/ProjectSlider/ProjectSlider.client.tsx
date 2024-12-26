@@ -23,7 +23,7 @@ export const ProjectSliderWrapper = ({ projects }: { projects: Project[] }) => {
         {/* @ts-ignore fml this is a bug in framer-motion */}
         <motion.div style={{ x: x as any }} className="flex">
           {projects.map((project, i) => (
-            <ProjectSlide key={project.title} project={project} current={i} total={projects.length < 10 ? `0${projects.length}` : projects.length} key={`${project.title}-${i}`} />
+            <ProjectSlide project={project} current={i} total={projects.length < 10 ? `0${projects.length}` : projects.length} key={`${project.title}-${i}`} />
           ))}
         </motion.div>
       </div>
