@@ -17,14 +17,13 @@ export const ProjectSliderWrapper = ({ projects }: { projects: Project[] }) => {
   const smoothY = useSpring(scrollYProgress, { mass: 0.1 })
   const x = useTransform(smoothY, [0, 1], ["5%", "-50%"])
 
-
   return (
     <div ref={targetRef} className="relative h-full">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         {/* @ts-ignore fml this is a bug in framer-motion */}
         <motion.div style={{ x: x as any }} className="flex">
           {projects.map((project, i) => (
-            <ProjectSlide key={project.title} project={project} current={i} total={projects.length < 10 ? `0${projects.length}` : projects.length} />
+            <ProjectSlide key={project.title} project={project} current={i} total={projects.length < 10 ? `0${projects.length}` : projects.length} key={`${project.title}-${i}`} />
           ))}
         </motion.div>
       </div>
@@ -41,7 +40,7 @@ const ProjectSlide = ({ project, current, total }: { project: Project, current: 
     <Link href={`/projects/${project.slug}`} className="relative h-[66vh] flex-shrink-0 w-[90vw] max-w-[1500px] mr-56">
       <Image
         src={image?.url || ''}
-        alt={project.title}
+        alt={project.title || 'Project Image'}
         width={1200}
         height={650}
         className="object-cover h-full w-full"

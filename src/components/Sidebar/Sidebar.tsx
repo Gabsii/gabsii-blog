@@ -16,7 +16,7 @@ type SlideInButtonProps = {
   toggleMenu: () => void;
 } & React.ComponentProps<'li'>
 
-const MotionLink = m(Link)
+const MotionLink = m.create(Link)
 
 // TODO: figure out how to properly stagger the menu items
 const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }: SlideInButtonProps) {

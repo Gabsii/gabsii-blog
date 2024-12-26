@@ -9,12 +9,10 @@ export default async function ProjectSlider() {
 
   const { docs: projects, totalDocs } = await payload.find({
     collection: 'projects',
-    context: {
-      select: [
-        'title',
-        'image',
-        'slug'
-      ],
+    select: {
+      title: true,
+      image: true,
+      slug: true
     }
   })
 
