@@ -39,6 +39,7 @@ export const Projects: CollectionConfig = {
       type: 'text',
       required: true,
       index: true,
+      unique: true,
     },
     {
       name: 'subtitle',
