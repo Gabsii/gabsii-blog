@@ -2,6 +2,10 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  i18n: {
+    locales: ['en', 'de'],
+    defaultLocale: 'en'
+  },
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',

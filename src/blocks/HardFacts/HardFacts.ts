@@ -8,6 +8,7 @@ export const HardFacts: Block = {
     {
       type: 'text',
       name: 'title',
+      localized: true,
     },
     {
       type: 'array',
@@ -18,11 +19,13 @@ export const HardFacts: Block = {
         {
           type: 'text',
           name: 'label',
+          localized: true,
         },
         {
           type: 'text',
           name: 'value',
           maxLength: 70,
+          localized: true,
         },
         {
           type: 'checkbox',

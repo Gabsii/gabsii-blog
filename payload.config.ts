@@ -6,7 +6,6 @@ import { fileURLToPath } from "url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
-import { fieldsSelect } from "@payload-enchants/fields-select";
 
 import { Users } from "@/collections/Users";
 import { Media } from "@/collections/Media";
@@ -23,6 +22,10 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+  },
+  localization: {
+    locales: ["en", "de"],
+    defaultLocale: "en",
   },
   graphQL: {
     disable: true,
@@ -55,7 +58,5 @@ export default buildConfig({
         region: process.env.S3_REGION || "eu-central-1",
       },
     }),
-    // ! follow https://github.com/payloadcms/payload/pull/5942 for when to remove this plugin
-    fieldsSelect(),
   ],
 });
