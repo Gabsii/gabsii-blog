@@ -11,6 +11,8 @@ import { Toaster } from "@/components/Toast/Toaster";
 
 import { ThemeProvider } from "~/util/context/ThemeContext";
 import { piazzolla, suisseIntl } from "~/util/fonts/fonts";
+import { LanguageProvider } from "@inlang/paraglide-next";
+import { languageTag } from "~/src/paraglide/runtime";
 
 // TODO
 export const metadata: Metadata = {
@@ -24,7 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <LanguageProvider>
+    <html lang={languageTag()}>
       <body className={`bg-primary text-secondary ${piazzolla.variable} ${suisseIntl.variable}`}>
         <BackgroundColumns />
         <ThemeProvider>
@@ -41,6 +44,7 @@ export default function RootLayout({
         <SpeedInsights />
       </body>
     </html>
+    </LanguageProvider>
   );
 }
 

@@ -1,5 +1,6 @@
 import NextLink, { LinkProps } from 'next/link'
 
+import * as m from '@/paraglide/messages'
 import { cn } from '~/util/cn'
 import NewsletterForm from './NewsletterForm'
 
@@ -14,13 +15,13 @@ export default function Footer() {
       <section className='max-w-1200 mx-auto w-full grid grid-cols-4 gap-y-4 lg:gap-y-px gap-px pt-10 pb-24'>
 
         <div className="space-y-2 col-span-full lg:col-span-1 flex flex-col">
-          <p className="font-bold mb-6">Thanks for reading.</p>
-          <Link href="/imprint" className='inline-block'>Imprint</Link>
-          <Link href="/privacy" className='inline-block'>Data privacy</Link>
+          <p className="font-bold mb-6">{m.thanksForReading()}</p>
+          <Link href="/imprint" className='inline-block'>{m.imprint()}</Link>
+          <Link href="/privacy" className='inline-block'>{m.dataPrivacy()}</Link>
         </div>
 
         <div className="col-span-full lg:col-span-1">
-          <h3 className="mb-6">Contact</h3>
+          <h3 className="mb-6">{m.contact()}</h3>
           <Link href="mailto:hello@gabsii.com">hello@gabsii.com</Link>
         </div>
 

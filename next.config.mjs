@@ -1,11 +1,12 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import { paraglide } from "@inlang/paraglide-js-adapter-next/plugin"
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  i18n: {
-    locales: ['en', 'de'],
-    defaultLocale: 'en'
-  },
+const nextConfig = paraglide({
+  paraglide: {
+		project: "./project.inlang",
+		outdir: "./src/paraglide",
+	},
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
@@ -19,6 +20,6 @@ const nextConfig = {
       }
     ]
   }
-}
+})
 
 export default withPayload(nextConfig)

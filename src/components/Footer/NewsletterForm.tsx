@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 import Input from '../Atoms/Input'
 import Button from '../Atoms/Button'
+
+import * as m from '@/paraglide/messages'
 import { useToast } from '~/util/hooks/use-toast';
 
 export default function NewsletterForm() {
@@ -24,16 +26,16 @@ export default function NewsletterForm() {
 
     if (res.status !== 201) {
       toast({
-        title: 'Error',
-        description: 'An error occurred. Please try again later.',
+        title: m.error(),
+        description: m.tryAgainLater(),
         variant: 'error'
       })
       return;
     }
 
     toast({
-      title: 'Successfully signed up!',
-      description: 'I hope, you hope to hear from me soon :)',
+      title: m.successfullySignedUp(),
+      description: m.hearFromMeSoon(),
     })
 
     setEmail('')
@@ -43,7 +45,7 @@ export default function NewsletterForm() {
     <form onSubmit={handleSubmit} className="flex items-end w-full">
       <div className='flex-grow'>
         <Input
-          label="Stay updated"
+          label={m.stayUpdated()}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

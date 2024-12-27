@@ -7,12 +7,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Button from "../Atoms/Button";
 import Input from "../Atoms/Input";
 import Textarea from "../Atoms/Textarea";
-
-import { useToast } from "~/util/hooks/use-toast";
 import Section from "../Atoms/Section";
+
+import * as m from "@/paraglide/messages.js"
+import { useToast } from "~/util/hooks/use-toast";
 import { FormFields, FormFieldsSchema } from "./FormConfig";
 
-export default function ContactForm({ title = 'Say Hello' }: { title?: string }) {
+export default function ContactForm({ title = m.sayHello() }: { title?: string }) {
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormFields>({
     resolver: zodResolver(FormFieldsSchema)
   });
@@ -29,15 +30,15 @@ export default function ContactForm({ title = 'Say Hello' }: { title?: string })
 
     if (res.status !== 201) {
       toast({
-        title: "Something went wrong",
-        description: "Please try again later",
+        title: m.somethingWentWrong(),
+        description: m.tryAgainLater(),
         variant: "error"
       })
       return;
     }
 
     toast({
-      title: "Sucess!",
+      title: m.success(),
     })
     reset();
   }
@@ -52,23 +53,23 @@ export default function ContactForm({ title = 'Say Hello' }: { title?: string })
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="col-span-full xl:col-span-2">
-          <Input label="Your Name" type="text" {...register("name")} required isInverted />
+          <Input label={m.yourName()} type="text" {...register("name")} required isInverted />
           {errors.name && <span className="text-sm text-red font-suisse font-light">{errors.name?.message}</span>}
         </div>
         <div className="col-span-full xl:col-span-2">
-          <Input label="Your Email" type="text" {...register("email")} required isInverted />
+          <Input label={m.yourEmail()} type="text" {...register("email")} required isInverted />
           {errors.email && <span className="text-sm text-red font-suisse font-light">{errors.email?.message}</span>}
         </div>
         <div className="col-span-full">
-          <Textarea label="Your Message" {...register("message")} required />
+          <Textarea label={m.yourMessage()} {...register("message")} required />
           {errors.message && <span className="text-sm text-red font-suisse font-light">{errors.message?.message}</span>}
         </div>
         <div className="col-span-full lg:col-span-3">
-          <Input label="I accept the processing of my data" type="checkbox" {...register("terms")} required />
+          <Input label={m.acceptTerms()} type="checkbox" {...register("terms")} required />
           {errors.terms && <span className="text-sm text-red font-suisse font-light">{errors.terms?.message}</span>}
         </div>
         <Button type="submit" disabled={isSubmitting} wrapperClassName="col-start-3 lg:col-span-1" className="ml-auto">
-          {isSubmitting ? '🤔' : 'Hello'}
+          {isSubmitting ? '🤔' : m.hello()}
         </Button>
         {errors.root && <span className="text-sm text-red font-suisse font-light col-span-full">{errors.root?.message}</span>}
       </Section>

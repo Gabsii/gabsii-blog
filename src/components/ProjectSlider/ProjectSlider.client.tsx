@@ -2,7 +2,7 @@
 
 import { RefObject, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from "@/lib/i18n";
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 import type { Project, Media } from '~/payload-types';

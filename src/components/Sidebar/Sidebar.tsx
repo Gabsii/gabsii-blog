@@ -1,14 +1,16 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image';
 import { useState } from 'react'
-import { motion as m } from 'framer-motion';
+import { motion as mo } from 'framer-motion';
 import * as motion from 'framer-motion/client';
 import { RiMenuLine, RiCloseLargeLine, RiMoonClearFill, RiSunLine } from "@remixicon/react";
 
+import * as m from '@/paraglide/messages'
+import { Link, usePathname, useRouter } from "@/lib/i18n"
 import { useTheme } from '~/util/context/ThemeContext'
 import { childrenVariants, MotionButton, nestedVariants, overlayVariants } from './animations';
+import { languageTag } from '~/src/paraglide/runtime';
 
 type SlideInButtonProps = {
   isMenuOpen: boolean;
@@ -16,7 +18,7 @@ type SlideInButtonProps = {
   toggleMenu: () => void;
 } & React.ComponentProps<'li'>
 
-const MotionLink = m.create(Link)
+const MotionLink = mo.create(Link)
 
 // TODO: figure out how to properly stagger the menu items
 const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }: SlideInButtonProps) {
@@ -61,6 +63,8 @@ const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }
 export default function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { theme, toggleTheme } = useTheme()
+  const pathname = usePathname();
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -77,7 +81,6 @@ export default function Sidebar() {
           lg:group z-50
         `}
       >
-        {/* TODO: replace with logo */}
         <Link href="/" className="p-3 text-2xl font-bold">
           <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-white.svg"} alt="logo" width={24} height={40} />
         </Link>
@@ -87,7 +90,7 @@ export default function Sidebar() {
           href="/contact"
           className="lg:-rotate-90 w-max text-xl font-medium"
         >
-          let&apos;s chat →
+          {m.letsChat()} →
         </Link>
 
         <MotionButton
@@ -109,12 +112,13 @@ export default function Sidebar() {
         <ul className='flex-grow flex justify-between items-center h-16'>
           <li>
             <Link href="/" className="py-3 px-5 text-2xl font-bold">
-              G
+              <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-white.svg"} alt="logo" width={14} height={24} className='ml-4' />
+              {/* G */}
             </Link>
           </li>
           <li>
             <Link href="/contact" className="text-md">
-              {`let's chat →`}
+              {`${m.letsChat()} →`}
             </Link>
           </li>
           <li className='relative h-16 w-16'>
@@ -122,7 +126,7 @@ export default function Sidebar() {
               <MotionButton
                 onClick={toggleMenu}
                 wrapperClassName='h-full'
-                className='border-b-0 border-r-0'
+                className='border-b-0 border-r-0 md:h-16'
                 aria-label="Toggle menu"
                 isInverted
               >
@@ -148,23 +152,31 @@ export default function Sidebar() {
           {/* @ts-ignore fml this is a bug in framer motion */}
           <motion.ul variants={nestedVariants} className="p-4 grid grid-cols-4 gap-px">
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              Home
+              {m.home()}
             </SlideInButton>
             {/* <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              Works
+              {m.works()}
             </SlideInButton>
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               Work
             </SlideInButton>
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              Journal
+              {m.journal()}
             </SlideInButton>
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              About
+              {m.about()}
             </SlideInButton>*/}
             <SlideInButton href="/contact" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              Contact
+              {m.contact()}
             </SlideInButton>
+            <li className="flex justify-content col-start-1">
+              <MotionButton
+                onClick={() => {router.push(pathname, {locale: languageTag() == 'en' ? 'de' : 'en'})}}
+                isInverted
+              >
+                {languageTag() == 'en' ? 'DE' : 'EN'}
+              </MotionButton>
+            </li>
             <li className='flex justify-center col-start-4'>
               <MotionButton
                 onClick={() => {
