@@ -9,6 +9,7 @@ import { ServicesOptions } from "@/collections/Projects";
 import ProjectContentRegistry from "@/components/ProjectContentRegistry/ProjectContentRegistry";
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
+import { languageTag } from "~/src/paraglide/runtime";
 
 type ProjectPageParams = Promise<{
     slug: string
@@ -40,6 +41,7 @@ export default async function ProjectPage({ params }: { params: ProjectPageParam
 
   const { totalDocs, docs } = await (await getPayload({ config })).find({
     collection: 'projects',
+    locale: languageTag(),
     where: {
       slug: {
         equals: slug
