@@ -31,7 +31,6 @@ export const Projects: CollectionConfig = {
       label: 'Title',
       type: 'text',
       required: true,
-      localized: true,
     },
     // ! wait for v3 support of https://github.com/NouanceLabs/payload-better-fields-plugin for auto-slug
     {
