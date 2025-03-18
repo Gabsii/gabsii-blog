@@ -100,11 +100,6 @@ export const Projects: CollectionConfig = {
       blocks: [
         HardFacts,
       ],
-      admin: {
-        components: {
-          Field: '@/fields/Projects/ContentEditField.tsx',
-        }
-      }
     },
   ],
 }
