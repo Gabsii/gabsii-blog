@@ -13,3 +13,56 @@
     --color-secondary: #fffbee;
   }
 }
+
+
+.content {
+  @apply font-suisse;
+
+  h1 {
+    @apply font-piazzolla font-bold text-4xl pt-5 pb-5;
+  }
+
+  h2 {
+    @apply font-piazzolla font-bold text-2xl pt-4 pb-4;
+  }
+
+  h3 {
+    @apply font-piazzolla font-bold text-xl pt-3 pb-3;
+  }
+
+  strong {
+    @apply font-piazzolla font-bold text-lg;
+  }
+
+  p {
+    @apply pt-2 pb-2;
+
+    img {
+      @apply inline-block;
+    }
+  }
+
+  ul, ol {
+    @apply ml-4;
+
+    li {
+      @apply ml-4 marker:font-piazzolla;
+    }
+  }
+
+  ul li {
+    @apply list-[square];
+  }
+
+  ol li {
+    @apply list-[decimal];
+  }
+
+  a {
+    @apply underline;
+  }
+
+  table {
+    @apply border;
+  }
+}
