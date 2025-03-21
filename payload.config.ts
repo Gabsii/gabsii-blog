@@ -23,10 +23,10 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  auth: {
-    maxLoginAttempts: 5, // Automatically lock a user out after X amount of failed logins
-    lockTime: 60 * 60 * 100, // Time period to allow the max login attempts in seconds
-  },
+  // auth: {
+    // maxLoginAttempts: 5, // Automatically lock a user out after X amount of failed logins
+    // lockTime: 60 * 60 * 100, // Time period to allow the max login attempts in seconds
+  // },
   localization: {
     locales: ["en", "de"],
     defaultLocale: "en",
