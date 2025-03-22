@@ -22,14 +22,17 @@ const MotionLink = mo.create(Link)
 
 // TODO: figure out how to properly stagger the menu items
 const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }: SlideInButtonProps) {
+  const { theme } = useTheme()
+
   return (
-    <motion.div
+    <motion.li
       // @ts-ignore fml this is a bug in framer motion
       className="relative w-full bg-primary uppercase overflow-hidden col-span-full border-2 border-secondary"
       variants={childrenVariants}
       whileHover="hover"
       initial="closed"
       animate={isMenuOpen ? "open" : "closed"}
+      key={`nav-${theme}`}
     >
       {/* Sliding Background */}
       <motion.div
@@ -55,7 +58,7 @@ const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }
       >
         {children}
       </MotionLink>
-    </motion.div>
+    </motion.li>
   );
 };
 
@@ -169,15 +172,21 @@ export default function Sidebar() {
             <SlideInButton href="/contact" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               {m.contact()}
             </SlideInButton>
-            <li className="flex justify-content col-start-1">
+            <motion.li className="flex justify-content col-start-1"
+              initial="closed"
+              animate={isMenuOpen ? "open" : "closed"}
+              variants={childrenVariants}>
               <MotionButton
-                onClick={() => {router.push(pathname, {locale: languageTag() == 'en' ? 'de' : 'en'})}}
+                onClick={() => { router.push(pathname, { locale: languageTag() == 'en' ? 'de' : 'en' }) }}
                 isInverted
               >
                 {languageTag() == 'en' ? 'DE' : 'EN'}
               </MotionButton>
-            </li>
-            <li className='flex justify-center col-start-4'>
+            </motion.li>
+            <motion.li className='flex justify-center col-start-4'
+              initial="closed"
+              animate={isMenuOpen ? "open" : "closed"}
+              variants={childrenVariants}>
               <MotionButton
                 onClick={() => {
                   toggleTheme()
@@ -196,7 +205,7 @@ export default function Sidebar() {
                   </>
                 )}
               </MotionButton>
-            </li>
+            </motion.li>
           </motion.ul>
         </motion.nav>
       </motion.div >
