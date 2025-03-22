@@ -85,7 +85,7 @@ export default function Sidebar() {
         `}
       >
         <Link href="/" className="p-3 text-2xl font-bold">
-          <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-light.svg"} alt="logo" width={24} height={40} />
+          <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-light.svg"} alt="logo" width={24} height={40} loading='eager' />
         </Link>
 
         {/* TODO: animate such that the arrow moves upwards */}

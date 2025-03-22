@@ -4,9 +4,12 @@ import { Piazzolla } from "next/font/google";
 export const piazzolla = Piazzolla({
   subsets: ["latin"],
   display: "swap",
-  style: "normal",
+  preload: true,
+  weight: ["300", "400", "500", "600", "700"],  // Only include weights you actually use
+  style: ["normal"],
   variable: "--font-piazzolla",
   fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: true,  // Helps prevent layout shift
 });
 
 export const suisseIntl = localFont({
@@ -53,5 +56,6 @@ export const suisseIntl = localFont({
     },
   ],
   variable: "--font-suisse-intl",
+  display: "swap",
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
