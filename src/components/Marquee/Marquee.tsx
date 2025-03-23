@@ -23,6 +23,7 @@ interface ParallaxProps {
   children: string;
   baseVelocity: number;
   className?: string;
+  isAnimating?: boolean; // Add new prop
 }
 
 export const wrap = (min: number, max: number, v: number) => {
@@ -34,6 +35,7 @@ function ParallaxText({
   children,
   baseVelocity = 100,
   className,
+  isAnimating = true, // Default to true
 }: ParallaxProps) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
@@ -71,6 +73,8 @@ function ParallaxText({
 
   const directionFactor = React.useRef<number>(1);
   useAnimationFrame((t, delta) => {
+    if (!isAnimating) return; // Skip animation if not ready
+
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
     if (velocityFactor.get() < 0) {
@@ -108,21 +112,21 @@ export function VelocityScroll({
   default_velocity = 5,
   className,
 }: VelocityScrollProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const y = useMotionValue(128); // 128 is the font size on desktop
+  const y = useMotionValue(128);
   const shouldReduceMotion = useReducedMotion();
+  const [isSlideComplete, setIsSlideComplete] = useState(false);
 
   useEffect(() => {
     if (shouldReduceMotion) {
       y.set(0);
-      setIsVisible(true);
+      setIsSlideComplete(true);
       return;
     }
 
     const controls = animate(y, 0, {
-      duration: .5,
+      duration: 0.5,
       ease: [0.32, 0.57, 0, 1],
-      onComplete: () => setIsVisible(true),
+      onComplete: () => setIsSlideComplete(true),
     });
 
     return controls.stop;
@@ -146,21 +150,13 @@ export function VelocityScroll({
         </div>
       </div>
       <motion.div style={{ y }}>
-        {isVisible ? (
-          <ParallaxText baseVelocity={default_velocity} className={className}>
-            {text}
-          </ParallaxText>
-        ) : (
-        <div className="w-full overflow-hidden whitespace-nowrap">
-          <div className={`inline-block ${className}`}>
-            {Array.from({ length: 10 }).map((_, i) =>
-              <span key={`holder-${i}`} className={'text-primary bg-secondary'} aria-hidden={i !== 0}>
-                {`${text} `}
-              </span>
-              )}
-          </div>
-              </div>
-        )}
+        <ParallaxText
+          baseVelocity={default_velocity}
+          className={className}
+          isAnimating={isSlideComplete}
+        >
+          {text}
+        </ParallaxText>
       </motion.div>
     </div>
   );
