@@ -115,7 +115,7 @@ export default function Sidebar() {
         <ul className='flex-grow flex justify-between items-center h-16'>
           <li>
             <Link href="/" className="py-3 px-5 text-2xl font-bold">
-              <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-light.svg"} alt="logo" width={14} height={24} className='ml-4' />
+              <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-light.svg"} alt="logo" width={14} height={24} className='ml-4' loading="eager" />
               {/* G */}
             </Link>
           </li>

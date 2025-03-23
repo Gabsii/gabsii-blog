@@ -13,14 +13,13 @@ export default function Home() {
     <>
       <Hero />
       <ProjectSlider />
+      {/* <Services /> */}
       {/* <NewsOverview /> */}
       <ContactForm />
     </>
   );
 }
 
-
-// TODO: weather location
 const Hero = () => (
   <section className="p-8 lg:p-24 relative h-screen">
     <div className="absolute top-8 right-8">

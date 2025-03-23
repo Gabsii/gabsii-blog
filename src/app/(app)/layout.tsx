@@ -14,10 +14,23 @@ import { piazzolla, suisseIntl } from "~/util/fonts/fonts";
 import { LanguageProvider } from "@inlang/paraglide-next";
 import { languageTag } from "~/src/paraglide/runtime";
 
-// TODO
 export const metadata: Metadata = {
-  title: "Gabsii",
-  description: "Yo this is my portfolio y'all",
+  title: "Gabsii - Digital Innovation & Web Solutions",
+  description: "Explore my portfolio as an Austria-based freelancer specializing in advanced software development, full-stack solutions, and strategic SEO enhancements. Discover innovative digital projects that empower brands to grow—let's create something exceptional together.",
+  metadataBase: new URL("https://gabsii.com"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      'en': '/',
+      'de': '/de',
+    }
+  },
+  manifest: "/manifest.json",
+  authors: [{name: "Lukas Gabsi"}],
+  robots: {
+    index: true,
+    follow: true,
+  }
 };
 
 export default function RootLayout({
