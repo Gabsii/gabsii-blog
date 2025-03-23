@@ -109,7 +109,7 @@ export function VelocityScroll({
   className,
 }: VelocityScrollProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const y = useMotionValue(100);
+  const y = useMotionValue(128); // 128 is the font size on desktop
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -120,8 +120,8 @@ export function VelocityScroll({
     }
 
     const controls = animate(y, 0, {
-      duration: 1.5,
-      ease: [0.32, 0.72, 0, 1],
+      duration: .5,
+      ease: [0.32, 0.57, 0, 1],
       onComplete: () => setIsVisible(true),
     });
 
