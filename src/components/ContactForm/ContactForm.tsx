@@ -11,14 +11,17 @@ import Section from "../Atoms/Section";
 import * as m from "@/paraglide/messages.js"
 import { useToast } from "~/util/hooks/use-toast";
 import { FormFields, FormFieldsSchema } from "./FormConfig";
+import { usePostHog } from "posthog-js/react";
 
 export default function ContactForm({ title = m.sayHello() }: { title?: string }) {
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormFields>({
     resolver: zodResolver(FormFieldsSchema)
   });
   const { toast } = useToast();
+  const postHog = usePostHog();
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
+    postHog.capture('contact_form_submitted', data);
     const res = await fetch("/contact/submit", {
       'method': 'POST',
       'headers': {

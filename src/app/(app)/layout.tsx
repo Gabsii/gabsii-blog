@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { MotionConfig } from "framer-motion";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 
@@ -13,6 +12,7 @@ import { ThemeProvider } from "~/util/context/ThemeContext";
 import { piazzolla, suisseIntl } from "~/util/fonts/fonts";
 import { LanguageProvider } from "@inlang/paraglide-next";
 import { languageTag } from "~/src/paraglide/runtime";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 export const metadata: Metadata = {
   title: "Gabsii - Digital Innovation & Web Solutions",
@@ -40,23 +40,24 @@ export default function RootLayout({
 }>) {
   return (
     <LanguageProvider>
-    <html lang={languageTag()}>
-      <body className={`bg-primary text-secondary ${piazzolla.variable} ${suisseIntl.variable}`}>
-        <BackgroundColumns />
-        <ThemeProvider>
-          <MotionConfig reducedMotion="user">
-            <Sidebar />
-            <main className="min-h-screen lg:w-[calc(100vw-50px)] lg:ml-[50px]">
-              {children}
-            </main>
-            <Toaster />
-            <Footer />
-          </MotionConfig>
-        </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
+      <html lang={languageTag()}>
+        <body className={`bg-primary text-secondary ${piazzolla.variable} ${suisseIntl.variable}`}>
+          <PostHogProvider>
+            <BackgroundColumns />
+            <ThemeProvider>
+              <MotionConfig reducedMotion="user">
+                <Sidebar />
+                <main className="min-h-screen lg:w-[calc(100vw-50px)] lg:ml-[50px]">
+                  {children}
+                </main>
+                <Toaster />
+                <Footer />
+              </MotionConfig>
+            </ThemeProvider>
+            <SpeedInsights />
+          </PostHogProvider>
+        </body>
+      </html>
     </LanguageProvider>
   );
 }
@@ -90,4 +91,4 @@ const BackgroundColumns = () => (
           after:origin-top after:bg-secondary after:opacity-10" />
     </div>
   </div>
-)
+);
