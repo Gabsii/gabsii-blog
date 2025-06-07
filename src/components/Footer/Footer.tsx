@@ -29,7 +29,7 @@ export default function Footer() {
           <NewsletterForm />
         </div>
 
-        <div className='col-span-2 lg:col-span-1 lg:mt-14'>© LUKAS GABSI 2024</div>
+        <div className='col-span-2 lg:col-span-1 lg:mt-14'>© LUKAS GABSI {new Date().getFullYear()}</div>
 
         <div className='col-span-2 lg:col-span-1 lg:mt-14'>
           <Link href="https://www.linkedin.com/in/gabsii/">LI</Link>{' - '}
