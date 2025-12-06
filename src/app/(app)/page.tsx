@@ -20,6 +20,19 @@ export default function Home() {
   );
 }
 
+const work_status = {
+  available: {
+    icon: "🟢",
+    text: m.availableForWork(),
+  },
+  currentlySwamped: {
+    icon: "🟠",
+    text: m.aBitTightCurrently(),
+  }
+}
+
+const CURRENT_WORK_STATUS = work_status.currentlySwamped;
+
 const Hero = () => (
   <section className="p-8 lg:p-24 relative h-screen">
     <div className="absolute top-8 right-8">
@@ -34,7 +47,7 @@ const Hero = () => (
             <br />{m.building()}<HoverablePopoverEmoji text={m.memorable()} popoverEmoji="🧠" /> {m.and()} <HoverablePopoverEmoji text={m.performant()} popoverEmoji="🚀" />
             <p className="mx-auto w-max font-medium">✨ {m.virtualExperiences()} ✨</p>
           </div>
-          <span className="mt-2 font-light text-xl"><span className="mr-2">🟢</span>{m.availableForWork()}</span>
+          <span className="mt-2 font-light text-xl"><span className="mr-2">{CURRENT_WORK_STATUS.icon}</span>{CURRENT_WORK_STATUS.text}</span>
         </div>
       </div>
       <ScrollIndicator />
