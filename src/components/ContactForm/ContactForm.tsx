@@ -20,6 +20,7 @@ export default function ContactForm({ title = m.sayHello() }: { title?: string }
   const { toast } = useToast();
   const postHog = usePostHog();
 
+  // TODO: custom captcha
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     postHog.capture('contact_form_submitted', data);
     const res = await fetch("/contact/submit", {
