@@ -12,6 +12,8 @@ import * as m from "@/paraglide/messages.js"
 import { useToast } from "~/util/hooks/use-toast";
 import { FormFields, FormFieldsSchema } from "./FormConfig";
 import { usePostHog } from "posthog-js/react";
+import { useEffect, useState } from "react";
+import Captcha from "./Captcha";
 
 export default function ContactForm({ title = m.sayHello() }: { title?: string }) {
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormFields>({
@@ -19,32 +21,42 @@ export default function ContactForm({ title = m.sayHello() }: { title?: string }
   });
   const { toast } = useToast();
   const postHog = usePostHog();
+  const [isCaptchaEnabled, setIsCaptchaEnabled] = useState(false);
+  const [isCaptchaSolved, solveCaptcha] = useState(false);
 
-  // TODO: custom captcha
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
-    postHog.capture('contact_form_submitted', data);
-    const res = await fetch("/contact/submit", {
-      'method': 'POST',
-      'headers': {
-        'Content-Type': 'application/json'
-      },
-      'body': JSON.stringify(data)
-    })
-
-    if (res.status !== 201) {
-      toast({
-        title: m.somethingWentWrong(),
-        description: m.tryAgainLater(),
-        variant: "error"
-      })
+    // Ensure captcha overlay is shown at least once before submit
+    if (!isCaptchaSolved) {
+      setIsCaptchaEnabled(true);
+      if (isCaptchaEnabled) {
+        toast({ title: m.pleaseSolveCaptcha(), variant: "error" });
+      }
       return;
     }
 
-    toast({
-      title: m.success(),
-    })
+    setIsCaptchaEnabled(false);
+
+    postHog.capture('contact_form_submitted', data);
+    const res = await fetch("/contact/submit", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (res.status !== 201) {
+      toast({ title: m.somethingWentWrong(), description: m.tryAgainLater(), variant: "error" });
+      return;
+    }
+
+    toast({ title: m.success() });
     reset();
   }
+
+  useEffect(() => {
+    if (isCaptchaEnabled && isCaptchaSolved) {
+      handleSubmit(onSubmit)();
+    }
+  }, [isCaptchaEnabled, isCaptchaSolved, handleSubmit]);
 
   return (
     <section className="bg-secondary text-primary snap-center" id="contact">
@@ -71,6 +83,11 @@ export default function ContactForm({ title = m.sayHello() }: { title?: string }
           <Input label={m.acceptTerms()} type="checkbox" {...register("terms")} required />
           {errors.terms && <span className="text-sm text-red font-suisse font-light">{errors.terms?.message}</span>}
         </div>
+        {isCaptchaEnabled && (
+          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <Captcha solveCaptcha={solveCaptcha} />
+          </div>
+        )}
         <Button type="submit" disabled={isSubmitting} wrapperClassName="col-start-3 lg:col-span-1" className="ml-auto">
           {isSubmitting ? '🤔' : m.hello()}
         </Button>

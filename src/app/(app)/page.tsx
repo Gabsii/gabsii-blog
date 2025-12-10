@@ -1,14 +1,17 @@
+import * as m from "@/paraglide/messages.js"
+
 import ContactForm from "@/components/ContactForm/ContactForm";
 import { VelocityScroll } from "@/components/Marquee/Marquee";
 // import NewsOverview from "@/components/NewsOverview/NewsOverview";
 import ProjectSlider from "@/components/ProjectSlider/ProjectSlider";
 import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
-import * as m from "@/paraglide/messages.js"
-import HoverablePopoverEmoji from "~/src/app/(app)/components/HoverablePopupEmoji";
-import TimeDisplay from "~/src/components/TimeDisplay/TimeDisplay";
+import HoverablePopoverEmoji from "@/app/(app)/components/HoverablePopupEmoji";
+import TimeDisplay from "@/components/TimeDisplay/TimeDisplay";
 
-export default function Home() {
+import { getCachedGlobal } from "@/lib/globals";
+
+export default async function Home() {
   return (
     <>
       <Hero />
@@ -20,20 +23,11 @@ export default function Home() {
   );
 }
 
-const work_status = {
-  available: {
-    icon: "🟢",
-    text: m.availableForWork(),
-  },
-  currentlySwamped: {
-    icon: "🟠",
-    text: m.aBitTightCurrently(),
-  }
-}
+const Hero = async () => {
+  // TODO: add current locale
+  const { availability, availabilityIcon} = await getCachedGlobal('homepage-settings', 1)()
 
-const CURRENT_WORK_STATUS = work_status.currentlySwamped;
-
-const Hero = () => (
+  return (
   <section className="p-8 lg:p-24 relative h-screen">
     <div className="absolute top-8 right-8">
       <TimeDisplay />
@@ -47,10 +41,10 @@ const Hero = () => (
             <br />{m.building()}<HoverablePopoverEmoji text={m.memorable()} popoverEmoji="🧠" /> {m.and()} <HoverablePopoverEmoji text={m.performant()} popoverEmoji="🚀" />
             <p className="mx-auto w-max font-medium">✨ {m.virtualExperiences()} ✨</p>
           </div>
-          <span className="mt-2 font-light text-xl"><span className="mr-2">{CURRENT_WORK_STATUS.icon}</span>{CURRENT_WORK_STATUS.text}</span>
+          <span className="mt-2 font-light text-xl">{m.availability()}<span className="mr-2">{availabilityIcon}</span>{availability}</span>
         </div>
       </div>
       <ScrollIndicator />
     </div>
   </section>
-)
+)}

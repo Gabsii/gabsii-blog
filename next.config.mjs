@@ -1,12 +1,18 @@
 import { withPayload } from '@payloadcms/next/withPayload'
-import { paraglide } from "@inlang/paraglide-js-adapter-next/plugin"
+import { paraglideWebpackPlugin } from "@inlang/paraglide-js";
 
 /** @type {import('next').NextConfig} */
-const nextConfig = paraglide({
-  paraglide: {
-    project: "./project.inlang",
-    outdir: "./src/paraglide",
-  },
+const nextConfig = {
+	webpack: (config) => {
+		config.plugins.push(
+			paraglideWebpackPlugin({
+				outdir: "./src/paraglide",
+				project: "./project.inlang",
+       strategy: ["url", "cookie", "baseLocale"],
+			})
+		);
+		return config;
+	},
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
@@ -30,6 +36,6 @@ const nextConfig = paraglide({
   },
   // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,
-})
+}
 
 export default withPayload(nextConfig)

@@ -12,6 +12,7 @@ import { Media } from "@/collections/Media";
 import { Projects } from "@/collections/Projects";
 import { Contact } from "@/collections/Contact";
 import { NewsletterSignups } from "@/collections/NewsletterSignups";
+import { HomepageSettings } from "@/globals/HomepageSettings";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -31,6 +32,9 @@ export default buildConfig({
     disable: true,
   },
   collections: [Users, Media, Projects, Contact, NewsletterSignups],
+  globals: [
+    HomepageSettings,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
