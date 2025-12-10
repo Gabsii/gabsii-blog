@@ -57,7 +57,7 @@ export default function ContactForm({ title = 'sayHello' }: { title?: string }) 
     if (isCaptchaEnabled && isCaptchaSolved) {
       handleSubmit(onSubmit)();
     }
-  }, [isCaptchaEnabled, isCaptchaSolved, handleSubmit]);
+  }, [isCaptchaEnabled, isCaptchaSolved, handleSubmit, onSubmit]);
 
   return (
     <section className="bg-secondary text-primary snap-center" id="contact">
