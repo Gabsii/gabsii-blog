@@ -1,18 +1,10 @@
 import { withPayload } from '@payloadcms/next/withPayload'
-import { paraglideWebpackPlugin } from "@inlang/paraglide-js";
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	webpack: (config) => {
-		config.plugins.push(
-			paraglideWebpackPlugin({
-				outdir: "./src/paraglide",
-				project: "./project.inlang",
-       strategy: ["url", "cookie", "baseLocale"],
-			})
-		);
-		return config;
-	},
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
@@ -38,4 +30,4 @@ const nextConfig = {
   skipTrailingSlashRedirect: true,
 }
 
-export default withPayload(nextConfig)
+export default withPayload(withNextIntl(nextConfig));

@@ -1,6 +1,6 @@
 'use client';
 
-import { Link } from "@/lib/i18n";
+import { Link } from "@/i18n/navigation";
 import Button from "~/src/components/Atoms/Button";
 
 

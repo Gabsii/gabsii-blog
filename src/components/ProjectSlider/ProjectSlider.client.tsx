@@ -2,7 +2,7 @@
 
 import { RefObject, useRef } from 'react';
 import Image from 'next/image';
-import { Link } from "@/lib/i18n";
+import { Link } from "@/i18n/navigation";
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 import type { Project, Media } from '~/payload-types';
@@ -50,7 +50,7 @@ const ProjectSlide = ({ project, current, total, className }: { project: Project
         height={650}
         className="object-cover h-full w-full"
       />
-      <div className="z-10 h-full w-full absolute left-0 top-0 bg-gradient-to-b from-transparent to-black font-piazzolla p-10 flex flex-col justify-end text-secondary">
+      <div className="z-10 h-full w-full absolute left-0 top-0 bg-gradient-to-b from-transparent to-black font-piazzolla p-10 flex flex-col justify-end text-light">
         <h2 className="text-4xl lg:text-6xl leading-normal">{project.title}</h2>
         <p className="text-2xl lg:text-4xl">{current + 1 < 10 ? `0${current + 1}` : current} / {total < 10 ? `0${total}` : total}</p>
       </div>

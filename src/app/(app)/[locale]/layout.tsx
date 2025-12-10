@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import { MotionConfig } from "framer-motion";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getLocale, getMessages } from "next-intl/server";
 
 import "./globals.css";
 
 import Sidebar from '@/components/Sidebar/Sidebar'
 import Footer from "@/components/Footer/Footer";
 import { Toaster } from "@/components/Toast/Toaster";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 import { ThemeProvider } from "~/util/context/ThemeContext";
 import { piazzolla, suisseIntl } from "~/util/fonts/fonts";
-import { LanguageProvider } from "@inlang/paraglide-next";
-import { languageTag } from "~/src/paraglide/runtime";
-import { PostHogProvider } from "@/components/PostHogProvider";
+import { NextIntlClientProvider } from "~/src/lib/ctx/NextIntlClientProvider";
 
+// TODO: localized?
 export const metadata: Metadata = {
   title: "Gabsii - Digital Innovation & Web Solutions",
   description: "Explore my portfolio as an Austria-based freelancer specializing in advanced software development, full-stack solutions, and strategic SEO enhancements. Discover innovative digital projects that empower brands to grow—let's create something exceptional together.",
@@ -33,14 +34,17 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const messages = await getMessages();
+  const locale = await getLocale();
+
   return (
-    <LanguageProvider>
-      <html lang={languageTag()}>
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <html lang={locale}>
         <body className={`bg-primary text-secondary ${piazzolla.variable} ${suisseIntl.variable}`}>
           <PostHogProvider>
             <BackgroundColumns />
@@ -58,7 +62,7 @@ export default function RootLayout({
           </PostHogProvider>
         </body>
       </html>
-    </LanguageProvider>
+      </NextIntlClientProvider>
   );
 }
 

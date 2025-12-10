@@ -5,12 +5,12 @@ import { useState } from 'react'
 import { motion as mo } from 'framer-motion';
 import * as motion from 'framer-motion/client';
 import { RiMenuLine, RiCloseLargeLine, RiMoonClearFill, RiSunLine } from "@remixicon/react";
+import { useLocale, useTranslations } from 'next-intl';
 
-import * as m from '@/paraglide/messages'
-import { Link, usePathname, useRouter } from "@/lib/i18n"
+import { Link } from "@/i18n/navigation"
 import { useTheme } from '~/util/context/ThemeContext'
 import { childrenVariants, MotionButton, nestedVariants, overlayVariants } from './animations';
-import { languageTag } from '~/src/paraglide/runtime';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 type SlideInButtonProps = {
   isMenuOpen: boolean;
@@ -66,8 +66,8 @@ const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }
 export default function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { theme, toggleTheme } = useTheme()
-  const pathname = usePathname();
-  const router = useRouter();
+  const t = useTranslations('General');
+  const currentLocale = useLocale();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -93,7 +93,7 @@ export default function Sidebar() {
           href="/contact"
           className="lg:-rotate-90 w-max text-xl font-medium"
         >
-          {m.letsChat()} →
+          {t('letsChat')} →
         </Link>
 
         <MotionButton
@@ -121,7 +121,7 @@ export default function Sidebar() {
           </li>
           <li>
             <Link href="/contact" className="text-md">
-              {`${m.letsChat()} →`}
+              {`${t('letsChat')} →`}
             </Link>
           </li>
           <li className='relative h-16 w-16'>
@@ -155,33 +155,28 @@ export default function Sidebar() {
           {/* @ts-ignore fml this is a bug in framer motion */}
           <motion.ul variants={nestedVariants} className="p-4 grid grid-cols-4 gap-px">
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              {m.home()}
+              {t('home')}
             </SlideInButton>
             {/* <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              {m.works()}
+              {t('works')}
             </SlideInButton>
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               Work
             </SlideInButton>
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              {m.journal()}
+              {t('journal')}
             </SlideInButton>
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              {m.about()}
+              {t('about')}
             </SlideInButton>*/}
             <SlideInButton href="/contact" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              {m.contact()}
+              {t('contact')}
             </SlideInButton>
             <motion.li className="flex justify-content col-start-1"
               initial="closed"
               animate={isMenuOpen ? "open" : "closed"}
               variants={childrenVariants}>
-              <MotionButton
-                onClick={() => { router.push(pathname, { locale: languageTag() == 'en' ? 'de' : 'en' }) }}
-                isInverted
-              >
-                {languageTag() == 'en' ? 'DE' : 'EN'}
-              </MotionButton>
+              <LanguageSwitcher currentLocale={currentLocale} />
             </motion.li>
             <motion.li className='flex justify-center col-start-4'
               initial="closed"

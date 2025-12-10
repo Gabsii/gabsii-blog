@@ -5,12 +5,14 @@ import { useState } from 'react'
 import Input from '../Atoms/Input'
 import Button from '../Atoms/Button'
 
-import * as m from '@/paraglide/messages'
 import { useToast } from '~/util/hooks/use-toast';
+import { useTranslations } from 'next-intl';
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState('')
   const { toast } = useToast();
+  const t = useTranslations('NewsletterForm');
+  const tGeneral = useTranslations('General');
 
   // TODO
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,16 +28,16 @@ export default function NewsletterForm() {
 
     if (res.status !== 201) {
       toast({
-        title: m.error(),
-        description: m.tryAgainLater(),
+        title: tGeneral('error'),
+        description: tGeneral('tryAgainLater'),
         variant: 'error'
       })
       return;
     }
 
     toast({
-      title: m.successfullySignedUp(),
-      description: m.hearFromMeSoon(),
+      title: t('successfullySignedUp'),
+      description: t('hearFromMeSoon'),
     })
 
     setEmail('')
@@ -45,7 +47,7 @@ export default function NewsletterForm() {
     <form onSubmit={handleSubmit} className="flex items-end w-full">
       <div className='flex-grow'>
         <Input
-          label={m.stayUpdated()}
+          label={t('stayUpdated')}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

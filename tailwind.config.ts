@@ -18,6 +18,7 @@ const config: Config = {
   		colors: {
   			primary: 'var(--color-primary)',
   			secondary: 'var(--color-secondary)',
+				light: '#fffbee',
   			grey: '#8C8C8C',
   			red: '#DA291C'
   		},

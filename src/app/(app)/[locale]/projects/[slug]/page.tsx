@@ -1,4 +1,4 @@
-import { getPayload } from "payload"
+import { getPayload, TypedLocale } from "payload"
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
@@ -9,7 +9,7 @@ import { ServicesOptions } from "@/collections/Projects";
 import ProjectContentRegistry from "@/components/ProjectContentRegistry/ProjectContentRegistry";
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
-import { languageTag } from "~/src/paraglide/runtime";
+import { getLocale } from "next-intl/server";
 
 type ProjectPageParams = Promise<{
     slug: string
@@ -38,10 +38,11 @@ export async function generateStaticParams() {
 // @ts-ignore
 export default async function ProjectPage({ params }: { params: ProjectPageParams }) {
   const { slug } = await params;
+  const locale = await getLocale() as TypedLocale;
 
   const { totalDocs, docs } = await (await getPayload({ config })).find({
     collection: 'projects',
-    locale: languageTag(),
+    locale,
     where: {
       slug: {
         equals: slug

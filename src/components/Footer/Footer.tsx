@@ -1,13 +1,15 @@
 import NextLink, { LinkProps } from 'next/link'
 
-import * as m from '@/paraglide/messages'
 import { cn } from '~/util/cn'
 import NewsletterForm from './NewsletterForm'
+import { getTranslations } from 'next-intl/server';
 
 const Link = ({ children, className, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & LinkProps) =>
   (<NextLink {...props} className={cn(`hover:underline`, className)}>{children}</NextLink>)
 
-export default function Footer() {
+export default async function Footer() {
+  const t = await getTranslations('Footer');
+  const tGeneral = await getTranslations('General');
   return (
     <footer
       className="relative text-secondary py-8 px-4 md:px-8 border-t-2 border-secondary font-piazzolla lg:w-[calc(100vw-50px)] lg:ml-[50px]"
@@ -15,13 +17,13 @@ export default function Footer() {
       <section className='max-w-1200 mx-auto w-full grid grid-cols-4 gap-y-4 lg:gap-y-px gap-px pt-10 pb-24'>
 
         <div className="space-y-2 col-span-full lg:col-span-1 flex flex-col">
-          <p className="font-bold mb-6">{m.thanksForReading()}</p>
-          <Link href="/imprint" className='inline-block'>{m.imprint()}</Link>
-          <Link href="/privacy" className='inline-block'>{m.dataPrivacy()}</Link>
+          <p className="font-bold mb-6">{t('thanksForReading')}</p>
+          <Link href="/imprint" className='inline-block'>{t('imprint')}</Link>
+          <Link href="/privacy" className='inline-block'>{t('dataPrivacy')}</Link>
         </div>
 
         <div className="col-span-full lg:col-span-1">
-          <h3 className="mb-6">{m.contact()}</h3>
+          <h3 className="mb-6">{tGeneral('contact')}</h3>
           <Link href="mailto:hello@gabsii.com">hello@gabsii.com</Link>
         </div>
 

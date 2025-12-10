@@ -1,4 +1,4 @@
-import { Link } from "@/lib/i18n";
+import { Link } from "@/i18n/navigation";
 
 type Article = {
   title: string;
