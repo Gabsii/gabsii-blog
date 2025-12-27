@@ -9,10 +9,10 @@ import { ServicesOptions } from "@/collections/Projects";
 import ProjectContentRegistry from "@/components/ProjectContentRegistry/ProjectContentRegistry";
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
-import { getLocale } from "next-intl/server";
 
 type ProjectPageParams = Promise<{
-    slug: string
+    slug: string,
+    locale: string
 }>
 type ServiceValue = typeof ServicesOptions[number]['value'];
 
@@ -28,21 +28,28 @@ export async function generateStaticParams() {
     }
   })
 
-  const slugs = projects.docs.map((project) => ({
-    slug: project.slug,
-  }));
+  const locales = ['en', 'de']; // Match your supported locales
+  const params: Array<{ slug: string; locale: string }> = [];
 
-  return slugs
+  projects.docs.forEach((project) => {
+    locales.forEach((locale) => {
+      params.push({
+        slug: project.slug,
+        locale,
+      });
+    });
+  });
+
+  return params;
 }
 
 // @ts-ignore
 export default async function ProjectPage({ params }: { params: ProjectPageParams }) {
-  const { slug } = await params;
-  const locale = await getLocale() as TypedLocale;
+  const { slug, locale } = await params;
 
   const { totalDocs, docs } = await (await getPayload({ config })).find({
     collection: 'projects',
-    locale,
+    locale: locale as TypedLocale,
     where: {
       slug: {
         equals: slug

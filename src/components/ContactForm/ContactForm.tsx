@@ -29,6 +29,7 @@ export default function ContactForm({ title = 'sayHello' }: { title?: string }) 
     // Ensure captcha overlay is shown at least once before submit
     if (!isCaptchaSolved) {
       setIsCaptchaEnabled(true);
+      postHog.capture('contact_form_captcha', data);
       if (isCaptchaEnabled) {
         toast({ title: t('pleaseSolveCaptcha'), variant: "error" });
       }
