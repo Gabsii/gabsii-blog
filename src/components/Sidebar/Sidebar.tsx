@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { useState } from 'react'
-import { motion as mo } from 'framer-motion';
-import * as motion from 'framer-motion/client';
+import { motion as mo } from 'motion/react';
+import * as motion from 'motion/react-client';
 import { RiMenuLine, RiCloseLargeLine, RiMoonClearFill, RiSunLine } from "@remixicon/react";
 import { useLocale, useTranslations } from 'next-intl';
 

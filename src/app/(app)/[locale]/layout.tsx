@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MotionConfig } from "framer-motion";
+import { MotionConfig } from "motion/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getLocale, getMessages } from "next-intl/server";
 

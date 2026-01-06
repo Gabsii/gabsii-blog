@@ -59,12 +59,12 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
-      framer-motion:
-        specifier: ^12.23.28
-        version: 12.23.28(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       lucide-react:
         specifier: ^0.562.0
         version: 0.562.0(react@19.2.1)
+      motion:
+        specifier: ^12.24.7
+        version: 12.24.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       next:
         specifier: ^15.5.7
         version: 15.5.7(@babel/core@7.28.5)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.97.1)
@@ -105,6 +105,9 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3.3.3
+        version: 3.3.3
       '@types/node':
         specifier: ^25.0.3
         version: 25.0.3
@@ -3203,8 +3206,8 @@ packages:
   fraction.js@5.3.4:
     resolution: {integrity: sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ==}
 
-  framer-motion@12.23.28:
-    resolution: {integrity: sha512-AXLnVEC/HHWp6Va1l9xl6cIM4SgdZAmgPLGy/h9w07NOxg0njva/A+3uBE3QUQ3uooi8c8c8HPn/8Md9ol0glg==}
+  framer-motion@12.24.7:
+    resolution: {integrity: sha512-EolFLm7NdEMhWO/VTMZ0LlR4fLHGDiJItTx3i8dlyQooOOBoYAaysK4paGD4PrwqnoDdeDOS+TxnSBIAnNHs3w==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -3909,11 +3912,25 @@ packages:
   monaco-editor@0.55.1:
     resolution: {integrity: sha512-jz4x+TJNFHwHtwuV9vA9rMujcZRb0CEilTEwG2rRSpe/A7Jdkuj8xPKttCgOh+v/lkHy7HsZ64oj+q3xoAFl9A==}
 
-  motion-dom@12.23.28:
-    resolution: {integrity: sha512-XxQ0QDS7nXjug1Q4Z7hwD1DPDM+zJvgteSlQABse1N4F22q6wRLLjBEeMelvJrZNPp9UeS4Q3AVpWzWBLHLmew==}
+  motion-dom@12.24.3:
+    resolution: {integrity: sha512-ZjMZCwhTglim0LM64kC1iFdm4o+2P9IKk3rl/Nb4RKsb5p4O9HJ1C2LWZXOFdsRtp6twpqWRXaFKOduF30ntow==}
 
   motion-utils@12.23.28:
     resolution: {integrity: sha512-0W6cWd5Okoyf8jmessVK3spOmbyE0yTdNKujHctHH9XdAE4QDuZ1/LjSXC68rrhsJU+TkzXURC5OdSWh9ibOwQ==}
+
+  motion@12.24.7:
+    resolution: {integrity: sha512-0jOoqFlQ7JBvAcRhRv28pwUgZ1xw9WS4+tCU6aqYjxgiNVZCVi34ED2cihW3EgjIIWPBoZJis5og1mx/LmQWVQ==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   mqtt-packet@6.10.0:
     resolution: {integrity: sha512-ja8+mFKIHdB1Tpl6vac+sktqy3gA8t9Mduom1BA75cI+R9AHnZOiaBQwpGiWnaVJLDGRdNhQmFaAqd7tkKSMGA==}
@@ -8710,9 +8727,9 @@ snapshots:
 
   fraction.js@5.3.4: {}
 
-  framer-motion@12.23.28(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+  framer-motion@12.24.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
     dependencies:
-      motion-dom: 12.23.28
+      motion-dom: 12.24.3
       motion-utils: 12.23.28
       tslib: 2.8.1
     optionalDependencies:
@@ -9505,11 +9522,19 @@ snapshots:
       dompurify: 3.2.7
       marked: 14.0.0
 
-  motion-dom@12.23.28:
+  motion-dom@12.24.3:
     dependencies:
       motion-utils: 12.23.28
 
   motion-utils@12.23.28: {}
+
+  motion@12.24.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+    dependencies:
+      framer-motion: 12.24.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
 
   mqtt-packet@6.10.0:
     dependencies:

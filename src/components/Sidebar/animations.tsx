@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 import Button from '../Atoms/Button';
 
@@ -9,7 +9,8 @@ export const overlayVariants = {
     opacity: 1,
     x: 0,
     transition: {
-      type: "ease",
+      type: "tween" as const,
+      ease: "easeOut" as const,
       staggerChildren: 0.1,
     }
   },
@@ -18,7 +19,7 @@ export const overlayVariants = {
     x: "-120%",
     transition: {
       delay: 0.5,
-      type: "spring",
+      type: "spring" as const,
       stiffness: 400,
       damping: 40
     }

@@ -1,14 +1,17 @@
-import { forwardRef } from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { forwardRef, ComponentProps } from 'react';
+import { type MotionProps } from 'motion/react';
+import * as m from "motion/react-client";
 import { cn } from '~/util/cn'; // Assuming `cn` is a utility for conditional class names
+
+type MotionButtonProps = ComponentProps<'button'> & MotionProps;
 
 type ButtonProps = {
   variant?: 'default' | 'small';
   wrapperClassName?: string;
   isInverted?: boolean;
   children?: React.ReactNode;
-} & React.ButtonHTMLAttributes<HTMLButtonElement> &
-  HTMLMotionProps<'button'>;
+} & Omit<MotionButtonProps, 'ref'>;
+
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -25,13 +28,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <div
         className={cn(
-          `relative inline-flex w-full min-w-fit max-w-full ${
-            variant === 'small' ? 'h-6 md:h-8 lg:h-10' : 'h-9 md:h-12 lg:h-16'
+          `relative inline-flex w-full min-w-fit max-w-full ${variant === 'small' ? 'h-6 md:h-8 lg:h-10' : 'h-9 md:h-12 lg:h-16'
           }`,
           wrapperClassName
         )}
       >
-        <motion.button
+        <m.button
           ref={ref}
           whileTap={{ translateX: 0, translateY: 0, transition: { duration: 0.1 } }}
           whileHover={{
@@ -44,28 +46,23 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             font-suisse font-medium uppercase
             min-w-fit w-full h-full z-10 overflow-hidden
             flex justify-center items-center
-            ${
-              variant === 'small'
-                ? 'px-4 py-2 text-xs'
-                : 'py-1 px-4 md:px-6 lg:px-8 text-base'
+            ${variant === 'small'
+              ? 'px-4 py-2 text-xs'
+              : 'py-1 px-4 md:px-6 lg:px-8 text-base'
             }
-            ${
-              isInverted
-                ? 'bg-primary text-secondary border-secondary'
-                : 'bg-secondary border-primary text-primary'
+            ${isInverted
+              ? 'bg-primary text-secondary border-secondary'
+              : 'bg-secondary border-primary text-primary'
             } border-2
-            focus:outline-none focus:outline-2 focus:outline-offset-1 ${
-              isInverted ? 'focus:outline-secondary' : 'focus:outline-primary'
+            focus:outline-none focus:outline-2 focus:outline-offset-1 ${isInverted ? 'focus:outline-secondary' : 'focus:outline-primary'
             }
-            focus-within:outline-none focus-within:outline-2 ${
-              isInverted
-                ? 'focus-within:outline-secondary'
-                : 'focus-within:outline-primary'
+            focus-within:outline-none focus-within:outline-2 ${isInverted
+              ? 'focus-within:outline-secondary'
+              : 'focus-within:outline-primary'
             }
-            focus-visible:outline-none focus-visible:outline-2 ${
-              isInverted
-                ? 'focus-visible:outline-secondary'
-                : 'focus-visible:outline-primary'
+            focus-visible:outline-none focus-visible:outline-2 ${isInverted
+              ? 'focus-visible:outline-secondary'
+              : 'focus-visible:outline-primary'
             }
             active:translate-x-1 active:-translate-y-1
             `,
@@ -74,13 +71,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {...props} // Spread remaining props
         >
           {children}
-        </motion.button>
+        </m.button>
         <span
-          className={`absolute top-0 left-0 w-full h-full ${
-            isInverted
+          className={`absolute top-0 left-0 w-full h-full ${isInverted
               ? 'bg-secondary border-secondary'
               : 'bg-primary border-primary'
-          } z-0 border-2`}
+            } z-0 border-2`}
         />
       </div>
     );

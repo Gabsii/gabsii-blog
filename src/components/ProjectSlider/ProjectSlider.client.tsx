@@ -3,7 +3,7 @@
 import { RefObject, useRef } from 'react';
 import Image from 'next/image';
 import { Link } from "@/i18n/navigation";
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 
 import type { Project, Media } from '~/payload-types';
 import { cn } from '~/util/cn';
@@ -24,7 +24,6 @@ export const ProjectSliderWrapper = ({ projects }: { projects: ProjectSliderWrap
     <div ref={targetRef} className="relative h-full">
       <div className={cn("sticky top-0 flex h-screen items-center overflow-hidden", projects.length <= 1 && 'justify-center')}>
         {projects.length > 1 ? (
-          /* @ts-ignore fml this is a bug in framer-motion */
           <motion.div style={{ x: x as any }} className="flex">
             {projects.map((project, i) => (
               <ProjectSlide project={project} current={i} total={projects.length} className="mr-56" key={`${project.title}-${i}`} />

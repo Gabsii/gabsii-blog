@@ -11,7 +11,7 @@ import {
   useReducedMotion,
   motion,
   animate,
-} from "framer-motion";
+} from "motion/react";
 
 interface VelocityScrollProps {
   text: string;
