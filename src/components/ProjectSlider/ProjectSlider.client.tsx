@@ -42,7 +42,7 @@ const ProjectSlide = ({ project, current, total, className }: { project: Project
 
   return (
     // TODO: fallback image ?
-    <Link href={`/projects/${project.slug}`} className={cn("relative h-[66vh] flex-shrink-0 w-[90vw] max-w-[1500px]", className)}>
+    <Link href={`/projects/${project.slug}`} className={cn("relative h-[66vh] shrink-0 w-[90vw] max-w-[1500px]", className)}>
       <Image
         src={image?.url || ''}
         alt={project.title || 'Project Image'}
@@ -50,7 +50,7 @@ const ProjectSlide = ({ project, current, total, className }: { project: Project
         height={650}
         className="object-cover h-full w-full"
       />
-      <div className="z-10 h-full w-full absolute left-0 top-0 bg-gradient-to-b from-transparent to-black font-piazzolla p-10 flex flex-col justify-end text-light">
+      <div className="z-10 h-full w-full absolute left-0 top-0 bg-linear-to-b from-transparent to-black font-piazzolla p-10 flex flex-col justify-end text-light text-white">
         <h2 className="text-4xl lg:text-6xl leading-normal">{project.title}</h2>
         <p className="text-2xl lg:text-4xl">{current + 1 < 10 ? `0${current + 1}` : current} / {total < 10 ? `0${total}` : total}</p>
       </div>

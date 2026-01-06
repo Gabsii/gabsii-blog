@@ -91,9 +91,9 @@ const Hero = ({ project }: { project: Project }) => {
           alt={project.title}
           width={1200}
           height={650}
-          className="object-cover h-[50vh] lg:h-auto max-h-[650px] w-full"
+          className="object-cover h-[50vh] lg:h-auto max-h-162.5 w-full"
         />
-        <div className="z-10 h-full w-full absolute left-0 top-0 bg-gradient-to-b from-transparent to-black font-piazzolla p-10 flex flex-col justify-end text-primary" />
+        <div className="z-10 h-full w-full absolute left-0 top-0 bg-linear-to-b from-transparent to-black font-piazzolla p-10 flex flex-col justify-end text-primary" />
       </div>
       <Section as="div" className="grid lg:grid-cols-2 gap-x-5 lg:mt-12 text-secondary">
         <div>

@@ -77,7 +77,7 @@ export default function Sidebar() {
     <>
       <aside
         className={`hidden
-          lg:fixed lg:left-0 lg:bottom-0 lg:top-0 lg:h-full lg:w-[3.125rem]
+          lg:fixed lg:left-0 lg:bottom-0 lg:top-0 lg:h-full lg:w-12.5
           lg:flex lg:flex-col lg:justify-between lg:items-center
           lg:transition-colors lg:duration-300 lg:ease-in-out
           lg:bg-primary lg:text-secondary lg:border-r-2 lg:border-secondary
@@ -98,8 +98,8 @@ export default function Sidebar() {
 
         <MotionButton
           onClick={toggleMenu}
-          wrapperClassName='!w-[3.125rem] lg:!w-[3.125rem] !h-[3.125rem] md:h-[3.125rem] lg:h-[3.125rem]'
-          className='border-l-0 border-r-0 hover:border-l-2 hover:border-r-2 !p-3 z-[60]'
+          wrapperClassName='w-12.5! lg:w-12.5! h-12.5! md:h-12.5 lg:h-12.5'
+          className='border-l-0 border-r-0 hover:border-l-2 hover:border-r-2 p-3! z-60'
           aria-label="Toggle menu"
           isInverted
         >
@@ -112,7 +112,7 @@ export default function Sidebar() {
         group z-50 bg-primary text-secondary border-t-2 border-secondary
         h-16 flex'
       >
-        <ul className='flex-grow flex justify-between items-center h-16'>
+        <ul className='grow flex justify-between items-center h-16'>
           <li>
             <Link href="/" className="py-3 px-5 text-2xl font-bold">
               <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-light.svg"} alt="logo" width={14} height={24} className='ml-4' loading="eager" />
@@ -144,7 +144,7 @@ export default function Sidebar() {
       <motion.div
         // @ts-ignore fml this is a bug in framer motion
         className={`fixed inset-0 z-40
-          lg:w-[calc(100% - 3.125rem)] lg:left-[3.125rem] lg:top-0
+          lg:w-[calc(100% - 3.125rem)] lg:left-12.5 lg:top-0
           flex items-center justify-center
           bg-primary opacity-0 `}
         animate={isMenuOpen ? "open" : "closed"}

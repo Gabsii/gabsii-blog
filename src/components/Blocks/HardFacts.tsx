@@ -28,7 +28,7 @@ const HardFacts = ({ block, ...props }: HardFactsProps) => {
               bg-primary z-10
               flex flex-col justify-between min-h-full max-w-full
             `}>
-            <p className="font-piazzolla font-light text-2xl lg:leading-[68px] lg:text-5xl overflow-hidden break-words text-ellipsis">{fact.value}</p>
+            <p className="font-piazzolla font-light text-2xl lg:leading-[68px] lg:text-5xl overflow-hidden wrap-break-word text-ellipsis">{fact.value}</p>
             <p className="font-suisse font-light text-lg lg:text-4xl">{fact.label}</p>
           </li>
         ))}

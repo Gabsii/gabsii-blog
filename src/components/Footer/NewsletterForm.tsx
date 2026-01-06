@@ -45,7 +45,7 @@ export default function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex items-end w-full">
-      <div className='flex-grow'>
+      <div className='grow'>
         <Input
           label={t('stayUpdated')}
           type="email"

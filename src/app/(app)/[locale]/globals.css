@@ -1,20 +1,74 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
+/* 1) App-level variables that React is allowed to mutate */
 :root {
-  --color-primary: #fffbee;
-  --color-secondary: #242424;
+  --app-color-primary: #fffbee;
+  --app-color-secondary: #242424;
 }
 
+/* Initial dark preference only; actual switching is done by your ThemeProvider */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #242424;
-    --color-secondary: #fffbee;
+    color-scheme: dark;
+    --app-color-primary: #242424;
+    --app-color-secondary: #fffbee;
   }
 }
 
+/* 2) Tailwind theme tokens – this replaces theme.extend in tailwind.config */
+@theme inline {
+  /* Colors: create text-primary, bg-primary, etc. */
+  --color-primary: var(--app-color-primary);
+  --color-secondary: var(--app-color-secondary);
 
+  /* Extra colors you had: light, grey, red */
+  --color-light: #fffbee;
+  --color-grey: #8C8C8C;
+  --color-red: #DA291C;
+
+  /* Fonts from next/font */
+  --font-suisse: var(--font-suisse-intl);   /* class: font-suisse */
+  --font-piazzolla: var(--font-piazzolla);  /* class: font-piazzolla */
+
+  /* Spacing equivalents to your extend.spacing */
+  --spacing-ch: 1ch;        /* p-ch, m-ch, w-ch, etc. */
+  --spacing-1200: 1200px;   /* w-1200, max-w-1200, etc. */
+
+  /* Background images */
+  --background-image-checkmark: url(/checkmark.svg);  /* bg-checkmark */
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
+
+  /* Font weights so font-bold etc. work and can be @apply'ed */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* Animations (replace your keyframes/animation in config)
+     animate-growltr, animate-rotate-slow, animate-rotate-fast
+     are defined via these tokens. */
+  --animate-growltr: growltr 300ms linear 1;
+  --animate-rotate-slow: rotate 16s linear infinite;
+  --animate-rotate-fast: rotate 8s linear infinite;
+
+  @keyframes rotate {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes growltr {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+}
+
+/* 3) Your prose-style content using Tailwind utilities */
 .content {
   @apply font-suisse;
 
@@ -42,7 +96,8 @@
     }
   }
 
-  ul, ol {
+  ul,
+  ol {
     @apply ml-4;
 
     li {

@@ -70,22 +70,22 @@ const BackgroundColumns = () => (
   <div className="fixed lg:w-[calc(100vw-50px)] lg:ml-[50px] top-0 bottom-0 left-0 z-0 pointer-events-none w-full">
     <div className="relative max-w-1200 mx-auto h-full grid grid-cols-4">
       <div className="relative before:absolute before:top-0
-          before:backdrop-invert z-[100]
+          before:backdrop-invert z-100
           before:bottom-0 before:left-0 before:-z-10
           before:block before:w-px before:origin-top
           before:bg-secondary before:opacity-10" />
       <div className="relative before:absolute before:top-0
-          before:backdrop-invert z-[100]
+          before:backdrop-invert z-100
           before:bottom-0 before:left-0 before:-z-10
           before:block before:w-px before:origin-top
           before:bg-secondary before:opacity-10" />
       <div className="relative before:absolute before:top-0
-          before:backdrop-invert z-[100]
+          before:backdrop-invert z-100
           before:bottom-0 before:left-0 before:-z-10
           before:block before:w-px before:origin-top
           before:bg-secondary before:opacity-10" />
       <div className="relative before:absolute before:top-0
-          before:backdrop-invert z-[100]
+          before:backdrop-invert z-100
           before:bottom-0 before:left-0 before:-z-10
           before:block before:w-px before:origin-top
           before:bg-secondary before:opacity-10

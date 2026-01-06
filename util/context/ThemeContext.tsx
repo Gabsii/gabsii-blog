@@ -1,7 +1,11 @@
 'use client'
 
-import { black, white } from '~/tailwind.config'
-import React, { createContext, useState, useContext, useEffect } from 'react'
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+} from 'react'
 
 type Theme = 'light' | 'dark'
 
@@ -10,11 +14,22 @@ interface ThemeContextType {
   toggleTheme: () => void
 }
 
-export const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined,
+)
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+// pick any colors you like – these should match what you want for light/dark
+const LIGHT_PRIMARY = '#fffbee'
+const LIGHT_SECONDARY = '#242424'
+const DARK_PRIMARY = '#242424'
+const DARK_SECONDARY = '#fffbee'
+
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [theme, setTheme] = useState<Theme>('light')
 
+  // initial theme
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as Theme | null
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -26,16 +41,22 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [])
 
+  // apply theme -> update app variables
   useEffect(() => {
     localStorage.setItem('theme', theme)
-    const rootStyle = document.documentElement.style;
+    const rootStyle = document.documentElement.style
 
-    rootStyle.setProperty('--color-primary', theme === 'light' ? white : black)
-    rootStyle.setProperty('--color-secondary', theme === 'light' ? black : white)
+    if (theme === 'light') {
+      rootStyle.setProperty('--app-color-primary', LIGHT_PRIMARY)
+      rootStyle.setProperty('--app-color-secondary', LIGHT_SECONDARY)
+    } else {
+      rootStyle.setProperty('--app-color-primary', DARK_PRIMARY)
+      rootStyle.setProperty('--app-color-secondary', DARK_SECONDARY)
+    }
   }, [theme])
 
   const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'))
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
   }
 
   return (
