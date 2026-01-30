@@ -5,7 +5,9 @@
     "tryAgainLater": "Please try again later",
     "error": "Error!",
     "letsChat": "let's chat",
-    "home": "Home"
+    "home": "Home",
+    "now": "Now",
+    "about": "About me"
   },
   "Footer": {
     "thanksForReading": "Thanks for reading.",

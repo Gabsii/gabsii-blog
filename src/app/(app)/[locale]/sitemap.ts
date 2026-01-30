@@ -38,10 +38,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     },
     {
+      url: 'https://gabsii.com/now',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          de: 'https://gabsii.com/de/now',
+        }
+      }
+    },
+    {
       url: 'https://gabsii.com/contact',
       lastModified: new Date(),
       changeFrequency: 'yearly',
-      priority: 1,
+      priority: 0.9,
       alternates: {
         languages: {
           de: 'https://gabsii.com/de/contact',
@@ -52,7 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: 'https://gabsii.com/imprint',
       lastModified: new Date(),
       changeFrequency: 'yearly',
-      priority: 1,
+      priority: 0.3,
       alternates: {
         languages: {
           de: 'https://gabsii.com/de/imprint',
@@ -63,7 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: 'https://gabsii.com/privacy',
       lastModified: new Date(),
       changeFrequency: 'yearly',
-      priority: 1,
+      priority: 0.3,
       alternates: {
         languages: {
           de: 'https://gabsii.com/de/privacy',

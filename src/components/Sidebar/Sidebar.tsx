@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion as mo } from 'motion/react';
 import * as motion from 'motion/react-client';
 import { RiMenuLine, RiCloseLargeLine, RiMoonClearFill, RiSunLine } from "@remixicon/react";
@@ -12,22 +12,25 @@ import { useTheme } from '~/util/context/ThemeContext'
 import { childrenVariants, MotionButton, nestedVariants, overlayVariants } from './animations';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
+import { cn } from '~/util/cn';
+import { useKeyPress } from '~/src/lib/hooks/useKeypress';
+
 type SlideInButtonProps = {
   isMenuOpen: boolean;
   href?: string;
   toggleMenu: () => void;
+  disabled?: boolean;
 } & React.ComponentProps<'li'>
 
 const MotionLink = mo.create(Link)
 
 // TODO: figure out how to properly stagger the menu items
-const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }: SlideInButtonProps) {
+const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu, disabled = false }: SlideInButtonProps) {
   const { theme } = useTheme()
 
   return (
     <motion.li
-      // @ts-ignore fml this is a bug in framer motion
-      className="relative w-full bg-primary uppercase overflow-hidden col-span-full border-2 border-secondary"
+      className={cn("relative w-full bg-primary uppercase overflow-hidden col-span-full border-2 border-secondary", {"cursor-not-allowed": disabled})}
       variants={childrenVariants}
       whileHover="hover"
       initial="closed"
@@ -36,8 +39,7 @@ const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }
     >
       {/* Sliding Background */}
       <motion.div
-        // @ts-ignore fml this is a bug in framer motion
-        className="absolute inset-0 bg-secondary z-0 opacity-0"
+        className={cn("absolute inset-0 bg-secondary z-0 opacity-0", { "bg-[#8b8b8b]": disabled })}
         initial={{ translateY: "100%" }}
         variants={{
           hover: { translateY: "0%", opacity: 1, transition: { duration: 0.3, ease: "easeOut" } },
@@ -49,8 +51,10 @@ const SlideInButton = function ({ children, href = "/", isMenuOpen, toggleMenu }
       <MotionLink
         href={href}
         onClick={toggleMenu}
-        className="relative z-10 flex items-center justify-center py-1 h-9 md:h-12 lg:h-16 px-4 md:px-6 lg:px-8
-                text-2xl hover:underline text-secondary"
+        className={cn(
+          "relative z-10 flex items-center justify-center py-1 h-9 md:h-12 lg:h-16 px-4 md:px-6 lg:px-8 text-2xl hover:underline text-secondary",
+          { "pointer-events-none line-through": disabled }
+        )}
         variants={{
           hover: { color: "var(--color-primary)", transition: { duration: 0.3, ease: "circInOut" } },
           initial: { color: "var(--color-secondary)" },
@@ -68,9 +72,18 @@ export default function Sidebar() {
   const { theme, toggleTheme } = useTheme()
   const t = useTranslations('General');
   const currentLocale = useLocale();
+  const key = useKeyPress('Escape');
 
+  // Close menu on escape key press - moved to useEffect for proper side effect handling
+  useEffect(() => {
+    if (isMenuOpen && key) {
+      setIsMenuOpen(false);
+    }
+  }, [key, isMenuOpen]);
+
+  // Use functional update pattern to avoid stale state issues
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
+    setIsMenuOpen(prev => !prev)
   }
 
   return (
@@ -142,17 +155,14 @@ export default function Sidebar() {
 
       {/* Overlay Menu */}
       <motion.div
-        // @ts-ignore fml this is a bug in framer motion
         className={`fixed inset-0 z-40
-          lg:w-[calc(100% - 3.125rem)] lg:left-12.5 lg:top-0
+          lg:left-12.5 lg:right-0 lg:top-0
           flex items-center justify-center
           bg-primary opacity-0 `}
         animate={isMenuOpen ? "open" : "closed"}
         variants={overlayVariants}
       >
-        {/* @ts-ignore fml this is a bug in framer motion */}
         <motion.nav variants={nestedVariants} className="text-center max-w-1200 w-full lg:mx-auto mx-8">
-          {/* @ts-ignore fml this is a bug in framer motion */}
           <motion.ul variants={nestedVariants} className="p-4 grid grid-cols-4 gap-px">
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               {t('home')}
@@ -165,10 +175,15 @@ export default function Sidebar() {
             </SlideInButton>
             <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               {t('journal')}
-            </SlideInButton>
-            <SlideInButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
-              {t('about')}
             </SlideInButton>*/}
+            <div className="flex flex-row col-span-4 gap-px">
+              <SlideInButton href="/about" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} disabled={true}>
+                {t('about')}
+              </SlideInButton>
+              <SlideInButton href="/now" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
+                {t('now')}
+              </SlideInButton>
+            </div>
             <SlideInButton href="/contact" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               {t('contact')}
             </SlideInButton>

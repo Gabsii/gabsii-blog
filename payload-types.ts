@@ -95,9 +95,11 @@ export interface Config {
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'de') | ('en' | 'de')[];
   globals: {
     'homepage-settings': HomepageSetting;
+    now: Now;
   };
   globalsSelect: {
     'homepage-settings': HomepageSettingsSelect<false> | HomepageSettingsSelect<true>;
+    now: NowSelect<false> | NowSelect<true>;
   };
   locale: 'en' | 'de';
   user: User & {
@@ -458,11 +460,45 @@ export interface HomepageSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "now".
+ */
+export interface Now {
+  id: number;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage-settings_select".
  */
 export interface HomepageSettingsSelect<T extends boolean = true> {
   availability?: T;
   availabilityIcon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "now_select".
+ */
+export interface NowSelect<T extends boolean = true> {
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

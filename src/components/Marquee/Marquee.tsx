@@ -95,7 +95,6 @@ function ParallaxText({
       className="w-full overflow-hidden whitespace-nowrap"
       ref={containerRef}
     >
-      {/* @ts-ignore fml this is a bug in framer motion */}
       <motion.div className={`inline-block ${className}`} style={{ x: xTransform as any }}>
         {Array.from({ length: repetitions }).map((_, i) => (
           <span key={i} ref={i === 0 ? textRef : null} className={'text-primary bg-secondary'} aria-hidden={true}>

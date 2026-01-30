@@ -8,11 +8,15 @@ const Link = ({ children, className, ...props }: React.AnchorHTMLAttributes<HTML
   (<NextLink {...props} className={cn(`hover:underline`, className)}>{children}</NextLink>)
 
 export default async function Footer() {
-  const t = await getTranslations('Footer');
-  const tGeneral = await getTranslations('General');
+  // Parallelize translation fetches
+  const [t, tGeneral] = await Promise.all([
+    getTranslations('Footer'),
+    getTranslations('General')
+  ]);
+  
   return (
     <footer
-      className="relative text-secondary py-8 px-4 md:px-8 border-t-2 border-secondary font-piazzolla lg:w-[calc(100vw-50px)] lg:ml-[50px]"
+      className="relative text-secondary py-8 px-4 md:px-8 border-t-2 border-secondary font-piazzolla"
     >
       <section className='max-w-1200 mx-auto w-full grid grid-cols-4 gap-y-4 lg:gap-y-px gap-px pt-10 pb-24'>
 

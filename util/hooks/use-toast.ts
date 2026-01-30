@@ -182,7 +182,7 @@ function useToast() {
         listeners.splice(index, 1)
       }
     }
-  }, [state])
+  }, []) // Fixed: removed 'state' from dependencies - setState is stable and doesn't need to be re-subscribed
 
   return {
     ...state,

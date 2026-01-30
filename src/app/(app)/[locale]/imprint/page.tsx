@@ -1,4 +1,21 @@
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Imprint | Gabsii",
+  description: "Legal information and imprint for Gabsii - Digital Innovation & Web Solutions. Contact details, company information, and legal notices.",
+  alternates: {
+    canonical: "/imprint",
+    languages: {
+      'en': '/imprint',
+      'de': '/de/imprint',
+    }
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 const Imprint = async () => {
   const t = await getTranslations('Imprint');

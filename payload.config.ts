@@ -13,6 +13,7 @@ import { Projects } from "@/collections/Projects";
 import { Contact } from "@/collections/Contact";
 import { NewsletterSignups } from "@/collections/NewsletterSignups";
 import { HomepageSettings } from "@/globals/HomepageSettings";
+import { Now } from "./src/globals/Now";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -34,6 +35,7 @@ export default buildConfig({
   collections: [Users, Media, Projects, Contact, NewsletterSignups],
   globals: [
     HomepageSettings,
+    Now,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

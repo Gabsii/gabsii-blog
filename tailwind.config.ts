@@ -5,7 +5,10 @@ export const black = '#242424'
 
 const config: Config = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
-  plugins: [require('tailwindcss-animate')],
+  // maybe tailwind-typography?
+  plugins: [
+    require('tailwindcss-animate'),
+  ],
 }
 
 export default config

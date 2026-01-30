@@ -1,5 +1,28 @@
 import ContactForm from "@/components/ContactForm/ContactForm";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact - Let's Work Together | Gabsii",
+  description: "Get in touch with Gabsii for web development projects, collaborations, or just to say hello. Austria-based freelancer specializing in full-stack development.",
+  alternates: {
+    canonical: "/contact",
+    languages: {
+      'en': '/contact',
+      'de': '/de/contact',
+    }
+  },
+  openGraph: {
+    title: "Contact - Let's Work Together | Gabsii",
+    description: "Get in touch with Gabsii for web development projects, collaborations, or just to say hello.",
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: "Contact - Let's Work Together | Gabsii",
+    description: "Get in touch with Gabsii for web development projects and collaborations.",
+  },
+};
 
 export default async function Contact() {
   const t = await getTranslations('Contact');

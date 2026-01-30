@@ -28,16 +28,32 @@ const TimeDisplay = () => {
     // Update immediately
     updateTime();
 
-    // Update every second
-    const interval = setInterval(updateTime, 1000);
+    // Start interval
+    let interval = setInterval(updateTime, 1000);
 
-    return () => clearInterval(interval);
+    // Pause interval when page is hidden to save resources
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        clearInterval(interval);
+      } else {
+        // Update immediately when becoming visible, then restart interval
+        updateTime();
+        interval = setInterval(updateTime, 1000);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   return (
     <div className="flex items-center gap-2 font-regular text-xl">
       <span>{isDaylight ? '☀️' : '🌑'} {time}</span>
-      <span>- Austria 🇦🇹</span>
+      <span>- Austria</span>
     </div>
   );
 };
