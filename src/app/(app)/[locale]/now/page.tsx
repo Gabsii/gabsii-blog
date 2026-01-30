@@ -41,7 +41,7 @@ export default async function NowPage() {
       </div>
       <hr className="w-full border-secondary border border-opacity-10 my-8" />
       {content && (
-        <section className="content prose prose-primary max-w-none" dangerouslySetInnerHTML={{ __html: convertLexicalToHTML({data: content}) }}>
+        <section className="content prose prose-primary max-w-none text-primary" dangerouslySetInnerHTML={{ __html: convertLexicalToHTML({data: content}) }}>
         </section>
       )}
       <hr className="w-full border-secondary border border-opacity-10 my-8" />
