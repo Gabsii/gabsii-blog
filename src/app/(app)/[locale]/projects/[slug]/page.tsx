@@ -144,14 +144,14 @@ const Hero = ({ project }: { project: Project }) => {
 
   return (
     <section className="mx-auto max-h-screen">
-      <div className="relative">
+      <div className="relative h-[50vh] lg:h-[65vh] max-h-162.5 w-full">
         <Image
           src={image?.url || ''}
           alt={project.title}
-          width={1200}
-          height={650}
+          fill
           priority={true}
-          className="object-cover h-[50vh] lg:h-auto max-h-162.5 w-full"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
+          className="object-cover"
         />
         <div className="z-10 h-full w-full absolute left-0 top-0 bg-linear-to-b from-transparent to-black font-piazzolla p-10 flex flex-col justify-end text-primary" />
       </div>

@@ -2,18 +2,18 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { usePostHog } from "posthog-js/react";
 
 import Button from "../Atoms/Button";
 import Input from "../Atoms/Input";
 import Textarea from "../Atoms/Textarea";
 import Section from "../Atoms/Section";
+import Captcha from "./Captcha";
 
 import { useToast } from "~/util/hooks/use-toast";
 import { FormFields, FormFieldsSchema } from "./FormConfig";
-import { usePostHog } from "posthog-js/react";
-import { useEffect, useState } from "react";
-import Captcha from "./Captcha";
-import { useTranslations } from "next-intl";
 
 export default function ContactForm({ title = 'sayHello' }: { title?: string }) {
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormFields>({
@@ -25,7 +25,7 @@ export default function ContactForm({ title = 'sayHello' }: { title?: string }) 
   const [isCaptchaSolved, solveCaptcha] = useState(false);
   const t = useTranslations('ContactForm');
 
-  const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
+  const onSubmit = useCallback<SubmitHandler<FormFields>>(async (data: FormFields) => {
     // Ensure captcha overlay is shown at least once before submit
     if (!isCaptchaSolved) {
       setIsCaptchaEnabled(true);
@@ -52,7 +52,7 @@ export default function ContactForm({ title = 'sayHello' }: { title?: string }) 
 
     toast({ title: t('success') });
     reset();
-  }
+  }, [isCaptchaSolved, isCaptchaEnabled, toast, postHog, reset, t]);
 
   useEffect(() => {
     if (isCaptchaEnabled && isCaptchaSolved) {
@@ -91,7 +91,7 @@ export default function ContactForm({ title = 'sayHello' }: { title?: string }) 
           </div>
         )}
         <Button type="submit" disabled={isSubmitting} wrapperClassName="col-start-3 lg:col-span-1" className="ml-auto">
-          {isSubmitting ? '🤔' : t('hello')}
+          {isSubmitting ? '...' : t('hello')}
         </Button>
         {errors.root && <span className="text-sm text-red font-suisse font-light col-span-full">{errors.root?.message}</span>}
       </Section>

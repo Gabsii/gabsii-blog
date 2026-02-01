@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     projects: Project;
+    post: Post;
     'contact-forms': ContactForm;
     'newsletter-signups': NewsletterSignup;
     'payload-kv': PayloadKv;
@@ -82,6 +83,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    post: PostSelect<false> | PostSelect<true>;
     'contact-forms': ContactFormsSelect<false> | ContactFormsSelect<true>;
     'newsletter-signups': NewsletterSignupsSelect<false> | NewsletterSignupsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -205,6 +207,58 @@ export interface Project {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "post".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  subtitle: string;
+  slug: string;
+  titleImage: number | Media;
+  publishedAt: string;
+  tags: 'travel'[];
+  content: (
+    | {
+        text: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'paragraph';
+      }
+    | {
+        image: number | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'image';
+      }
+    | {
+        label: string;
+        latitude: number;
+        longitude: number;
+        zoom?: number | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'location';
+      }
+  )[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-forms".
  */
 export interface ContactForm {
@@ -260,6 +314,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'post';
+        value: number | Post;
       } | null)
     | ({
         relationTo: 'contact-forms';
@@ -380,6 +438,48 @@ export interface ProjectsSelect<T extends boolean = true> {
                     long?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "post_select".
+ */
+export interface PostSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  slug?: T;
+  titleImage?: T;
+  publishedAt?: T;
+  tags?: T;
+  content?:
+    | T
+    | {
+        paragraph?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+              blockName?: T;
+            };
+        image?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        location?:
+          | T
+          | {
+              label?: T;
+              latitude?: T;
+              longitude?: T;
+              zoom?: T;
               id?: T;
               blockName?: T;
             };

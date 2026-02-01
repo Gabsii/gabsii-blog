@@ -2,7 +2,7 @@ import { Suspense } from "react";
 
 import ContactForm from "@/components/ContactForm/ContactForm";
 import { VelocityScroll } from "@/components/Marquee/Marquee";
-// import NewsOverview from "@/components/NewsOverview/NewsOverview";
+import NewsOverview from "@/components/NewsOverview/NewsOverview";
 import ProjectSlider from "@/components/ProjectSlider/ProjectSlider";
 import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
@@ -34,7 +34,9 @@ export default async function Home() {
         <ProjectSlider />
       </Suspense>
       {/* <Services /> */}
-      {/* <NewsOverview /> */}
+      <Suspense fallback={<div>Loading news...</div>}>
+        <NewsOverview />
+      </Suspense>
       <Suspense fallback={<ContactFormFallback />}>
         <ContactForm />
       </Suspense>
@@ -48,10 +50,10 @@ const Hero = async () => {
     getLocale(),
     getTranslations('Hero')
   ]);
-  
+
   let availability = '';
   let availabilityIcon = '';
-  
+
   try {
     const homepageSettings = await getCachedGlobal('homepage-settings', 1, locale as TypedLocale)();
     availability = homepageSettings.availability ?? '';

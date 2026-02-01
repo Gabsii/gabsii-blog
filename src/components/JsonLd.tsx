@@ -123,6 +123,56 @@ export function ProjectJsonLd({
   );
 }
 
+interface ArticleJsonLdProps {
+  headline: string;
+  description?: string;
+  url: string;
+  image?: string;
+  datePublished: string;
+  dateModified?: string;
+}
+
+export function ArticleJsonLd({
+  headline,
+  description,
+  url,
+  image,
+  datePublished,
+  dateModified
+}: ArticleJsonLdProps) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    url,
+    ...(image && { image }),
+    datePublished,
+    dateModified: dateModified || datePublished,
+    author: {
+      "@type": "Person",
+      name: "Lukas Gabsi",
+      url: "https://gabsii.com"
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Lukas Gabsi",
+      url: "https://gabsii.com"
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url
+    }
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 /**
  * Combined JSON-LD component for the main layout.
  * Includes Person and WebSite schemas.

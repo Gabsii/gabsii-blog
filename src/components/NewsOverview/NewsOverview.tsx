@@ -1,48 +1,55 @@
-import { Link } from "@/i18n/navigation";
+import { getPayload } from "payload";
 
-type Article = {
-  title: string;
-  subtitle: string;
-  slug: string;
-  coverImage: string;
+import config from '@payload-config';
+import type { Post } from "~/payload-types";
+import NewsOverviewItem from "./NewsOverviewItem";
+
+/** Subset of Post fields needed for the news overview */
+type ArticlePreview = Pick<Post, "title" | "subtitle" | "slug" | "titleImage">;
+
+async function getArticles(): Promise<ArticlePreview[]> {
+  try {
+    const payload = await getPayload({ config })
+
+    const { docs: posts } = await payload.find({
+      collection: 'post',
+      select: {
+        title: true,
+        subtitle: true,
+        titleImage: true,
+        slug: true
+      },
+      limit: 10,
+      sort: '-publishedAt',
+    })
+
+    return posts as ArticlePreview[];
+  } catch (error) {
+    console.error('[NewsOverview] Failed to fetch posts:', {
+      error: error instanceof Error ? error.message : error,
+      stack: error instanceof Error ? error.stack : undefined,
+    });
+    // Return null to gracefully degrade - user will still see rest of page
+    return [];
+  }
 }
 
-function getArticles(): Article[] {
-  return [
-    {
-      title: "Article 1",
-      subtitle: "Content of article 1",
-      slug: "article-1",
-      coverImage: "https://placewaifu.com/image"
-    },
-    {
-      title: "Article 2",
-      subtitle: "Content of article 2",
-      slug: "article-2",
-      coverImage: "https://placewaifu.com/image"
-    }
-  ]
-}
 
+export default async function NewsOverview() {
+  const articles = await getArticles();
 
-export default function NewsOverview() {
-  const articles = getArticles();
+  if (articles.length === 0) {
+    return null;
+  }
 
   return (
-    <section className="mt-24 relative" id="news">
+    <section className="my-24 relative" id="news">
       <div className="max-w-1200 mx-auto">
-        <h2 className="h-max text-4xl pb-7">News/Blog/Thoughts</h2>
+        <h2 className="h-max text-4xl pb-7">Blog/News/Articles/Thoughts</h2>
       </div>
       <hr className="border border-secondary" />
       {articles.map((article) => (
-        <div className="" key={article.slug}>
-          {/* TODO: hover animation (show image) */}
-          <Link href={article.slug} className="max-w-1200 mx-auto flex items-end justify-between pt-6 pb-5">
-            <h3 className="h-max text-2xl font-piazzolla font-medium">{article.title}</h3>
-            <p className="font-light text-ellipsis">{article.subtitle}</p>
-          </Link>
-          <hr className="border border-secondary" />
-        </div>
+        <NewsOverviewItem key={article.slug} article={article} />
       ))}
     </section>
   )

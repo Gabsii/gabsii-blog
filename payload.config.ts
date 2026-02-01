@@ -14,6 +14,7 @@ import { Contact } from "@/collections/Contact";
 import { NewsletterSignups } from "@/collections/NewsletterSignups";
 import { HomepageSettings } from "@/globals/HomepageSettings";
 import { Now } from "./src/globals/Now";
+import { Post } from "./src/collections/Post";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -32,7 +33,7 @@ export default buildConfig({
   graphQL: {
     disable: true,
   },
-  collections: [Users, Media, Projects, Contact, NewsletterSignups],
+  collections: [Users, Media, Projects, Post, Contact, NewsletterSignups],
   globals: [
     HomepageSettings,
     Now,

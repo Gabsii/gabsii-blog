@@ -138,7 +138,7 @@ const ProjectSlide = ({
             alt={project.title || 'Project Image'}
             fill
             priority={index < 2}
-            sizes="(max-width: 1024px) 85vw, 70vw"
+            sizes="(max-width: 640px) 85vw, (max-width: 1024px) 85vw, min(70vw, 900px)"
             className={cn(
               "object-cover transition-transform duration-500 ease-out",
               "group-hover:scale-105"
