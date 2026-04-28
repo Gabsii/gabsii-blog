@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import EmailTrackingWrapper from "@/components/EmailTrackingWrapper";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Gabsii",
@@ -21,9 +22,9 @@ const Privacy = async () => {
   const t = await getTranslations('Privacy');
   return (
     <article className="p-8 lg:p-24 relative min-h-screen">
-      <section className="max-w-1200 mx-auto w-full content">
+      <EmailTrackingWrapper location="privacy" className="max-w-1200 mx-auto w-full content">
         <div dangerouslySetInnerHTML={{ __html: t.raw('html') }} />
-      </section>
+      </EmailTrackingWrapper>
     </article>
   );
 };

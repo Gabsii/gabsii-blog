@@ -2,6 +2,7 @@ import NextLink, { LinkProps } from 'next/link'
 
 import { cn } from '~/util/cn'
 import NewsletterForm from './NewsletterForm'
+import TrackedEmailLink from '../TrackedEmailLink'
 import { getTranslations } from 'next-intl/server';
 
 const Link = ({ children, className, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & LinkProps) =>
@@ -28,7 +29,7 @@ export default async function Footer() {
 
         <div className="col-span-full lg:col-span-1">
           <h3 className="mb-6">{tGeneral('contact')}</h3>
-          <Link href="mailto:hello@gabsii.com">hello@gabsii.com</Link>
+          <TrackedEmailLink email="hello@gabsii.com" location="footer" />
         </div>
 
         <div className='col-span-full lg:col-span-2'>

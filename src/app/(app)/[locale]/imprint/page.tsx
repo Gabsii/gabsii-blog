@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import EmailTrackingWrapper from "@/components/EmailTrackingWrapper";
 
 export const metadata: Metadata = {
   title: "Imprint | Gabsii",
@@ -21,7 +22,7 @@ const Imprint = async () => {
   const t = await getTranslations('Imprint');
   return (
     <article className="p-8 lg:p-24 relative min-h-screen">
-      <section className="max-w-1200 mx-auto w-full content">
+      <EmailTrackingWrapper location="imprint" className="max-w-1200 mx-auto w-full content">
         <h1 dangerouslySetInnerHTML={{ __html: t.raw('title') }} />
         <p dangerouslySetInnerHTML={{ __html: t.raw('intro') }} />
         <p dangerouslySetInnerHTML={{ __html: t.raw('companyName') }} />
@@ -45,8 +46,7 @@ const Imprint = async () => {
         <p dangerouslySetInnerHTML={{ __html: t.raw('additionalOnlineContent') }} />
         <p dangerouslySetInnerHTML={{ __html: t.raw('copyright') }} />
         <p dangerouslySetInnerHTML={{ __html: t.raw('source') }} />
-
-      </section>
+      </EmailTrackingWrapper>
     </article>
   );
 };
