@@ -4,6 +4,14 @@ const defaulted = (promise: Promise<{ default: React.ComponentType<any> }>) => p
 
 const registry = {
   'hard-facts': () => defaulted(import('@/components/Blocks/HardFacts')),
+  'post-paragraph': () => defaulted(import('@/components/Blocks/PostParagraph')),
+  'post-image': () => defaulted(import('@/components/Blocks/PostImage')),
+  'pull-quote': () => defaulted(import('@/components/Blocks/PullQuote')),
+  'section-divider': () => defaulted(import('@/components/Blocks/SectionDivider')),
+  'footnote': () => defaulted(import('@/components/Blocks/Footnote')),
+  'mood-board': () => defaulted(import('@/components/Blocks/MoodBoard')),
+  'timeline': () => defaulted(import('@/components/Blocks/Timeline')),
+  'ambient-color-wash': () => defaulted(import('@/components/Blocks/AmbientColorWash')),
 }
 
 const ProjectContentRegistry = async ({ content, ...props }: Project) => {
