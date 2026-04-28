@@ -188,20 +188,126 @@ export interface Project {
   dateFrom: string;
   dateTo?: string | null;
   services: ('design' | 'frontend' | 'backend' | 'fullstack' | 'seo')[];
-  content: {
-    title?: string | null;
-    facts?:
-      | {
-          label?: string | null;
-          value?: string | null;
-          long?: boolean | null;
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'hard-facts';
-  }[];
+  content: (
+    | {
+        title?: string | null;
+        facts?:
+          | {
+              label?: string | null;
+              value?: string | null;
+              long?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'hard-facts';
+      }
+    | {
+        text: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'paragraph';
+      }
+    | {
+        image: number | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'image';
+      }
+    | {
+        quote: string;
+        author?: string | null;
+        source?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pull-quote';
+      }
+    | {
+        style?: ('ornament' | 'squiggly' | 'line' | 'dots') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'divider';
+      }
+    | {
+        /**
+         * The visible trigger text shown in the collapsed state.
+         */
+        label: string;
+        /**
+         * The aside text revealed when expanded.
+         */
+        content: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'footnote';
+      }
+    | {
+        images?:
+          | {
+              image: number | Media;
+              caption?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'mood-board';
+      }
+    | {
+        items?:
+          | {
+              date: string;
+              title: string;
+              description?: string | null;
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'timeline';
+      }
+    | {
+        /**
+         * CSS color value (hex, rgb, named). E.g. #f5e6d3
+         */
+        color: string;
+        text?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        align?: ('center' | 'left') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'color-wash';
+      }
+  )[];
   updatedAt: string;
   createdAt: string;
 }
@@ -252,6 +358,100 @@ export interface Post {
         id?: string | null;
         blockName?: string | null;
         blockType: 'location';
+      }
+    | {
+        quote: string;
+        author?: string | null;
+        source?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pull-quote';
+      }
+    | {
+        style?: ('ornament' | 'squiggly' | 'line' | 'dots') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'divider';
+      }
+    | {
+        /**
+         * The visible trigger text shown in the collapsed state.
+         */
+        label: string;
+        /**
+         * The aside text revealed when expanded.
+         */
+        content: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'footnote';
+      }
+    | {
+        images?:
+          | {
+              image: number | Media;
+              caption?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'mood-board';
+      }
+    | {
+        items?:
+          | {
+              date: string;
+              title: string;
+              description?: string | null;
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'timeline';
+      }
+    | {
+        stops?:
+          | {
+              title: string;
+              description?: string | null;
+              latitude: number;
+              longitude: number;
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        zoom?: number | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'map-tour';
+      }
+    | {
+        /**
+         * CSS color value (hex, rgb, named). E.g. #f5e6d3
+         */
+        color: string;
+        text?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        align?: ('center' | 'left') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'color-wash';
       }
   )[];
   updatedAt: string;
@@ -441,6 +641,81 @@ export interface ProjectsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        paragraph?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+              blockName?: T;
+            };
+        image?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'pull-quote'?:
+          | T
+          | {
+              quote?: T;
+              author?: T;
+              source?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              style?: T;
+              id?: T;
+              blockName?: T;
+            };
+        footnote?:
+          | T
+          | {
+              label?: T;
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'mood-board'?:
+          | T
+          | {
+              images?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        timeline?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    date?: T;
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'color-wash'?:
+          | T
+          | {
+              color?: T;
+              text?: T;
+              align?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -480,6 +755,84 @@ export interface PostSelect<T extends boolean = true> {
               latitude?: T;
               longitude?: T;
               zoom?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'pull-quote'?:
+          | T
+          | {
+              quote?: T;
+              author?: T;
+              source?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              style?: T;
+              id?: T;
+              blockName?: T;
+            };
+        footnote?:
+          | T
+          | {
+              label?: T;
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'mood-board'?:
+          | T
+          | {
+              images?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        timeline?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    date?: T;
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'map-tour'?:
+          | T
+          | {
+              stops?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    latitude?: T;
+                    longitude?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              zoom?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'color-wash'?:
+          | T
+          | {
+              color?: T;
+              text?: T;
+              align?: T;
               id?: T;
               blockName?: T;
             };

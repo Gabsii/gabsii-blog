@@ -1,5 +1,16 @@
 import type { CollectionConfig } from 'payload'
 
+import { AmbientColorWash } from '../blocks/AmbientColorWash/AmbientColorWash'
+import { Footnote } from '../blocks/Footnote/Footnote'
+import { MapTour } from '../blocks/MapTour/MapTour'
+import { MoodBoard } from '../blocks/MoodBoard/MoodBoard'
+import { PostImage } from '../blocks/PostImage/PostImage'
+import { PostMap } from '../blocks/PostMap/PostMap'
+import { PostParagraph } from '../blocks/PostParagraph/PostParagraph'
+import { PullQuote } from '../blocks/PullQuote/PullQuote'
+import { SectionDivider } from '../blocks/SectionDivider/SectionDivider'
+import { Timeline } from '../blocks/Timeline/Timeline'
+
 export const Post: CollectionConfig = {
   slug: 'post',
   access: {
@@ -58,78 +69,16 @@ export const Post: CollectionConfig = {
       required: true,
       minRows: 1,
       blocks: [
-        {
-          slug: 'paragraph',
-          fields: [
-            {
-              name: 'text',
-              type: 'richText',
-              required: true,
-              localized: true,
-            },
-          ],
-        },
-        {
-          slug: 'image',
-          fields: [
-            {
-              name: 'image',
-              type: 'upload',
-              relationTo: 'media',
-              required: true,
-            },
-          ],
-        },
-        {
-          slug: 'location',
-          labels: {
-            singular: 'Location',
-            plural: 'Locations',
-          },
-          fields: [
-            {
-              name: 'label',
-              label: 'Location Name',
-              type: 'text',
-              required: true,
-              localized: true,
-            },
-            {
-              name: 'latitude',
-              label: 'Latitude',
-              type: 'number',
-              required: true,
-              min: -90,
-              max: 90,
-            },
-            {
-              name: 'longitude',
-              label: 'Longitude',
-              type: 'number',
-              required: true,
-              min: -180,
-              max: 180,
-            },
-            {
-              name: 'zoom',
-              label: 'Zoom Level',
-              type: 'number',
-              required: false,
-              defaultValue: 12,
-              min: 1,
-              max: 20,
-            },
-            {
-              name: 'mapPreview',
-              type: 'ui',
-              admin: {
-                components: {
-                  Field: '/src/admin/components/MapPreview',
-                },
-              },
-            },
-          ],
-        },
+        PostParagraph,
+        PostImage,
+        PostMap,
+        PullQuote,
+        SectionDivider,
+        Footnote,
+        MoodBoard,
+        Timeline,
+        MapTour,
+        AmbientColorWash,
       ],
     },
   ],

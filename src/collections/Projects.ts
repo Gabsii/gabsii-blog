@@ -1,6 +1,14 @@
 import type { CollectionConfig, OptionObject } from 'payload'
 
+import { AmbientColorWash } from '../blocks/AmbientColorWash/AmbientColorWash'
+import { Footnote } from '../blocks/Footnote/Footnote'
 import { HardFacts } from '../blocks/HardFacts/HardFacts'
+import { MoodBoard } from '../blocks/MoodBoard/MoodBoard'
+import { PostImage } from '../blocks/PostImage/PostImage'
+import { PostParagraph } from '../blocks/PostParagraph/PostParagraph'
+import { PullQuote } from '../blocks/PullQuote/PullQuote'
+import { SectionDivider } from '../blocks/SectionDivider/SectionDivider'
+import { Timeline } from '../blocks/Timeline/Timeline'
 
 export const ServicesOptions = [
   { label: 'Design', value: 'design' },
@@ -99,6 +107,14 @@ export const Projects: CollectionConfig = {
       required: true,
       blocks: [
         HardFacts,
+        PostParagraph,
+        PostImage,
+        PullQuote,
+        SectionDivider,
+        Footnote,
+        MoodBoard,
+        Timeline,
+        AmbientColorWash,
       ],
     },
   ],

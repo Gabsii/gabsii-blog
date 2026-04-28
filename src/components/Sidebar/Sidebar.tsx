@@ -184,6 +184,9 @@ export default function Sidebar() {
                 {t('now')}
               </SlideInButton>
             </div>
+            <SlideInButton href="/services" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
+              {t('services')}
+            </SlideInButton>
             <SlideInButton href="/contact" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
               {t('contact')}
             </SlideInButton>

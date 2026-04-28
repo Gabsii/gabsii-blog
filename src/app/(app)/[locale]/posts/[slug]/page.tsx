@@ -8,6 +8,7 @@ import PostContentRegistry from "@/components/PostContentRegistry/PostContentReg
 import PostHeroImage from "@/components/Blocks/PostHeroImage";
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
+import TableOfContents from "@/components/TableOfContents/TableOfContents";
 import { ArticleJsonLd } from "@/components/JsonLd";
 
 type PostPageParams = Promise<{
@@ -121,7 +122,23 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
         dateModified={post.updatedAt}
       />
       <Hero post={post} />
-      <PostContentRegistry content={post.content} />
+      <div className="relative max-w-1200 mx-auto">
+        {/* Sticky ToC in the left sidebar gutter on desktop */}
+        <div className="hidden lg:block absolute left-0 top-0 w-48 h-full pointer-events-none">
+          <div className="sticky top-24 pointer-events-auto px-4">
+            <TableOfContents contentSelector="[data-post-content]" />
+          </div>
+        </div>
+
+        {/* Mobile ToC above content */}
+        <div className="lg:hidden px-4 pt-4">
+          <TableOfContents contentSelector="[data-post-content]" />
+        </div>
+
+        <div data-post-content>
+          <PostContentRegistry content={post.content} />
+        </div>
+      </div>
       <ContactForm title="Let's work together" />
     </>
   )
