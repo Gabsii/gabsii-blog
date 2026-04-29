@@ -26,7 +26,7 @@ const PostParagraph = ({ block, className }: PostParagraphProps) => {
 
   return (
     <Section
-      className={cn("content prose prose-lg max-w-none", className)}
+      className={cn("content prose prose-lg", className)}
       dangerouslySetInnerHTML={{ __html: convertLexicalToHTML({ data: block.text }) }}
     />
   );
