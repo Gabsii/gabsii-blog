@@ -1,6 +1,7 @@
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import { convertLexicalToHTML } from "@payloadcms/richtext-lexical/html";
 import { cn } from '~/util/cn';
+import Section from "../Atoms/Section";
 
 type PostParagraphBlock = {
   text: SerializedEditorState;
@@ -24,7 +25,7 @@ const PostParagraph = ({ block, className }: PostParagraphProps) => {
   }
 
   return (
-    <section 
+    <Section
       className={cn("content prose prose-lg max-w-none", className)}
       dangerouslySetInnerHTML={{ __html: convertLexicalToHTML({ data: block.text }) }}
     />

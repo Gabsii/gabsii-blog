@@ -3,7 +3,7 @@ import { cn } from '~/util/cn';
 type SectionProps = {
   as?: React.ElementType;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLElement>;
 
 export default function Section({ as = 'section', children, className, ...props }: SectionProps) {

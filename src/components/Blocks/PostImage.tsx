@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { Media } from '~/payload-types';
 import { cn } from '~/util/cn';
+import Section from '../Atoms/Section';
 
 type PostImageBlock = {
   image: number | Media;
@@ -18,7 +19,7 @@ type PostImageProps = {
 
 /**
  * Optimized image block for blog posts.
- * 
+ *
  * Responsive sizing:
  * - Mobile (<640px): 100vw - loads ~640px image
  * - Tablet (640-1024px): ~90vw of container - loads ~800px image
@@ -32,7 +33,7 @@ const PostImage = ({ block, priority = false, className }: PostImageProps) => {
   }
 
   return (
-    <figure className={cn("my-8 lg:my-12", className)}>
+    <Section className={className}>
       <div className="relative w-full aspect-video overflow-hidden">
         <Image
           src={image.url}
@@ -48,7 +49,7 @@ const PostImage = ({ block, priority = false, className }: PostImageProps) => {
           {image.alt}
         </figcaption>
       )}
-    </figure>
+    </Section>
   );
 };
 
