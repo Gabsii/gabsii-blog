@@ -15,7 +15,7 @@ import Captcha from "./Captcha";
 import { useToast } from "~/util/hooks/use-toast";
 import { FormFields, FormFieldsSchema } from "./FormConfig";
 
-export default function ContactForm({ title = 'sayHello' }: { title?: string }) {
+export default function ContactForm({ title = 'sayHello' }: { title?: 'sayHello' | 'workTogether' }) {
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormFields>({
     resolver: zodResolver(FormFieldsSchema)
   });
@@ -24,6 +24,7 @@ export default function ContactForm({ title = 'sayHello' }: { title?: string }) 
   const [isCaptchaEnabled, setIsCaptchaEnabled] = useState(false);
   const [isCaptchaSolved, solveCaptcha] = useState(false);
   const t = useTranslations('ContactForm');
+  const tGeneral = useTranslations('General');
 
   const onSubmit = useCallback<SubmitHandler<FormFields>>(async (data: FormFields) => {
     // Ensure captcha overlay is shown at least once before submit
@@ -46,13 +47,13 @@ export default function ContactForm({ title = 'sayHello' }: { title?: string }) 
     });
 
     if (res.status !== 201) {
-      toast({ title: t('somethingWentWrong'), description: t('tryAgainLater'), variant: "error" });
+      toast({ title: t('somethingWentWrong'), description: tGeneral('tryAgainLater'), variant: "error" });
       return;
     }
 
-    toast({ title: t('success') });
+    toast({ title: tGeneral('success') });
     reset();
-  }, [isCaptchaSolved, isCaptchaEnabled, toast, postHog, reset, t]);
+  }, [isCaptchaSolved, isCaptchaEnabled, toast, postHog, reset, t, tGeneral]);
 
   useEffect(() => {
     if (isCaptchaEnabled && isCaptchaSolved) {

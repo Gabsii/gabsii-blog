@@ -1,5 +1,7 @@
 import type { CollectionConfig, OptionObject } from 'payload'
 
+import { revalidateSitemapAfterChange, revalidateSitemapAfterDelete } from '../lib/revalidateSitemap'
+
 import { AmbientColorWash } from '../blocks/AmbientColorWash/AmbientColorWash'
 import { Footnote } from '../blocks/Footnote/Footnote'
 import { HardFacts } from '../blocks/HardFacts/HardFacts'
@@ -118,4 +120,8 @@ export const Projects: CollectionConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [revalidateSitemapAfterChange],
+    afterDelete: [revalidateSitemapAfterDelete],
+  },
 }

@@ -10,6 +10,7 @@ import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
 import TableOfContents from "@/components/TableOfContents/TableOfContents";
 import { ArticleJsonLd } from "@/components/JsonLd";
+import { localeAlternates } from '@/lib/seo'
 
 type PostPageParams = Promise<{
     slug: string,
@@ -44,13 +45,7 @@ export async function generateMetadata({ params }: { params: PostPageParams }): 
   return {
     title: `${post.title} | Gabsii Posts`,
     description,
-    alternates: {
-      canonical: `/posts/${slug}`,
-      languages: {
-        'en': `/posts/${slug}`,
-        'de': `/de/posts/${slug}`,
-      }
-    },
+    alternates: localeAlternates(locale, `/posts/${slug}`),
     openGraph: {
       title: `${post.title} | Gabsii Posts`,
       description,
@@ -139,7 +134,7 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
           <PostContentRegistry content={post.content} />
         </div>
       </div>
-      <ContactForm title="Let's work together" />
+      <ContactForm title="workTogether" />
     </>
   )
 }

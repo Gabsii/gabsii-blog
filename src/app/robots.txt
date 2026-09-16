@@ -1,4 +1,19 @@
+# NOTICE: The collection of content and other data on this site through
+# automated means, including any device, tool, or process designed to data
+# mine or scrape content, is prohibited except (1) for the purpose of search
+# engine indexing or (2) with express written permission from this site's
+# operator.
+#
+# Content-Signal preferences (https://contentsignals.org/):
+#   search=yes    -> building a search index and showing links/snippets is allowed
+#   ai-input=yes   -> using content as real-time input for AI answers (RAG) is allowed
+#   ai-train=no   -> using content to train or fine-tune generative AI models is not allowed
+#
+# A Content-Signal preference of "no" is a reservation of rights, not a
+# technical access restriction.
+
 User-Agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 Disallow: /admin/
 Disallow: /api/

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { getLocale, getMessages } from "next-intl/server";
+import { hasLocale } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 import "./globals.css";
 
@@ -13,54 +15,63 @@ import { JsonLd } from "@/components/JsonLd";
 
 import { ThemeProvider } from "~/util/context/ThemeContext";
 import { piazzolla, suisseIntl } from "~/util/fonts/fonts";
-import { NextIntlClientProvider } from "~/src/lib/ctx/NextIntlClientProvider";
+import { NextIntlClientProvider } from "next-intl";
+import { localeAlternates } from '@/lib/seo'
+import { routing } from '@/i18n/routing'
 
-export const metadata: Metadata = {
-  title: "Gabsii - Digital Innovation & Web Solutions",
-  description: "Explore my portfolio as an Austria-based freelancer specializing in advanced software development, full-stack solutions, and strategic SEO enhancements. Discover innovative digital projects that empower brands to grow—let's create something exceptional together.",
-  metadataBase: new URL("https://gabsii.com"),
-  alternates: {
-    canonical: "/",
-    languages: {
-      'en': '/',
-      'de': '/de',
-    }
-  },
-  manifest: "/manifest.json",
-  authors: [{name: "Lukas Gabsi"}],
-  robots: {
-    index: true,
-    follow: true,
-  },
-  // Open Graph
-  openGraph: {
-    type: 'website',
-    title: 'Gabsii - Digital Innovation & Web Solutions',
-    description: 'Explore my portfolio as an Austria-based freelancer specializing in advanced software development, full-stack solutions, and strategic SEO enhancements.',
-    siteName: 'Gabsii',
-    locale: 'en_US',
-    alternateLocale: 'de_DE',
-    url: 'https://gabsii.com',
-  },
-  // Twitter Card
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Gabsii - Digital Innovation & Web Solutions',
-    description: 'Austria-based freelancer specializing in advanced software development and full-stack solutions.',
-    creator: '@G4bsi',
-  },
-};
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> },
+): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
+    title: "Gabsii - Digital Innovation & Web Solutions",
+    description: "Explore my portfolio as an Austria-based freelancer specializing in advanced software development, full-stack solutions, and strategic SEO enhancements. Discover innovative digital projects that empower brands to grow—let's create something exceptional together.",
+    metadataBase: new URL("https://gabsii.com"),
+    alternates: localeAlternates(locale, ''),
+    manifest: "/manifest.json",
+    authors: [{name: "Lukas Gabsi"}],
+    robots: {
+      index: true,
+      follow: true,
+    },
+    // Open Graph
+    openGraph: {
+      type: 'website',
+      title: 'Gabsii - Digital Innovation & Web Solutions',
+      description: 'Explore my portfolio as an Austria-based freelancer specializing in advanced software development, full-stack solutions, and strategic SEO enhancements.',
+      siteName: 'Gabsii',
+      locale: 'en_US',
+      alternateLocale: 'de_DE',
+      url: 'https://gabsii.com',
+    },
+    // Twitter Card
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Gabsii - Digital Innovation & Web Solutions',
+      description: 'Austria-based freelancer specializing in advanced software development and full-stack solutions.',
+      creator: '@G4bsi',
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
-  // Parallelize async calls
-  const [messages, locale] = await Promise.all([
-    getMessages(),
-    getLocale()
-  ]);
+  // Paths containing a dot skip the next-intl middleware (see its matcher), so an
+  // unrouted path like `/rss.xml` reaches this layout with `locale` set to the filename.
+  // `i18n/request.ts` then quietly falls back to the default locale, which would render
+  // the homepage with a 200. Reject anything that is not a real locale instead.
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>

@@ -1,22 +1,23 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import EmailTrackingWrapper from "@/components/EmailTrackingWrapper";
+import { localeAlternates } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: "Imprint | Gabsii",
-  description: "Legal information and imprint for Gabsii - Digital Innovation & Web Solutions. Contact details, company information, and legal notices.",
-  alternates: {
-    canonical: "/imprint",
-    languages: {
-      'en': '/imprint',
-      'de': '/de/imprint',
-    }
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> },
+): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
+    title: "Imprint | Gabsii",
+    description: "Legal information and imprint for Gabsii - Digital Innovation & Web Solutions. Contact details, company information, and legal notices.",
+    alternates: localeAlternates(locale, '/imprint'),
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 const Imprint = async () => {
   const t = await getTranslations('Imprint');

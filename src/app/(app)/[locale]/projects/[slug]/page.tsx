@@ -11,6 +11,7 @@ import ProjectContentRegistry from "@/components/ProjectContentRegistry/ProjectC
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
 import { ProjectJsonLd } from "@/components/JsonLd";
+import { localeAlternates } from '@/lib/seo'
 
 type ProjectPageParams = Promise<{
     slug: string,
@@ -48,13 +49,7 @@ export async function generateMetadata({ params }: { params: ProjectPageParams }
   return {
     title: `${project.title} | Gabsii Projects`,
     description,
-    alternates: {
-      canonical: `/projects/${slug}`,
-      languages: {
-        'en': `/projects/${slug}`,
-        'de': `/de/projects/${slug}`,
-      }
-    },
+    alternates: localeAlternates(locale, `/projects/${slug}`),
     openGraph: {
       title: `${project.title} | Gabsii Projects`,
       description,
@@ -126,7 +121,7 @@ export default async function ProjectPage({ params }: { params: ProjectPageParam
       />
       <Hero project={project} />
       <ProjectContentRegistry {...project} />
-      <ContactForm title="Let's work together" />
+      <ContactForm title="workTogether" />
     </>
   )
 }

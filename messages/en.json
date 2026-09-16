@@ -62,6 +62,7 @@
     "availability": "Availability: "
   },
   "ContactForm": {
+    "workTogether": "Let's work together",
     "somethingWentWrong": "Something went wrong",
     "sayHello": "Say hello",
     "hello": "Hello",

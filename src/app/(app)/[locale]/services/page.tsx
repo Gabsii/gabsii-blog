@@ -5,30 +5,31 @@ import Section from '@/components/Atoms/Section'
 import Button from '@/components/Atoms/Button'
 import ServicesAccordion from './ServicesAccordion'
 import { BreadcrumbJsonLd, ServiceJsonLd } from '@/components/JsonLd'
+import { localeAlternates } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Built to Last',
-  description:
-    'Web development, creative direction, and freelance consulting from Gabsii — Austria-based full-stack developer building performant, memorable digital experiences.',
-  alternates: {
-    canonical: '/services',
-    languages: {
-      en: '/services',
-      de: '/de/services',
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> },
+): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
+    title: 'Built to Last',
+    description:
+      'Web development, creative direction, and freelance consulting from Gabsii — Austria-based full-stack developer building performant, memorable digital experiences.',
+    alternates: localeAlternates(locale, '/services'),
+    openGraph: {
+      title: 'Built to Last | Gabsii',
+      description:
+        'Web development, creative direction, and freelance consulting from Gabsii.',
+      type: 'website',
     },
-  },
-  openGraph: {
-    title: 'Built to Last | Gabsii',
-    description:
-      'Web development, creative direction, and freelance consulting from Gabsii.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Built to Last | Gabsii',
-    description:
-      'Web development, creative direction, and freelance consulting from Gabsii.',
-  },
+    twitter: {
+      card: 'summary',
+      title: 'Built to Last | Gabsii',
+      description:
+        'Web development, creative direction, and freelance consulting from Gabsii.',
+    },
+  };
 }
 
 export default async function Services() {

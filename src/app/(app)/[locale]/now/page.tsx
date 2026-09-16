@@ -6,28 +6,29 @@ import { convertLexicalToHTML } from "@payloadcms/richtext-lexical/html";
 import type { Metadata } from "next";
 
 import { getCachedGlobal } from "~/src/lib/globals";
+import { localeAlternates } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: "Now - What I'm Currently Working On | Gabsii",
-  description: "Discover what Gabsii is currently working on, learning, and exploring. Updated regularly with current projects, interests, and focus areas.",
-  alternates: {
-    canonical: "/now",
-    languages: {
-      'en': '/now',
-      'de': '/de/now',
-    }
-  },
-  openGraph: {
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> },
+): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
     title: "Now - What I'm Currently Working On | Gabsii",
-    description: "Discover what Gabsii is currently working on, learning, and exploring.",
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary',
-    title: "Now - What I'm Currently Working On | Gabsii",
-    description: "Discover what Gabsii is currently working on, learning, and exploring.",
-  },
-};
+    description: "Discover what Gabsii is currently working on, learning, and exploring. Updated regularly with current projects, interests, and focus areas.",
+    alternates: localeAlternates(locale, '/now'),
+    openGraph: {
+      title: "Now - What I'm Currently Working On | Gabsii",
+      description: "Discover what Gabsii is currently working on, learning, and exploring.",
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary',
+      title: "Now - What I'm Currently Working On | Gabsii",
+      description: "Discover what Gabsii is currently working on, learning, and exploring.",
+    },
+  };
+}
 
 export default async function NowPage() {
   const locale = await getLocale();

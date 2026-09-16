@@ -1,0 +1,73 @@
+{
+  "name": "Gabsii",
+  "description": "Portfolio and writing of Lukas Gabsi, a freelance full-stack developer based in Vorarlberg, Austria. This domain publishes human-readable content for agents to read and cite. It does not host an interactive agent service.",
+  "version": "1.0.0",
+  "url": "https://gabsii.com",
+  "documentationUrl": "https://gabsii.com/services",
+  "provider": {
+    "organization": "Gabsii – Digital Innovation & Web Solutions",
+    "url": "https://gabsii.com",
+    "contact": "mailto:hello@gabsii.com"
+  },
+  "interactionModel": {
+    "type": "content-resource",
+    "protocols": [],
+    "note": "No A2A, MCP, or other agent protocol endpoint is served on this domain. Agents should read the resources listed below over plain HTTPS."
+  },
+  "defaultInputModes": [],
+  "defaultOutputModes": ["text/html", "application/json", "application/xml"],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "skills": [],
+  "languages": ["en", "de"],
+  "resources": [
+    {
+      "name": "Site index",
+      "description": "Canonical list of all public pages, projects and posts, with per-locale alternates.",
+      "url": "https://gabsii.com/sitemap.xml",
+      "mediaType": "application/xml"
+    },
+    {
+      "name": "Projects",
+      "description": "Read-only collection of portfolio projects. Public GET access; no authentication required.",
+      "url": "https://gabsii.com/api/projects",
+      "mediaType": "application/json"
+    },
+    {
+      "name": "Services",
+      "description": "What Lukas offers as a freelancer and how to engage.",
+      "url": "https://gabsii.com/services",
+      "mediaType": "text/html"
+    },
+    {
+      "name": "Now",
+      "description": "Current focus, availability and what is being worked on.",
+      "url": "https://gabsii.com/now",
+      "mediaType": "text/html"
+    },
+    {
+      "name": "Contact",
+      "description": "Contact form for engaging Lukas directly.",
+      "url": "https://gabsii.com/contact",
+      "mediaType": "text/html"
+    },
+    {
+      "name": "Imprint",
+      "description": "Legal operator information for this domain (Austrian Offenlegungspflicht).",
+      "url": "https://gabsii.com/imprint",
+      "mediaType": "text/html"
+    }
+  ],
+  "usagePolicy": {
+    "source": "https://gabsii.com/robots.txt",
+    "contentSignal": {
+      "search": "yes",
+      "ai-input": "yes",
+      "ai-train": "no"
+    },
+    "note": "Content may be indexed and used as real-time input for AI answers with attribution. Using this content to train or fine-tune generative models is not permitted. This is a reservation of rights, not a technical access restriction."
+  }
+}
