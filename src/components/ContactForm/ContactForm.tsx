@@ -2,7 +2,7 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { usePostHog } from "posthog-js/react";
 
@@ -13,33 +13,40 @@ import Section from "../Atoms/Section";
 import Captcha from "./Captcha";
 
 import { useToast } from "~/util/hooks/use-toast";
-import { FormFields, FormFieldsSchema } from "./FormConfig";
+import { FormFields, makeFormFieldsSchema } from "./FormConfig";
 
 export default function ContactForm({ title = 'sayHello' }: { title?: 'sayHello' | 'workTogether' }) {
+  const t = useTranslations('ContactForm');
+  const schema = useMemo(() => makeFormFieldsSchema(t), [t]);
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormFields>({
-    resolver: zodResolver(FormFieldsSchema)
+    resolver: zodResolver(schema),
+    mode: 'onBlur',
   });
   const { toast } = useToast();
   const postHog = usePostHog();
   const [isCaptchaEnabled, setIsCaptchaEnabled] = useState(false);
   const [isCaptchaSolved, solveCaptcha] = useState(false);
-  const t = useTranslations('ContactForm');
+  const captchaRef = useRef<HTMLDivElement>(null);
+  const submitRef = useRef<HTMLButtonElement>(null);
+
+  const closeCaptcha = useCallback(() => {
+    setIsCaptchaEnabled(false);
+    submitRef.current?.focus();
+  }, []);
   const tGeneral = useTranslations('General');
 
   const onSubmit = useCallback<SubmitHandler<FormFields>>(async (data: FormFields) => {
     // Ensure captcha overlay is shown at least once before submit
     if (!isCaptchaSolved) {
       setIsCaptchaEnabled(true);
-      postHog.capture('contact_form_captcha', data);
-      if (isCaptchaEnabled) {
-        toast({ title: t('pleaseSolveCaptcha'), variant: "error" });
-      }
+      postHog.capture('contact_form_captcha');
+      toast({ title: t('pleaseSolveCaptcha') });
       return;
     }
 
     setIsCaptchaEnabled(false);
 
-    postHog.capture('contact_form_submitted', data);
+    postHog.capture('contact_form_submitted');
     const res = await fetch("/contact/submit", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -53,7 +60,11 @@ export default function ContactForm({ title = 'sayHello' }: { title?: 'sayHello'
 
     toast({ title: tGeneral('success') });
     reset();
-  }, [isCaptchaSolved, isCaptchaEnabled, toast, postHog, reset, t, tGeneral]);
+  }, [isCaptchaSolved, toast, postHog, reset, t, tGeneral]);
+
+  useEffect(() => {
+    if (isCaptchaEnabled) captchaRef.current?.focus();
+  }, [isCaptchaEnabled]);
 
   useEffect(() => {
     if (isCaptchaEnabled && isCaptchaSolved) {
@@ -67,34 +78,63 @@ export default function ContactForm({ title = 'sayHello' }: { title?: 'sayHello'
         <h2 className="px-8 lg:px-24 text-5xl lg:text-9xl py-4 lg:pb-8 font-medium">{t(title)}</h2>
       </div>
       <hr className="border border-primary" />
-      <Section as="form" className="p-8 lg:p-24 grid grid-cols-4 gap-12 relative"
+      <Section as="form" noValidate aria-describedby="contact-status" className="p-8 lg:p-24 grid grid-cols-4 gap-12 relative"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="col-span-full xl:col-span-2">
-          <Input label={t('yourName')} type="text" {...register("name")} required isInverted />
-          {errors.name && <span className="text-sm text-red font-suisse font-light">{errors.name?.message}</span>}
+          <Input
+            label={t('yourName')} type="text" {...register("name")} required isInverted
+            autoComplete="name"
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? 'contact-name-error' : undefined}
+          />
+          {errors.name && <span id="contact-name-error" className="text-sm text-red-inverted font-suisse font-light">{errors.name?.message}</span>}
         </div>
         <div className="col-span-full xl:col-span-2">
-          <Input label={t('yourEmail')} type="text" {...register("email")} required isInverted />
-          {errors.email && <span className="text-sm text-red font-suisse font-light">{errors.email?.message}</span>}
+          <Input
+            label={t('yourEmail')} type="email" {...register("email")} required isInverted
+            autoComplete="email" inputMode="email"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? 'contact-email-error' : undefined}
+          />
+          {errors.email && <span id="contact-email-error" className="text-sm text-red-inverted font-suisse font-light">{errors.email?.message}</span>}
         </div>
         <div className="col-span-full">
-          <Textarea label={t('yourMessage')} {...register("message")} required />
-          {errors.message && <span className="text-sm text-red font-suisse font-light">{errors.message?.message}</span>}
+          <Textarea
+            label={t('yourMessage')} {...register("message")} required
+            aria-invalid={!!errors.message}
+            aria-describedby={errors.message ? 'contact-message-error' : undefined}
+          />
+          {errors.message && <span id="contact-message-error" className="text-sm text-red-inverted font-suisse font-light">{errors.message?.message}</span>}
         </div>
         <div className="col-span-full lg:col-span-3">
-          <Input label={t('acceptTerms')} type="checkbox" {...register("terms")} required />
-          {errors.terms && <span className="text-sm text-red font-suisse font-light">{errors.terms?.message}</span>}
+          <Input
+            label={t('acceptTerms')} type="checkbox" {...register("terms")} required
+            aria-invalid={!!errors.terms}
+            aria-describedby={errors.terms ? 'contact-terms-error' : undefined}
+          />
+          {errors.terms && <span id="contact-terms-error" className="text-sm text-red-inverted font-suisse font-light">{errors.terms?.message}</span>}
         </div>
         {isCaptchaEnabled && (
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <Captcha solveCaptcha={solveCaptcha} />
+          <div
+            ref={captchaRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="captcha-title"
+            tabIndex={-1}
+            onKeyDown={(e) => { if (e.key === 'Escape') closeCaptcha(); }}
+            className="absolute top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50"
+          >
+            <Captcha solveCaptcha={solveCaptcha} onCancel={closeCaptcha} />
           </div>
         )}
-        <Button type="submit" disabled={isSubmitting} wrapperClassName="col-start-3 lg:col-span-1" className="ml-auto">
+        <Button ref={submitRef} type="submit" disabled={isSubmitting} wrapperClassName="col-start-3 lg:col-span-1" className="ml-auto">
           {isSubmitting ? '...' : t('hello')}
         </Button>
-        {errors.root && <span className="text-sm text-red font-suisse font-light col-span-full">{errors.root?.message}</span>}
+        <p id="contact-status" role="status" aria-live="polite" className="sr-only">
+          {isSubmitting ? t('sending') : ''}
+        </p>
+        {errors.root && <span className="text-sm text-red-inverted font-suisse font-light col-span-full">{errors.root?.message}</span>}
       </Section>
     </section>
   )
