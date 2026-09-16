@@ -2,30 +2,37 @@ import ContactForm from "@/components/ContactForm/ContactForm";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { localeAlternates } from '@/lib/seo'
+import { setRequestLocale } from 'next-intl/server'
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
+  const tMeta = await getTranslations({ locale, namespace: 'Meta' });
 
   return {
-    title: "Contact - Let's Work Together | Gabsii",
-    description: "Get in touch with Gabsii for web development projects, collaborations, or just to say hello. Austria-based freelancer specializing in full-stack development.",
+    title: tMeta('contactTitle'),
+    description: tMeta('contactDescription'),
     alternates: localeAlternates(locale, '/contact'),
     openGraph: {
-      title: "Contact - Let's Work Together | Gabsii",
-      description: "Get in touch with Gabsii for web development projects, collaborations, or just to say hello.",
+      title: tMeta('contactTitle'),
+      description: tMeta('contactDescription'),
       type: 'website',
     },
     twitter: {
       card: 'summary',
-      title: "Contact - Let's Work Together | Gabsii",
-      description: "Get in touch with Gabsii for web development projects and collaborations.",
+      title: tMeta('contactTitle'),
+      description: tMeta('contactDescription'),
     },
   };
 }
 
-export default async function Contact() {
+export default async function Contact(
+  { params }: { params: Promise<{ locale: string }> },
+) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations('Contact');
   return (
     <>

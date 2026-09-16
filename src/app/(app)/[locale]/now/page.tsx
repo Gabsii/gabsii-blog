@@ -1,4 +1,3 @@
-import { getLocale } from "next-intl/server";
 import Link from "next/link";
 import { TypedLocale } from "payload";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
@@ -7,38 +6,46 @@ import type { Metadata } from "next";
 
 import { getCachedGlobal } from "~/src/lib/globals";
 import { localeAlternates } from '@/lib/seo'
+import { setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
+  const tMeta = await getTranslations({ locale, namespace: 'Meta' });
 
   return {
-    title: "Now - What I'm Currently Working On | Gabsii",
-    description: "Discover what Gabsii is currently working on, learning, and exploring. Updated regularly with current projects, interests, and focus areas.",
+    title: tMeta('nowTitle'),
+    description: tMeta('nowDescription'),
     alternates: localeAlternates(locale, '/now'),
     openGraph: {
-      title: "Now - What I'm Currently Working On | Gabsii",
-      description: "Discover what Gabsii is currently working on, learning, and exploring.",
+      title: tMeta('nowTitle'),
+      description: tMeta('nowDescription'),
       type: 'website',
     },
     twitter: {
       card: 'summary',
-      title: "Now - What I'm Currently Working On | Gabsii",
-      description: "Discover what Gabsii is currently working on, learning, and exploring.",
+      title: tMeta('nowTitle'),
+      description: tMeta('nowDescription'),
     },
   };
 }
 
-export default async function NowPage() {
-  const locale = await getLocale();
+export default async function NowPage(
+  { params }: { params: Promise<{ locale: string }> },
+) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('General');
+
   const { content, updatedAt } = await getCachedGlobal('now', 1, locale as TypedLocale)() as { updatedAt: string, content: SerializedEditorState | null };
 
   return (
     <div className="max-w-1200 mx-auto w-full h-full px-2 lg:px-0 py-8 lg:py-24">
       <div className="mb-8">
         <h1 className="font-piazzolla text-8xl">Now</h1>
-          <p className="mt-4 mb-2 text-sm lowercase">updated @ {new Date(updatedAt).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric', weekday: 'short' })}</p>
+          <p className="mt-4 mb-2 text-sm lowercase">{t('updatedAt')} {new Date(updatedAt).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric', weekday: 'short' })}</p>
       </div>
       <hr className="w-full border-secondary border border-opacity-10 my-8" />
       {content && (

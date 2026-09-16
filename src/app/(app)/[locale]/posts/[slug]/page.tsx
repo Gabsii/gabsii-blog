@@ -11,6 +11,7 @@ import Section from "@/components/Atoms/Section";
 import TableOfContents from "@/components/TableOfContents/TableOfContents";
 import { ArticleJsonLd } from "@/components/JsonLd";
 import { localeAlternates } from '@/lib/seo'
+import { setRequestLocale } from 'next-intl/server'
 
 type PostPageParams = Promise<{
     slug: string,
@@ -88,6 +89,7 @@ export async function generateStaticParams() {
 
 export default async function PostPage({ params }: { params: PostPageParams }) {
   const { slug, locale } = await params;
+  setRequestLocale(locale);
 
   const { totalDocs, docs } = await (await getPayload({ config })).find({
     collection: 'post',
@@ -116,7 +118,7 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
         datePublished={post.publishedAt}
         dateModified={post.updatedAt}
       />
-      <Hero post={post} />
+      <Hero post={post} locale={locale} />
       <div className="relative max-w-1200 mx-auto">
         {/* Sticky ToC in the left sidebar gutter on desktop */}
         <div className="hidden lg:block absolute left-0 top-0 w-48 h-full pointer-events-none">
@@ -139,8 +141,8 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
   )
 }
 
-const Hero = ({ post }: { post: Post }) => {
-  const dateFormatter = new Intl.DateTimeFormat('en-US', {
+const Hero = ({ post, locale }: { post: Post; locale: string }) => {
+  const dateFormatter = new Intl.DateTimeFormat(locale, {
     month: 'long',
     day: 'numeric',
     year: 'numeric'

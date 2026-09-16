@@ -1,5 +1,6 @@
 import { getPayload, TypedLocale } from "payload"
 import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import type { Metadata } from "next";
 
@@ -12,6 +13,7 @@ import ContactForm from "@/components/ContactForm/ContactForm";
 import Section from "@/components/Atoms/Section";
 import { ProjectJsonLd } from "@/components/JsonLd";
 import { localeAlternates } from '@/lib/seo'
+import { setRequestLocale } from 'next-intl/server'
 
 type ProjectPageParams = Promise<{
     slug: string,
@@ -92,6 +94,7 @@ export async function generateStaticParams() {
 
 export default async function ProjectPage({ params }: { params: ProjectPageParams }) {
   const { slug, locale } = await params;
+  setRequestLocale(locale);
 
   const { totalDocs, docs } = await (await getPayload({ config })).find({
     collection: 'projects',
@@ -119,17 +122,18 @@ export default async function ProjectPage({ params }: { params: ProjectPageParam
         image={image?.url ?? undefined}
         datePublished={project.dateFrom}
       />
-      <Hero project={project} />
+      <Hero project={project} locale={locale} />
       <ProjectContentRegistry {...project} />
       <ContactForm title="workTogether" />
     </>
   )
 }
 
-const Hero = ({ project }: { project: Project }) => {
+const Hero = ({ project, locale }: { project: Project; locale: string }) => {
+  const t = useTranslations('General');
   const image = project.image as Media;
 
-  const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  const dateFormatter = new Intl.DateTimeFormat(locale, {
     month: 'long',
     year: 'numeric'
   });
@@ -142,7 +146,7 @@ const Hero = ({ project }: { project: Project }) => {
       <div className="relative h-[50vh] lg:h-[65vh] max-h-162.5 w-full">
         <Image
           src={image?.url || ''}
-          alt={project.title}
+          alt={(project.image as Media)?.alt || ''}
           fill
           priority={true}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
@@ -164,7 +168,7 @@ const Hero = ({ project }: { project: Project }) => {
           {
             dateFrom && dateTo
               ? (<time className="font-suisse font-normal lg:text-xl inline-block mt-5">{`${dateFrom} - ${dateTo}`}</time>)
-              : (<time className="font-suisse font-normal lg:text-xl inline-block mt-5">{`Since ${dateFrom}`}</time>)
+              : (<time className="font-suisse font-normal lg:text-xl inline-block mt-5">{`${t('since')} ${dateFrom}`}</time>)
           }
         </div>
         <div>

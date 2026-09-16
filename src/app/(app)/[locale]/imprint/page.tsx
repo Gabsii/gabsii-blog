@@ -2,15 +2,17 @@ import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import EmailTrackingWrapper from "@/components/EmailTrackingWrapper";
 import { localeAlternates } from '@/lib/seo'
+import { setRequestLocale } from 'next-intl/server'
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
+  const tMeta = await getTranslations({ locale, namespace: 'Meta' });
 
   return {
-    title: "Imprint | Gabsii",
-    description: "Legal information and imprint for Gabsii - Digital Innovation & Web Solutions. Contact details, company information, and legal notices.",
+    title: tMeta('imprintTitle'),
+    description: tMeta('imprintDescription'),
     alternates: localeAlternates(locale, '/imprint'),
     robots: {
       index: true,
@@ -19,7 +21,12 @@ export async function generateMetadata(
   };
 }
 
-const Imprint = async () => {
+const Imprint = async (
+  { params }: { params: Promise<{ locale: string }> },
+) => {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations('Imprint');
   return (
     <article className="p-8 lg:p-24 relative min-h-screen">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { hasLocale } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import "./globals.css";
@@ -16,17 +16,30 @@ import { JsonLd } from "@/components/JsonLd";
 import { ThemeProvider } from "~/util/context/ThemeContext";
 import { piazzolla, suisseIntl } from "~/util/fonts/fonts";
 import { NextIntlClientProvider } from "next-intl";
-import { localeAlternates } from '@/lib/seo'
+import { localeAlternates, localePath } from '@/lib/seo'
 import { routing } from '@/i18n/routing'
+
+/** og:locale needs a territory, which the bare next-intl locale codes don't carry. */
+const OG_LOCALES: Record<string, string> = { en: 'en_US', de: 'de_AT' };
+
+// Without this the locale segment has no known values, so every route below it
+// stays dynamic no matter what `setRequestLocale` says.
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta' });
+
+  const url = `https://gabsii.com${localePath(locale, '')}`;
+  const otherLocales = routing.locales.filter((l) => l !== locale);
 
   return {
-    title: "Gabsii - Digital Innovation & Web Solutions",
-    description: "Explore my portfolio as an Austria-based freelancer specializing in advanced software development, full-stack solutions, and strategic SEO enhancements. Discover innovative digital projects that empower brands to grow—let's create something exceptional together.",
+    title: t('title'),
+    description: t('description'),
     metadataBase: new URL("https://gabsii.com"),
     alternates: localeAlternates(locale, ''),
     manifest: "/manifest.json",
@@ -38,18 +51,18 @@ export async function generateMetadata(
     // Open Graph
     openGraph: {
       type: 'website',
-      title: 'Gabsii - Digital Innovation & Web Solutions',
-      description: 'Explore my portfolio as an Austria-based freelancer specializing in advanced software development, full-stack solutions, and strategic SEO enhancements.',
+      title: t('title'),
+      description: t('description'),
       siteName: 'Gabsii',
-      locale: 'en_US',
-      alternateLocale: 'de_DE',
-      url: 'https://gabsii.com',
+      locale: t('ogLocale'),
+      alternateLocale: otherLocales.map((l) => OG_LOCALES[l]),
+      url,
     },
     // Twitter Card
     twitter: {
       card: 'summary_large_image',
-      title: 'Gabsii - Digital Innovation & Web Solutions',
-      description: 'Austria-based freelancer specializing in advanced software development and full-stack solutions.',
+      title: t('title'),
+      description: t('shortDescription'),
       creator: '@G4bsi',
     },
   };
@@ -71,16 +84,33 @@ export default async function RootLayout({
     notFound();
   }
 
+  // Opts the whole tree into static rendering; without it every route is dynamic.
+  setRequestLocale(locale);
+
   const messages = await getMessages();
 
+  const t = await getTranslations({ locale, namespace: 'General' });
+
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <head>
+        {/* Runs before first paint so the theme is never corrected after hydration. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('theme');var t=(s==='light'||s==='dark')?s:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t;}catch(e){}})();`,
+          }}
+        />
         <JsonLd />
       </head>
       <body
         className={`bg-primary text-secondary ${piazzolla.variable} ${suisseIntl.variable}`}
       >
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:top-2 focus:left-2 focus:bg-primary focus:text-secondary focus:px-4 focus:py-2 focus:border-2 focus:border-secondary"
+        >
+          {t('skipToContent')}
+        </a>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <PostHogProvider>
             <ThemeProvider>
@@ -88,7 +118,7 @@ export default async function RootLayout({
               <BackgroundColumns />
               <MotionWrapper>
                 <div className="relative min-h-screen lg:ml-12.5">
-                  <main className="relative z-10 min-h-screen">
+                  <main id="main" className="relative z-10 min-h-screen">
                     {children}
                   </main>
                   <Footer />

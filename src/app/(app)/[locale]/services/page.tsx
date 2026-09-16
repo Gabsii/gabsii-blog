@@ -6,33 +6,37 @@ import Button from '@/components/Atoms/Button'
 import ServicesAccordion from './ServicesAccordion'
 import { BreadcrumbJsonLd, ServiceJsonLd } from '@/components/JsonLd'
 import { localeAlternates } from '@/lib/seo'
+import { setRequestLocale } from 'next-intl/server'
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
+  const tMeta = await getTranslations({ locale, namespace: 'Meta' });
 
   return {
-    title: 'Built to Last',
-    description:
-      'Web development, creative direction, and freelance consulting from Gabsii — Austria-based full-stack developer building performant, memorable digital experiences.',
+    title: tMeta('servicesTitle'),
+    description: tMeta('servicesDescription'),
     alternates: localeAlternates(locale, '/services'),
     openGraph: {
-      title: 'Built to Last | Gabsii',
-      description:
-        'Web development, creative direction, and freelance consulting from Gabsii.',
+      title: tMeta('servicesTitle'),
+      description: tMeta('servicesDescription'),
       type: 'website',
     },
     twitter: {
       card: 'summary',
-      title: 'Built to Last | Gabsii',
-      description:
-        'Web development, creative direction, and freelance consulting from Gabsii.',
+      title: tMeta('servicesTitle'),
+      description: tMeta('servicesDescription'),
     },
   };
 }
 
-export default async function Services() {
+export default async function Services(
+  { params }: { params: Promise<{ locale: string }> },
+) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations('Services')
 
   const processSteps = [
@@ -147,7 +151,7 @@ export default async function Services() {
           </div>
           <div className="shrink-0 w-full lg:w-64">
             <Link href="/contact">
-              <Button isInverted>
+              <Button as="span" isInverted>
                 {t('ctaButton')} →
               </Button>
             </Link>

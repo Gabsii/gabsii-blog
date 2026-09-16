@@ -12,32 +12,40 @@ import TimeDisplay from "@/components/TimeDisplay/TimeDisplay";
 import { getCachedGlobal } from "@/lib/globals";
 import { getLocale, getTranslations } from "next-intl/server";
 import { TypedLocale } from "payload";
+import { setRequestLocale } from 'next-intl/server'
 
 // Loading fallbacks for Suspense boundaries
-const ProjectSliderFallback = () => (
+const ProjectSliderFallback = ({ label }: { label: string }) => (
   <section className="bg-secondary text-primary h-screen flex items-center justify-center">
-    <div className="animate-pulse font-piazzolla text-2xl">Loading projects...</div>
+    <div role="status" className="motion-safe:animate-pulse font-piazzolla text-2xl">{label}</div>
   </section>
 );
 
-const ContactFormFallback = () => (
+const ContactFormFallback = ({ label }: { label: string }) => (
   <section className="min-h-[500px] flex items-center justify-center">
-    <div className="animate-pulse font-piazzolla text-2xl">Loading contact form...</div>
+    <div role="status" className="motion-safe:animate-pulse font-piazzolla text-2xl">{label}</div>
   </section>
 );
 
-export default async function Home() {
+export default async function Home(
+  { params }: { params: Promise<{ locale: string }> },
+) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations('General');
+
   return (
     <>
       <Hero />
-      <Suspense fallback={<ProjectSliderFallback />}>
+      <Suspense fallback={<ProjectSliderFallback label={t('loadingProjects')} />}>
         <ProjectSlider />
       </Suspense>
       {/* <Services /> */}
-      <Suspense fallback={<div>Loading news...</div>}>
+      <Suspense fallback={<div role="status">{t('loadingNews')}</div>}>
         <NewsOverview />
       </Suspense>
-      <Suspense fallback={<ContactFormFallback />}>
+      <Suspense fallback={<ContactFormFallback label={t('loadingContact')} />}>
         <ContactForm />
       </Suspense>
     </>
