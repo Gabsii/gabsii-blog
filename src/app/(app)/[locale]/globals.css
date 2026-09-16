@@ -1,19 +1,66 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* 1) App-level variables that React is allowed to mutate */
+/* 1) App-level variables.
+   These are resolved entirely in CSS. A pre-paint script in the root layout
+   stamps `data-theme` before first paint, so the theme never changes after
+   hydration — previously ThemeProvider wrote inline styles on <html> in an
+   effect, and inline styles beat the media query below, which is what caused
+   the flash for anyone whose stored choice differed from their OS. */
 :root {
+  color-scheme: light;
   --app-color-primary: #fffbee;
   --app-color-secondary: #242424;
+
+  /* Greys and reds are ground-dependent: `--app-color-grey` is legible on
+     --app-color-primary, `*-inverted` on --app-color-secondary. No single value
+     clears 4.5:1 against both grounds, so there are two of each. */
+  --app-color-grey: #6E6E6E;
+  --app-color-grey-inverted: #8C8C8C;
+  --app-color-red: #C2261B;
+  --app-color-red-inverted: #FF8A7E;
 }
 
-/* Initial dark preference only; actual switching is done by your ThemeProvider */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --app-color-primary: #242424;
+  --app-color-secondary: #fffbee;
+  --app-color-grey: #8C8C8C;
+  --app-color-grey-inverted: #6E6E6E;
+  --app-color-red: #FF8A7E;
+  --app-color-red-inverted: #C2261B;
+}
+
+/* No explicit choice stored: follow the OS. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     color-scheme: dark;
     --app-color-primary: #242424;
     --app-color-secondary: #fffbee;
+    --app-color-grey: #8C8C8C;
+    --app-color-grey-inverted: #6E6E6E;
+    --app-color-red: #FF8A7E;
+    --app-color-red-inverted: #C2261B;
   }
+}
+
+/* A single focus colour, chosen to clear 3:1 against both grounds. */
+:root {
+  --app-color-focus: #2F7FD1;
+}
+
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--app-color-focus);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+/* Theme-dependent logo swap, so nothing about the theme is decided in React. */
+[data-logo="light"] { display: var(--logo-light-display, block); }
+[data-logo="dark"] { display: var(--logo-dark-display, none); }
+:root[data-theme="dark"] { --logo-light-display: none; --logo-dark-display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --logo-light-display: none; --logo-dark-display: block; }
 }
 
 .squiggly {
@@ -52,8 +99,11 @@
 
   /* Extra colors you had: light, grey, red */
   --color-light: #fffbee;
-  --color-grey: #8C8C8C;
-  --color-red: #DA291C;
+  --color-grey: var(--app-color-grey);
+  --color-grey-inverted: var(--app-color-grey-inverted);
+  --color-red: var(--app-color-red);
+  --color-red-inverted: var(--app-color-red-inverted);
+  --color-focus: var(--app-color-focus);
 
   /* Fonts from next/font */
   --font-suisse: var(--font-suisse-intl);   /* class: font-suisse */

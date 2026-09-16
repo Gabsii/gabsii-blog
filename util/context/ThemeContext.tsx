@@ -19,11 +19,6 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(
   undefined,
 )
 
-// pick any colors you like – these should match what you want for light/dark
-const LIGHT_PRIMARY = '#fffbee'
-const LIGHT_SECONDARY = '#242424'
-const DARK_PRIMARY = '#242424'
-const DARK_SECONDARY = '#fffbee'
 
 const STORAGE_KEY = 'theme'
 
@@ -67,17 +62,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
-  // apply theme -> update app variables
+  // The colours themselves live in globals.css, keyed off this attribute. Writing
+  // them as inline styles here is what used to beat the media query and flash.
   useEffect(() => {
-    const rootStyle = document.documentElement.style
-
-    if (theme === 'light') {
-      rootStyle.setProperty('--app-color-primary', LIGHT_PRIMARY)
-      rootStyle.setProperty('--app-color-secondary', LIGHT_SECONDARY)
-    } else {
-      rootStyle.setProperty('--app-color-primary', DARK_PRIMARY)
-      rootStyle.setProperty('--app-color-secondary', DARK_SECONDARY)
-    }
+    document.documentElement.dataset.theme = theme
   }, [theme])
 
   const toggleTheme = useCallback(() => {
