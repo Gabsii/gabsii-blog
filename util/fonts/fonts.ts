@@ -15,11 +15,6 @@ export const piazzolla = Piazzolla({
 export const suisseIntl = localFont({
   src: [
     {
-      path: "../../fonts/SuisseIntl/SuisseIntl-Black.woff2",
-      weight: "900",
-      style: "normal",
-    },
-    {
       path: "../../fonts/SuisseIntl/SuisseIntl-Bold.woff2",
       weight: "700",
       style: "normal",
@@ -27,11 +22,6 @@ export const suisseIntl = localFont({
     {
       path: "../../fonts/SuisseIntl/SuisseIntl-Book.woff2",
       weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../fonts/SuisseIntl/SuisseIntl-Light.woff2",
-      weight: "200",
       style: "normal",
     },
     {
@@ -49,13 +39,12 @@ export const suisseIntl = localFont({
       weight: "600",
       style: "normal",
     },
-    {
-      path: "../../fonts/SuisseIntl/SuisseIntl-Thin.woff2",
-      weight: "100",
-      style: "normal",
-    },
   ],
   variable: "--font-suisse-intl",
   display: "swap",
+  // Every `src` entry is preloaded when this is true, which shipped ~535 kB of
+  // font on every page. Off, the browser fetches only the weights a page uses.
+  preload: false,
+  adjustFontFallback: "Arial",
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
