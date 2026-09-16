@@ -94,8 +94,10 @@ const Footnote = ({ block, className }: FootnoteProps) => {
         {/* Collapsible aside content */}
         <div
           id={contentId}
+          inert={!open}
+          aria-hidden={!open}
           className={cn(
-            'overflow-hidden transition-all duration-300 ease-in-out',
+            'overflow-hidden motion-safe:transition-all motion-safe:duration-300 ease-in-out',
             open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           )}
         >

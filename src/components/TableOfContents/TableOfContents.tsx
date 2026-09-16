@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { cn } from '~/util/cn';
 
 type TocItem = {
@@ -26,6 +27,7 @@ const TableOfContents = ({
   contentSelector = '[data-post-content]',
   className,
 }: TableOfContentsProps) => {
+  const t = useTranslations('General');
   const [items, setItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -108,10 +110,10 @@ const TableOfContents = ({
           'hidden lg:block sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto',
           className
         )}
-        aria-label="Table of contents"
+        aria-label={t('tableOfContents')}
       >
         <p className="font-suisse text-xs uppercase tracking-widest text-grey mb-4">
-          Contents
+          {t('contents')}
         </p>
         <ol className="space-y-1">
           {items.map((item) => (
@@ -154,7 +156,7 @@ const TableOfContents = ({
           className="w-full flex items-center justify-between px-4 py-3 font-suisse text-sm text-secondary"
           aria-expanded={mobileOpen}
         >
-          <span className="font-medium">Contents</span>
+          <span className="font-medium">{t('contents')}</span>
           <svg
             className={cn('w-3.5 h-3.5 transition-transform duration-200 text-grey', mobileOpen ? 'rotate-180' : '')}
             viewBox="0 0 12 12"
@@ -166,8 +168,11 @@ const TableOfContents = ({
         </button>
 
         <div
+          // max-height + opacity alone leaves the entries focusable while collapsed
+          inert={!mobileOpen}
+          aria-hidden={!mobileOpen}
           className={cn(
-            'overflow-hidden transition-all duration-300',
+            'overflow-hidden motion-safe:transition-all motion-safe:duration-300',
             mobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           )}
         >

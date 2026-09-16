@@ -41,7 +41,7 @@ const NewsOverviewItem = ({ article }: NewsOverviewItemProps) => {
       onMouseMove={handleMouseMove}
     >
       <Link 
-        href={`posts/${article.slug}`} 
+        href={`/posts/${article.slug}`} 
         className="max-w-1200 mx-auto flex items-end justify-between pt-6 pb-5 group"
       >
         <h3 className="h-max text-2xl font-piazzolla font-medium group-hover:underline">

@@ -7,8 +7,9 @@ import { useTheme } from '~/util/context/ThemeContext';
 import type { MapStop } from './MapTour';
 
 const MAP_STYLES = {
-  light: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-  dark: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+  // Positron is the light basemap, Dark Matter the dark one — these were swapped.
+  light: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+  dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
 };
 
 type MapTourContentProps = {

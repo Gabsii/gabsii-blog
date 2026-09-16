@@ -8,15 +8,18 @@ import {
   useScroll, 
   useSpring, 
   useTransform, 
-  useInView
+  useInView,
+  useReducedMotion,
 } from 'motion/react';
 
 import type { Project, Media } from '~/payload-types';
+import { useTranslations } from "next-intl";
 import { cn } from '~/util/cn';
 
 type ProjectSliderWrapperProps = Pick<Project, 'title' | 'slug' | 'image'>;
 
 export const ProjectSliderWrapper = ({ projects }: { projects: ProjectSliderWrapperProps[] }) => {
+  const t = useTranslations('General');
   const targetRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
@@ -34,6 +37,10 @@ export const ProjectSliderWrapper = ({ projects }: { projects: ProjectSliderWrap
   
   const x = useTransform(smoothProgress, [0, 1], ["5%", "-50%"]);
 
+  // `MotionConfig reducedMotion="user"` only covers Motion animations; this
+  // translation is an inline style, so it has to be opted out explicitly.
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div ref={targetRef} className="relative h-full">
       {/* Section Header */}
@@ -48,10 +55,10 @@ export const ProjectSliderWrapper = ({ projects }: { projects: ProjectSliderWrap
           className="flex items-baseline justify-between"
         >
           <h2 className="font-piazzolla text-2xl lg:text-3xl font-light tracking-tight">
-            Selected Work
+            {t('selectedWork')}
           </h2>
           <span className="font-suisse text-sm text-grey uppercase tracking-widest">
-            {projects.length.toString().padStart(2, '0')} Projects
+            {projects.length.toString().padStart(2, '0')} {t('projectsCount')}
           </span>
         </motion.div>
       </div>
@@ -62,9 +69,12 @@ export const ProjectSliderWrapper = ({ projects }: { projects: ProjectSliderWrap
         projects.length <= 1 && 'justify-center'
       )}>
         {projects.length > 1 ? (
-          <motion.div 
-            style={{ x }} 
-            className="flex pl-8 lg:pl-16"
+          <motion.div
+            style={prefersReducedMotion ? undefined : { x }}
+            className={cn(
+              "flex pl-8 lg:pl-16",
+              prefersReducedMotion && "overflow-x-auto snap-x snap-mandatory"
+            )}
           >
             {projects.map((project, i) => (
               <ProjectSlide 
@@ -112,6 +122,7 @@ const ProjectSlide = ({
   total: number;
   className?: string;
 }) => {
+  const t = useTranslations('General');
   const image = project.image as Media;
   const cardRef = useRef<HTMLAnchorElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
@@ -135,7 +146,7 @@ const ProjectSlide = ({
         <div className="absolute inset-0 overflow-hidden">
           <Image
             src={image?.url || ''}
-            alt={project.title || 'Project Image'}
+            alt=""
             fill
             priority={index < 2}
             sizes="(max-width: 640px) 85vw, (max-width: 1024px) 85vw, min(70vw, 900px)"
@@ -167,24 +178,25 @@ const ProjectSlide = ({
           </span>
 
           {/* Title */}
-          <h2 className={cn(
+          <h3 className={cn(
             "font-piazzolla text-4xl lg:text-6xl xl:text-7xl",
             "text-light leading-tight tracking-tight",
             "transition-transform duration-300 ease-out",
             "group-hover:translate-x-2"
           )}>
             {project.title}
-          </h2>
+          </h3>
 
           {/* View project indicator */}
           <div className={cn(
             "flex items-center gap-3 mt-4",
             "opacity-0 translate-y-2",
             "transition-all duration-300",
-            "group-hover:opacity-100 group-hover:translate-y-0"
+            "group-hover:opacity-100 group-hover:translate-y-0",
+            "group-focus-within:opacity-100 group-focus-within:translate-y-0"
           )}>
             <span className="font-suisse text-sm uppercase tracking-widest text-primary/80">
-              View Project
+              {t('viewProject')}
             </span>
             <span className="text-primary/80">&rarr;</span>
           </div>
