@@ -20,10 +20,13 @@ async function getGlobal<T extends Global>(slug: T, depth = 0, locale: TypedLoca
   return global as Config['globals'][T]
 }
 
+/** Single source of truth for the tag — hooks and readers must agree on it. */
+export const globalCacheTag = (slug: Global) => `global_${slug}`
+
 /**
  * Returns a unstable_cache function mapped with the cache tag for the slug and locale
  */
 export const getCachedGlobal = <T extends Global>(slug: T, depth = 0, locale: TypedLocale) =>
-  unstable_cache(async () => getGlobal(slug, depth, locale), [slug], {
-    tags: [`global_${slug}`],
+  unstable_cache(async () => getGlobal(slug, depth, locale), [slug, locale, String(depth)], {
+    tags: [globalCacheTag(slug)],
   })

@@ -1,5 +1,15 @@
 import { HeadingFeature, lexicalEditor, RelationshipFeature } from "@payloadcms/richtext-lexical";
-import { GlobalConfig } from "payload";
+import { revalidateTag } from "next/cache";
+import { GlobalAfterChangeHook, GlobalConfig } from "payload";
+
+import { globalCacheTag } from "../lib/globals";
+
+const revalidateNow: GlobalAfterChangeHook = ({ doc, req: { payload } }) => {
+  payload.logger.info(`Revalidating now`)
+  revalidateTag(globalCacheTag('now'))
+
+  return doc
+}
 
 RelationshipFeature
 
@@ -40,4 +50,7 @@ export const Now: GlobalConfig = {
       },
     }
   ],
+  hooks: {
+    afterChange: [revalidateNow],
+  },
 };

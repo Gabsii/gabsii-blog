@@ -1,9 +1,11 @@
 import { revalidateTag } from "next/cache";
+
+import { globalCacheTag } from "../lib/globals";
 import { GlobalAfterChangeHook, GlobalConfig } from "payload";
 
 const revalidateHeader: GlobalAfterChangeHook = ({ doc, req: { payload } }) => {
   payload.logger.info(`Revalidating header`)
-  revalidateTag('homepage-settings')
+  revalidateTag(globalCacheTag('homepage-settings'))
 
   return doc
 }
