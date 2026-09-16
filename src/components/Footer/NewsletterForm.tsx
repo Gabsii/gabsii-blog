@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl';
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast();
   const t = useTranslations('NewsletterForm');
   const tGeneral = useTranslations('General');
@@ -17,14 +18,29 @@ export default function NewsletterForm() {
   // TODO
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (isSubmitting) return
+    setIsSubmitting(true)
 
-    const res = await fetch('/newsletter/submit', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    let res: Response
+    try {
+      res = await fetch('/newsletter/submit', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+
+    // An address that is already subscribed is not an error the user can fix by
+    // retrying, so it gets its own message rather than "try again later".
+    if (res.status === 409) {
+      toast({ title: t('alreadySubscribed') })
+      setEmail('')
+      return;
+    }
 
     if (res.status !== 201) {
       toast({
@@ -53,15 +69,18 @@ export default function NewsletterForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your.email@here.com"
           className='border-r-0'
+          autoComplete="email"
+          inputMode="email"
           required
         />
       </div>
       <div>
         <Button
           type="submit"
+          disabled={isSubmitting}
           isInverted
         >
-          Send
+          {isSubmitting ? t('sending') : t('send')}
         </Button>
       </div>
     </form>
