@@ -1,9 +1,12 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import scroll from '~/img/scroll.svg'
 
 
 // TODO: figure out how to invert
-export default function ScrollIndicator() {
+export default async function ScrollIndicator() {
+  const t = await getTranslations('General');
+
   return (
     <a
       className={`
@@ -13,12 +16,13 @@ export default function ScrollIndicator() {
         invert
         motion-safe:hover:scale-125
       `}
-      href="#projects"
+      href="#slider"
+      aria-label={t('scrollToWork')}
     >
       <Image className={`
         w-full h-full relative motion-safe:animate-rotate-slow
         motion-safe:hover:animate-rotate-fast motion-safe:hover:scale-105
-      `} src={scroll} alt="scroll" />
+      `} src={scroll} alt="" />
     </a>
   )
 }

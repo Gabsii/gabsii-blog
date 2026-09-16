@@ -1,5 +1,7 @@
 "use client"
 
+import { useTranslations } from "next-intl";
+
 import { usePathname, useRouter } from "~/src/i18n/navigation";
 import { MotionButton } from "./animations"
 
@@ -7,13 +9,17 @@ import { MotionButton } from "./animations"
 export const LanguageSwitcher = ({ currentLocale }: { currentLocale: string | 'de' | 'en' }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslations('General');
+  const target = currentLocale === 'en' ? 'de' : 'en';
 
   return (
     <MotionButton
-      onClick={() => { router.push(pathname, {locale: currentLocale == 'en' ? 'de' : 'en' })}}
+      onClick={() => { router.push(pathname, { locale: target })}}
+      aria-label={target === 'de' ? t('switchToGerman') : t('switchToEnglish')}
       isInverted
     >
-      {currentLocale == 'en' ? 'DE' : 'EN'}
+      {/* `lang` stops screen readers reading "DE" in the current language's phonetics */}
+      <span lang={target} aria-hidden="true">{target.toUpperCase()}</span>
     </MotionButton>
     )
 }

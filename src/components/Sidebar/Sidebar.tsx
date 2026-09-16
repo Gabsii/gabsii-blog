@@ -99,8 +99,9 @@ export default function Sidebar() {
           lg:group z-50
         `}
       >
-        <Link href="/" className="p-3 text-2xl font-bold">
-          <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-light.svg"} alt="logo" width={24} height={40} loading='eager' />
+        <Link href="/" className="p-3 text-2xl font-bold" aria-label={t('goHome')}>
+          <Image data-logo="light" src="/logo-blank-dark.svg" alt="" width={24} height={40} loading='eager' />
+          <Image data-logo="dark" src="/logo-blank-light.svg" alt="" width={24} height={40} loading='eager' />
         </Link>
 
         {/* TODO: animate such that the arrow moves upwards */}
@@ -115,7 +116,9 @@ export default function Sidebar() {
           onClick={toggleMenu}
           wrapperClassName='w-12.5! lg:w-12.5! h-12.5! md:h-12.5 lg:h-12.5'
           className='border-l-0 border-r-0 hover:border-l-2 hover:border-r-2 p-3! z-60'
-          aria-label="Toggle menu"
+          aria-label={isMenuOpen ? t('closeMenu') : t('toggleMenu')}
+          aria-expanded={isMenuOpen}
+          aria-controls="overlay-menu"
           isInverted
         >
           {isMenuOpen ? <RiCloseLargeLine size={24} /> : <RiMenuLine size={24} />}
@@ -129,9 +132,9 @@ export default function Sidebar() {
       >
         <ul className='grow flex justify-between items-center h-16'>
           <li>
-            <Link href="/" className="py-3 px-5 text-2xl font-bold">
-              <Image src={theme === 'light' ? '/logo-blank-dark.svg' : "/logo-blank-light.svg"} alt="logo" width={14} height={24} className='ml-4' loading="eager" />
-              {/* G */}
+            <Link href="/" className="py-3 px-5 text-2xl font-bold" aria-label={t('goHome')}>
+              <Image data-logo="light" src="/logo-blank-dark.svg" alt="" width={14} height={24} className='ml-4' loading="eager" />
+              <Image data-logo="dark" src="/logo-blank-light.svg" alt="" width={14} height={24} className='ml-4' loading="eager" />
             </Link>
           </li>
           <li>
@@ -145,10 +148,12 @@ export default function Sidebar() {
                 onClick={toggleMenu}
                 wrapperClassName='h-full'
                 className='border-b-0 border-r-0 md:h-16'
-                aria-label="Toggle menu"
+                aria-label={isMenuOpen ? t('closeMenu') : t('toggleMenu')}
+                aria-expanded={isMenuOpen}
+                aria-controls="overlay-menu"
                 isInverted
               >
-                <RiMenuLine size={24} />
+                {isMenuOpen ? <RiCloseLargeLine size={24} /> : <RiMenuLine size={24} />}
               </MotionButton>
             </div>
           </li>
@@ -163,6 +168,10 @@ export default function Sidebar() {
           bg-primary opacity-0 `}
         animate={isMenuOpen ? "open" : "closed"}
         variants={overlayVariants}
+        id="overlay-menu"
+        // opacity+translate alone leaves every link tabbable while the menu is shut
+        inert={!isMenuOpen}
+        aria-hidden={!isMenuOpen}
       >
         <motion.nav variants={nestedVariants} className="text-center max-w-1200 w-full lg:mx-auto mx-8">
           <motion.ul variants={nestedVariants} className="p-4 grid grid-cols-4 gap-px">
@@ -179,9 +188,6 @@ export default function Sidebar() {
               {t('journal')}
             </SlideInButton>*/}
             <div className="flex flex-row col-span-4 gap-px">
-              <SlideInButton href="/about" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} disabled={true}>
-                {t('about')}
-              </SlideInButton>
               <SlideInButton href="/now" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen}>
                 {t('now')}
               </SlideInButton>
@@ -206,17 +212,18 @@ export default function Sidebar() {
                 onClick={() => {
                   toggleTheme()
                 }}
+                aria-pressed={theme === 'dark'}
                 isInverted
               >
                 {theme === 'dark' ? (
                   <>
                     <RiSunLine size={24} />
-                    <span className="sr-only">Light Mode</span>
+                    <span className="sr-only">{t('switchToLight')}</span>
                   </>
                 ) : (
                   <>
                     <RiMoonClearFill size={24} />
-                    <span className="sr-only">Dark Mode</span>
+                    <span className="sr-only">{t('switchToDark')}</span>
                   </>
                 )}
               </MotionButton>
