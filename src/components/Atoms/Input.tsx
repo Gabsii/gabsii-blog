@@ -42,11 +42,11 @@ function RawInputField({ className, isInverted, ...props }: Omit<InputProps, "la
     `}>
       <input className={cn(`px-4 py-2 h-9 md:h-12 lg:h-16 w-full
         border-2 ${isInverted ? "border-primary bg-secondary" : "border-secondary bg-primary"}
-        font-suisse font-medium text-sm text-primary
+        font-suisse font-medium text-sm ${isInverted ? "text-primary" : "text-secondary"}
         transition-all duration-300
         placeholder:text-grey
-        hover:bg-grey hover:bg-opacity-25
-        focus:outline-none focus:bg-grey focus:bg-opacity-25`, className)} {...props} />
+        hover:bg-grey/25
+        focus:outline-none focus:bg-grey/25`, className)} {...props} />
     </span>
   );
 }
@@ -65,10 +65,10 @@ function Checkbox({ label, ...props }: Omit<InputProps, "isInverted">) {
         {/* TODO: could use a svg drawing animation for the checkmark here */}
         <input className={`h-9 w-9 md:h-12 md:w-12 lg:h-16 lg:w-16
           appearance-none border-2 border-primary
-          bg-[#242424]
+          bg-secondary
           checked:bg-checkmark checked:bg-no-repeat checked:bg-center checked:bg-contain
-          hover:bg-opacity-75
-          focus:outline-none focus:bg-opacity-75`}
+          hover:bg-secondary/75
+          focus:outline-none focus:bg-secondary/75`}
           {...props}
         />
       </span>

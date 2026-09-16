@@ -4,7 +4,9 @@ type SectionProps = {
   as?: React.ElementType;
   className?: string;
   children?: React.ReactNode;
-} & React.HTMLAttributes<HTMLElement>;
+  // `as` may be a form, so element-specific attributes (noValidate, onSubmit…)
+  // have to be accepted rather than narrowed to HTMLAttributes.
+} & React.HTMLAttributes<HTMLElement> & Record<string, unknown>;
 
 export default function Section({ as = 'section', children, className, ...props }: SectionProps) {
   const Tag = as;

@@ -24,7 +24,7 @@ export default function Textarea({ label, ...props }: TextareaProps) {
         font-suisse font-medium text-sm text-primary
         transition-all duration-300
         placeholder:text-grey
-        focus:outline-none focus:bg-grey focus:bg-opacity-25
+        focus:outline-none focus:bg-grey/25
         " {...props} />
       </span>
     </label>

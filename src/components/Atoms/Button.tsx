@@ -10,6 +10,18 @@ type ButtonProps = {
   wrapperClassName?: string;
   isInverted?: boolean;
   children?: React.ReactNode;
+  /**
+   * Render as something other than a <button> — pass a link component here
+   * instead of wrapping this in one. `<a>` around `<button>` is invalid HTML,
+   * gives one action two tab stops, and confuses assistive tech about the role.
+   */
+  /**
+   * Render the button's appearance on a non-interactive element. Use
+   * `as="span"` inside a <Link> rather than wrapping a real <button> in one:
+   * <a> around <button> is invalid HTML, produces two tab stops for a single
+   * action, and leaves assistive tech ambiguous about the role.
+   */
+  as?: 'button' | 'span' | 'div';
 } & Omit<MotionButtonProps, 'ref'>;
 
 
@@ -21,10 +33,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       wrapperClassName,
       children,
+      as,
       ...props
     },
     ref
   ) => {
+    // The three motion tags have mutually incompatible prop types; callers only
+    // ever pass button props, so erase the distinction here.
+    const Tag = (as === 'span' ? m.span : as === 'div' ? m.div : m.button) as React.ElementType;
+
     return (
       <div
         className={cn(
@@ -33,7 +50,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           wrapperClassName
         )}
       >
-        <m.button
+        <Tag
           ref={ref}
           whileTap={{ translateX: 0, translateY: 0, transition: { duration: 0.1 } }}
           whileHover={{
@@ -54,16 +71,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               ? 'bg-primary text-secondary border-secondary'
               : 'bg-secondary border-primary text-primary'
             } border-2
-            focus:outline-none focus:outline-2 focus:outline-offset-1 ${isInverted ? 'focus:outline-secondary' : 'focus:outline-primary'
-            }
-            focus-within:outline-none focus-within:outline-2 ${isInverted
-              ? 'focus-within:outline-secondary'
-              : 'focus-within:outline-primary'
-            }
-            focus-visible:outline-none focus-visible:outline-2 ${isInverted
-              ? 'focus-visible:outline-secondary'
-              : 'focus-visible:outline-primary'
-            }
             active:translate-x-1 active:-translate-y-1
             `,
             className
@@ -71,7 +78,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {...props} // Spread remaining props
         >
           {children}
-        </m.button>
+        </Tag>
         <span
           className={`absolute top-0 left-0 w-full h-full ${isInverted
               ? 'bg-secondary border-secondary'
