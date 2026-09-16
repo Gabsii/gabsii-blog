@@ -31,28 +31,33 @@ const TableOfContents = ({
   const [mobileOpen, setMobileOpen] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Build the ToC from headings
+  // Build the ToC from headings.
   useEffect(() => {
     const container = document.querySelector(contentSelector);
     if (!container) return;
 
-    const headings = Array.from(
-      container.querySelectorAll<HTMLHeadingElement>('h2, h3')
-    );
+    const collectHeadings = () => {
+      const headings = Array.from(
+        container.querySelectorAll<HTMLHeadingElement>('h2, h3')
+      );
 
-    const tocItems: TocItem[] = headings.map((el, i) => {
-      // Ensure the heading has an id for anchor navigation
-      if (!el.id) {
-        el.id = `toc-heading-${i}`;
-      }
-      return {
-        id: el.id,
-        text: el.textContent?.trim() ?? '',
-        level: el.tagName === 'H2' ? 2 : 3,
-      };
-    });
+      const tocItems: TocItem[] = headings.map((el, i) => {
+        // Ensure the heading has an id for anchor navigation
+        if (!el.id) {
+          el.id = `toc-heading-${i}`;
+        }
+        return {
+          id: el.id,
+          text: el.textContent?.trim() ?? '',
+          level: el.tagName === 'H2' ? 2 : 3,
+        };
+      });
 
-    setItems(tocItems);
+      setItems(tocItems);
+    };
+
+    const frame = requestAnimationFrame(collectHeadings);
+    return () => cancelAnimationFrame(frame);
   }, [contentSelector]);
 
   // Observe headings for active state

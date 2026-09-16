@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, lazy, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { cn } from '~/util/cn';
 
 type PostMapBlock = {
@@ -18,8 +18,11 @@ type PostMapProps = {
   className?: string;
 };
 
-// Lazy load the actual map implementation
-const MapContent = lazy(() => import('./PostMapContent'));
+// Client-only
+const MapContent = dynamic(() => import('./PostMapContent'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full animate-pulse bg-grey/30" />,
+});
 
 /**
  * Map block for blog posts using MapLibre GL.
@@ -28,25 +31,15 @@ const MapContent = lazy(() => import('./PostMapContent'));
  */
 const PostMap = ({ block, className }: PostMapProps) => {
   const { label, latitude, longitude, zoom = 12 } = block;
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Only render map after client-side mount
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   return (
     <figure className={cn("my-8 lg:my-12", className)}>
       <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-lg overflow-hidden bg-grey/20">
-        {isMounted && (
-          <Suspense fallback={<div className="w-full h-full animate-pulse bg-grey/30" />}>
-            <MapContent 
-              latitude={latitude}
-              longitude={longitude}
-              zoom={zoom ?? 12}
-            />
-          </Suspense>
-        )}
+        <MapContent
+          latitude={latitude}
+          longitude={longitude}
+          zoom={zoom ?? 12}
+        />
       </div>
       {label && (
         <figcaption className="mt-3 text-center font-suisse text-sm text-grey">

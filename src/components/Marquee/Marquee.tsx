@@ -116,11 +116,7 @@ export function VelocityScroll({
   const [isSlideComplete, setIsSlideComplete] = useState(false);
 
   useEffect(() => {
-    if (shouldReduceMotion) {
-      y.set(0);
-      setIsSlideComplete(true);
-      return;
-    }
+    if (shouldReduceMotion) return;
 
     const controls = animate(y, 0, {
       duration: 0.5,

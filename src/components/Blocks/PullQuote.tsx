@@ -33,7 +33,7 @@ const PullQuote = ({ block, className }: PullQuoteProps) => {
         aria-hidden="true"
         className="absolute -top-6 -left-2 font-piazzolla text-[8rem] leading-none text-secondary/10 select-none pointer-events-none"
       >
-        "
+        &ldquo;
       </span>
 
       <blockquote className="relative pl-8 border-l-2 border-secondary">

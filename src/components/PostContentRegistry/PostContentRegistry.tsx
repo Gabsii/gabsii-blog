@@ -11,7 +11,6 @@ import Timeline from "@/components/Blocks/Timeline";
 import MapTour from "@/components/Blocks/MapTour";
 import AmbientColorWash from "@/components/Blocks/AmbientColorWash";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const registry: Record<string, React.ComponentType<{ block: any; priority?: boolean }>> = {
   'paragraph': PostParagraph,
   'image': PostImage,

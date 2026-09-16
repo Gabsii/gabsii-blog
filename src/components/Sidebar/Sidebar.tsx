@@ -13,7 +13,6 @@ import { childrenVariants, MotionButton, nestedVariants, overlayVariants } from 
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 import { cn } from '~/util/cn';
-import { useKeyPress } from '~/src/lib/hooks/useKeypress';
 
 type SlideInButtonProps = {
   isMenuOpen: boolean;
@@ -72,16 +71,19 @@ export default function Sidebar() {
   const { theme, toggleTheme } = useTheme()
   const t = useTranslations('General');
   const currentLocale = useLocale();
-  const key = useKeyPress('Escape');
-
-  // Close menu on escape key press - moved to useEffect for proper side effect handling
   useEffect(() => {
-    if (isMenuOpen && key) {
-      setIsMenuOpen(false);
-    }
-  }, [key, isMenuOpen]);
+    if (!isMenuOpen) return;
 
-  // Use functional update pattern to avoid stale state issues
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMenuOpen]);
+
   const toggleMenu = () => {
     setIsMenuOpen(prev => !prev)
   }
